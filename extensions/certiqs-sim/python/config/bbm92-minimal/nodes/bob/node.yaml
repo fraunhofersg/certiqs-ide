@@ -1,0 +1,43 @@
+schema_version: '4.0'
+package_id: pkg_bob
+node_id: node_bob
+node_role: measurement_node
+layout:
+  lane: right
+  order: 2
+  endpoint_side: bob
+provides:
+- kx1_bob
+- secret_key_out
+requires:
+- qch_source_bob
+- sync_source_bob
+- cch_alice_bob
+- protocol:bbm92
+- alice_timestamps_out
+boundary_ports:
+  kx1_bob:
+    owner_id: bob_kma
+    interface_type: boundary
+    direction: inout
+    edge_kind: digital
+    signal_type: kx1_key_relay
+    boundary: true
+    comment: Authenticated bidirectional digital link to peer node
+    connector:
+      position: left
+      size: normal
+      style: color
+      color: '#fb7185'
+  secret_key_out:
+    owner_id: bob_key_store
+    interface_type: boundary
+    direction: out
+    signal_type: secret_key
+    boundary: true
+node:
+  node_id: node_bob
+  name: Bob Measurement Node
+  node_role: measurement_node
+  device_ids:
+  - device_bob_01

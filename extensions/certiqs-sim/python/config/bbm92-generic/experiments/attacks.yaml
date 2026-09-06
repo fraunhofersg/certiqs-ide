@@ -1,0 +1,16 @@
+attacks:
+- attack_id: detector_blinding_example
+  type: detector_blinding
+  enabled: false
+  targets:
+  - bob_detector_h
+  - bob_detector_v
+  - bob_detector_d
+  - bob_detector_a
+  calibration_status: placeholder_only
+countermeasures:
+- countermeasure_id: bob_input_power_monitor
+  type: optical_power_monitor
+  enabled: true
+  threshold_uw: 5
+  false_alarm_rate_hz: 1.0e-06

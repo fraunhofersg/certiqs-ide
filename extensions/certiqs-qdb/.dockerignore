@@ -1,0 +1,11 @@
+node_modules
+out
+out-test
+webview
+media
+test
+.git
+**/.venv
+**/__pycache__
+**/.env
+**/.env.*

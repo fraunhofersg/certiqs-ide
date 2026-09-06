@@ -1,0 +1,28 @@
+protocol:
+  protocol_id: bbm92_default
+  family: BBM92
+  bell_state: phi_plus
+  basis_mapping:
+    Z:
+      H: 0
+      V: 1
+    X:
+      D: 0
+      A: 1
+  expected_correlations:
+    Z: same
+    X: same
+  basis_probability:
+    Z: 0.5
+    X: 0.5
+  coincidence:
+    window_ps: 500
+    matching_policy: nearest_unique
+    accidental_estimation: time_shift
+  finite_key:
+    enabled: true
+    proof_model: entropic_uncertainty_bbm92
+    epsilon_correct: 1.0e-12
+    epsilon_secret: 1.0e-12
+    minimum_sifted_block_bits: 100000
+    abort_qber: 0.11

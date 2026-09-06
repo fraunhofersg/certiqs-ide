@@ -1,0 +1,48 @@
+{
+	"id": "certiqs-hq",
+	"title": "General",
+	"order": 0,
+	"sections": [
+		{
+			"id": "general",
+			"title": "General",
+			"description": "Workspace-level HQ tools stay on the HQ tab. This page is the shared settings shell. Other certiqs extensions add their own sections here.",
+			"icon": "info",
+			"order": 0,
+			"fields": [
+				{
+					"kind": "status",
+					"id": "workspace"
+				},
+				{
+					"kind": "status",
+					"id": "labels"
+				},
+				{
+					"kind": "select",
+					"id": "appIcon",
+					"setting": "certiqs.appIcon",
+					"label": "App icon",
+					"description": "Dock, taskbar, and window icon. Color or black logo on white, or white logo on black.",
+					"options": [
+						{
+							"value": "colorOnWhite",
+							"label": "Color on white",
+							"preview": "media/assets/app-icons/color-on-white.png"
+						},
+						{
+							"value": "blackOnWhite",
+							"label": "Black on white",
+							"preview": "media/assets/app-icons/black-on-white.png"
+						},
+						{
+							"value": "whiteOnBlack",
+							"label": "White on black",
+							"preview": "media/assets/app-icons/white-on-black.png"
+						}
+					]
+				}
+			]
+		}
+	]
+}

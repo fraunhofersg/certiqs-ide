@@ -1,0 +1,20 @@
+protocol:
+  protocol_id: bbm92_default
+  family: BBM92
+  bell_state: phi_plus
+  basis_mapping:
+    Z:
+      H: 0
+      V: 1
+    X:
+      D: 0
+      A: 1
+  basis_probability:
+    Z: 0.5
+    X: 0.5
+  coincidence:
+    window_ps: 500
+    matching_policy: nearest_unique
+  finite_key:
+    enabled: true
+    abort_qber: 0.11

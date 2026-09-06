@@ -1,0 +1,335 @@
+{
+	"name": "certiqs-qdb",
+	"displayName": "certiqs QDB",
+	"description": "QKD security-compliance workbench: systems, applicability, search, and catalogue. Not a measurement or conformity statement.",
+	"version": "0.0.1",
+	"publisher": "certiqs",
+	"license": "MIT",
+	"engines": {
+		"vscode": "^1.137.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"capabilities": {
+		"virtualWorkspaces": false,
+		"untrustedWorkspaces": {
+			"supported": false,
+			"description": "Starting the QDB FastAPI service requires a trusted workspace."
+		}
+	},
+	"activationEvents": [
+		"onView:certiqs.qdb.panel",
+		"onView:certiqs.qdb.inspector",
+		"onCommand:certiqs.qdb.open",
+		"onCommand:certiqs.qdb.openHub",
+		"onCommand:certiqs.qdb.openSystems",
+		"onCommand:certiqs.qdb.openWizard",
+		"onCommand:certiqs.qdb.openSystem",
+		"onCommand:certiqs.qdb.openApplicability",
+		"onCommand:certiqs.qdb.openSearch",
+		"onCommand:certiqs.qdb.openVulnerabilities",
+		"onCommand:certiqs.qdb.openEAs",
+		"onCommand:certiqs.qdb.openCountermeasures",
+		"onCommand:certiqs.qdb.openDocuments",
+		"onCommand:certiqs.qdb.startApi",
+		"onCommand:certiqs.qdb.stopApi",
+		"onCommand:certiqs.qdb.showLog",
+		"onCommand:certiqs.qdb.settings",
+		"onCommand:certiqs.qdb.runtime"
+	],
+	"main": "./out/extension",
+	"scripts": {
+		"compile": "tsc -p ./ && vite build --config webview/vite.config.ts",
+		"watch": "tsc -watch -p ./",
+		"watch:webview": "vite build --watch --config webview/vite.config.ts",
+		"test": "tsc -p test && node --test out-test/test/*.js"
+	},
+	"contributes": {
+		"certiqsSettings": {
+			"id": "certiqs-qdb",
+			"command": "certiqs.qdb.settings"
+		},
+		"certiqsRuntime": {
+			"id": "certiqs-qdb",
+			"command": "certiqs.qdb.runtime"
+		},
+		"commands": [
+			{
+				"command": "certiqs.qdb.open",
+				"title": "Open QDB",
+				"category": "certiqs"
+			},
+			{
+				"command": "certiqs.qdb.openHub",
+				"title": "Open QDB Hub",
+				"category": "certiqs",
+				"icon": "$(home)"
+			},
+			{
+				"command": "certiqs.qdb.openSystems",
+				"title": "Open QDB Systems",
+				"category": "certiqs",
+				"icon": "$(list-flat)"
+			},
+			{
+				"command": "certiqs.qdb.openWizard",
+				"title": "New QDB System",
+				"category": "certiqs",
+				"icon": "$(add)"
+			},
+			{
+				"command": "certiqs.qdb.openSystem",
+				"title": "Open QDB System",
+				"category": "certiqs",
+				"icon": "$(file)"
+			},
+			{
+				"command": "certiqs.qdb.openApplicability",
+				"title": "Open QDB Applicability",
+				"category": "certiqs",
+				"icon": "$(shield)"
+			},
+			{
+				"command": "certiqs.qdb.openSearch",
+				"title": "Open QDB Search",
+				"category": "certiqs",
+				"icon": "$(search)"
+			},
+			{
+				"command": "certiqs.qdb.openVulnerabilities",
+				"title": "Open QDB Attacks",
+				"category": "certiqs",
+				"icon": "$(warning)"
+			},
+			{
+				"command": "certiqs.qdb.openEAs",
+				"title": "Open QDB Evaluation Activities",
+				"category": "certiqs",
+				"icon": "$(checklist)"
+			},
+			{
+				"command": "certiqs.qdb.openCountermeasures",
+				"title": "Open QDB Countermeasures",
+				"category": "certiqs",
+				"icon": "$(lock)"
+			},
+			{
+				"command": "certiqs.qdb.openDocuments",
+				"title": "Open QDB Document Sources",
+				"category": "certiqs",
+				"icon": "$(file-pdf)"
+			},
+			{
+				"command": "certiqs.qdb.startApi",
+				"title": "Start QDB API",
+				"category": "certiqs",
+				"icon": "$(play)"
+			},
+			{
+				"command": "certiqs.qdb.stopApi",
+				"title": "Stop QDB API",
+				"category": "certiqs",
+				"icon": "$(debug-stop)"
+			},
+			{
+				"command": "certiqs.qdb.showLog",
+				"title": "Show QDB Log",
+				"category": "certiqs",
+				"icon": "$(output)"
+			},
+			{
+				"command": "certiqs.qdb.settings",
+				"title": "QDB Settings",
+				"category": "certiqs"
+			},
+			{
+				"command": "certiqs.qdb.runtime",
+				"title": "QDB Runtime",
+				"category": "certiqs"
+			}
+		],
+		"configuration": {
+			"title": "certiqs QDB",
+			"properties": {
+				"certiqs.qdb.pythonPath": {
+					"type": "string",
+					"default": "python3",
+					"description": "Interpreter for the bundled FastAPI service."
+				},
+				"certiqs.qdb.port": {
+					"type": "number",
+					"default": 8012,
+					"description": "Local port for the QDB FastAPI service (127.0.0.1 only)."
+				},
+				"certiqs.qdb.autoStartApi": {
+					"type": "boolean",
+					"default": true,
+					"description": "Start the FastAPI service when a QDB view opens."
+				},
+				"certiqs.qdb.runtimeMode": {
+					"type": "string",
+					"enum": [
+						"local",
+						"docker"
+					],
+					"default": "local",
+					"description": "How the bundled FastAPI service runs: local interpreter or a dedicated Docker container."
+				},
+				"certiqs.qdb.dockerImage": {
+					"type": "string",
+					"default": "",
+					"description": "Optional image tag. Empty builds and runs certiqs-qdb:local from the extension Dockerfile."
+				},
+				"certiqs.qdb.userId": {
+					"type": "string",
+					"default": "",
+					"description": "Principal user_id asserted on every FastAPI call. Empty uses a workspace-stable id stored in extension state."
+				},
+				"certiqs.qdb.isAdmin": {
+					"type": "boolean",
+					"default": false,
+					"description": "When true, minted tokens set is_admin so catalogue writes and all-system visibility are allowed."
+				},
+				"certiqs.qdb.internalAuthTtlSeconds": {
+					"type": "number",
+					"default": 60,
+					"description": "JWT TTL in seconds. Minted fresh on every host-proxy call."
+				},
+				"certiqs.qdb.neonHttpFallback": {
+					"type": "boolean",
+					"default": false,
+					"description": "DEV-ONLY. Route Python DB access over Neon SQL-over-HTTPS. Create/resync need a real connection."
+				},
+				"certiqs.qdb.neo4jUri": {
+					"type": "string",
+					"default": "",
+					"description": "Optional Neo4j URI. Not used by the FastAPI engines; stored for host-side tools."
+				},
+				"certiqs.qdb.neo4jUsername": {
+					"type": "string",
+					"default": "",
+					"description": "Optional Neo4j username."
+				},
+				"certiqs.qdb.aiGatewayBaseUrl": {
+					"type": "string",
+					"default": "",
+					"description": "Optional AI gateway base URL. Not used by the FastAPI engines."
+				}
+			}
+		},
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "certiqs-qdb",
+					"title": "certiqs QDB",
+					"icon": "icons/qdb-activity.svg"
+				}
+			],
+			"secondarySidebar": [
+				{
+					"id": "certiqs-qdb-inspector",
+					"title": "QDB",
+					"icon": "icons/qdb-activity.svg",
+					"order": 4
+				}
+			]
+		},
+		"views": {
+			"certiqs-qdb": [
+				{
+					"type": "webview",
+					"id": "certiqs.qdb.panel",
+					"name": "Explorer",
+					"icon": "icons/qdb-activity.svg",
+					"visibility": "visible"
+				}
+			],
+			"certiqs-qdb-inspector": [
+				{
+					"type": "webview",
+					"id": "certiqs.qdb.inspector",
+					"name": "Inspector",
+					"icon": "icons/qdb-activity.svg",
+					"visibility": "visible"
+				}
+			]
+		},
+		"menus": {
+			"commandPalette": [
+				{
+					"command": "certiqs.qdb.settings",
+					"when": "false"
+				},
+				{
+					"command": "certiqs.qdb.runtime",
+					"when": "false"
+				}
+			],
+			"view/title": [
+				{
+					"command": "certiqs.qdb.openHub",
+					"when": "view == certiqs.qdb.panel",
+					"group": "navigation@1"
+				},
+				{
+					"command": "certiqs.qdb.openSystems",
+					"when": "view == certiqs.qdb.panel",
+					"group": "navigation@2"
+				},
+				{
+					"command": "certiqs.qdb.openWizard",
+					"when": "view == certiqs.qdb.panel",
+					"group": "navigation@3"
+				},
+				{
+					"command": "certiqs.qdb.openApplicability",
+					"when": "view == certiqs.qdb.panel",
+					"group": "navigation@4"
+				},
+				{
+					"command": "certiqs.qdb.openSearch",
+					"when": "view == certiqs.qdb.panel",
+					"group": "navigation@5"
+				},
+				{
+					"command": "certiqs.qdb.startApi",
+					"when": "view == certiqs.qdb.panel",
+					"group": "navigation@6"
+				},
+				{
+					"command": "certiqs.qdb.stopApi",
+					"when": "view == certiqs.qdb.panel",
+					"group": "navigation@7"
+				},
+				{
+					"command": "certiqs.qdb.showLog",
+					"when": "view == certiqs.qdb.panel",
+					"group": "navigation@8"
+				}
+			]
+		}
+	},
+	"devDependencies": {
+		"@tailwindcss/vite": "^4.3.3",
+		"@types/node": "24.x",
+		"@types/react": "^19.2.18",
+		"@types/react-dom": "^19.2.7",
+		"@vitejs/plugin-react": "^4.3.4",
+		"react": "^19.2.8",
+		"react-dom": "^19.2.8",
+		"tailwindcss": "^4.3.3",
+		"typescript": "^5.8.2",
+		"vite": "^6.2.0"
+	},
+	"dependencies": {
+		"@gravity-ui/icons": "^2.22.0",
+		"@heroui/react": "^3.2.4",
+		"@heroui/styles": "^3.2.4",
+		"motion": "^13.2.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/fraunhofersg/certiqs-ide.git"
+	}
+}

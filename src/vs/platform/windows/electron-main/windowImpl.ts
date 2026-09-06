@@ -33,6 +33,7 @@ import { ITelemetryService } from '../../telemetry/common/telemetry.js';
 import { ThemeIcon } from '../../../base/common/themables.js';
 import { IThemeMainService } from '../../theme/electron-main/themeMainService.js';
 import { getMenuBarVisibility, IFolderToOpen, INativeWindowConfiguration, IWindowSettings, IWorkspaceToOpen, MenuBarVisibility, hasNativeTitlebar, useNativeFullScreen, useWindowControlsOverlay, DEFAULT_CUSTOM_TITLEBAR_HEIGHT, TitlebarStyle, MenuSettings } from '../../window/common/window.js';
+import { applyCertiqsAppIcon, CERTIQS_APP_ICON_SETTING } from './certiqsAppIcon.js';
 import { defaultBrowserWindowOptions, getAllWindowsExcludingOffscreen, IWindowsMainService, OpenContext, WindowStateValidator } from './windows.js';
 import { ISingleFolderWorkspaceIdentifier, IWorkspaceIdentifier, isSingleFolderWorkspaceIdentifier, isWorkspaceIdentifier, toWorkspaceIdentifier } from '../../workspace/common/workspace.js';
 import { IWorkspacesManagementMainService } from '../../workspaces/electron-main/workspacesManagementMainService.js';
@@ -778,6 +779,9 @@ export class CodeWindow extends BaseWindow implements ICodeWindow {
 			this._id = this._win.id;
 			this.setWin(this._win, options);
 
+			// CERTIQS: selectable app icon
+			applyCertiqsAppIcon(this._win, this.environmentMainService.appRoot, this.configurationService.getValue(CERTIQS_APP_ICON_SETTING));
+
 			// Apply some state after window creation
 			this.applyState(this.windowState, hasMultipleDisplays);
 
@@ -1146,6 +1150,11 @@ export class CodeWindow extends BaseWindow implements ICodeWindow {
 	}
 
 	private onConfigurationUpdated(e?: IConfigurationChangeEvent): void {
+
+		// CERTIQS: selectable app icon
+		if (!e || e.affectsConfiguration(CERTIQS_APP_ICON_SETTING)) {
+			applyCertiqsAppIcon(this._win, this.environmentMainService.appRoot, this.configurationService.getValue(CERTIQS_APP_ICON_SETTING));
+		}
 
 		// Swipe command support (macOS)
 		if (isMacintosh && (!e || e.affectsConfiguration('workbench.editor.swipeToNavigate'))) {

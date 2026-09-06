@@ -1,0 +1,57 @@
+components:
+- component_id: pump_laser
+  name: Pump Laser
+  component_type: pulsed_laser
+  parent_module_id: module_source_spdc
+  model_binding_id: models.pulsed_laser.v1
+  parameters:
+    wavelength_nm: 775.0
+    repetition_rate_hz: 100000000
+    pulse_width_ps: 5.0
+    timing_jitter_ps_rms: 2.0
+  identity_ref: catalog:pump_laser
+- component_id: spdc_crystal
+  name: Spdc Crystal
+  component_type: spdc_entangled_pair_source
+  parent_module_id: module_source_spdc
+  model_binding_id: models.spdc_entangled_pair_source.v1
+  parameters:
+    output_wavelength_nm: 1550.0
+    mean_pairs_per_pulse: 0.01
+    pair_statistics: multimode_thermal
+    schmidt_modes: 20
+    target_bell_state: phi_plus
+    state_fidelity: 0.985
+  identity_ref: catalog:spdc_crystal
+- component_id: source_spectral_filter
+  name: Source Spectral Filter
+  component_type: optical_filter
+  parent_module_id: module_source_spdc
+  model_binding_id: models.optical_filter.v1
+  parameters:
+    insertion_loss_db: 0.2
+  identity_ref: catalog:source_spectral_filter
+- component_id: source_pair_separator
+  name: Source Pair Separator
+  component_type: wavelength_or_path_separator
+  parent_module_id: module_source_spdc
+  model_binding_id: models.wavelength_or_path_separator.v1
+  parameters:
+    insertion_loss_db: 0.2
+  identity_ref: catalog:source_pair_separator
+- component_id: source_pol_controller_alice
+  name: Source Pol Controller Alice
+  component_type: polarization_controller
+  parent_module_id: module_source_spdc
+  model_binding_id: models.polarization_controller.v1
+  parameters:
+    insertion_loss_db: 0.2
+  identity_ref: catalog:source_pol_controller_alice
+- component_id: source_pol_controller_bob
+  name: Source Pol Controller Bob
+  component_type: polarization_controller
+  parent_module_id: module_source_spdc
+  model_binding_id: models.polarization_controller.v1
+  parameters:
+    insertion_loss_db: 0.2
+  identity_ref: catalog:source_pol_controller_bob

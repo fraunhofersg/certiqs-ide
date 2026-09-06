@@ -1,0 +1,13 @@
+schema_version: '3.1'
+post_processing:
+  sifting:
+    component_class: basis_sifting
+    input: coincidence_correlation.coincidences_out
+    key_basis: Z
+    parameter_estimation_basis: X
+  qber_estimation:
+    component_class: qber_estimator
+    confidence_method: serfling
+    failure_probability: 1.0e-12
+    minimum_sample_size: 10000
+    abort_threshold: 0.11

@@ -151,7 +151,10 @@ async function startAgentHost(): Promise<void> {
 		const agentSdkDownloader = runtimeServices.agentSdkDownloader;
 		const providerService = runtimeServices.providerService;
 		sdkDownloadProgress = runtime.sdkDownloadProgress;
-		providerService.registerProvider(instantiationService.createInstance(CopilotAgent));
+		// CERTIQS: Copilot is not the default agent unless product.json wires one
+		if (product.defaultChatAgent) {
+			providerService.registerProvider(instantiationService.createInstance(CopilotAgent));
+		}
 		// Claude and Codex providers are gated on two things:
 		//  1. The user-facing enable toggle (`chat.agentHost.<x>Agent.enabled`,
 		//     forwarded as an env var by the starters). Claude defaults to on,

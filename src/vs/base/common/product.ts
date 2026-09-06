@@ -270,7 +270,11 @@ export interface IProductConfiguration {
 	readonly commonlyUsedSettings?: string[];
 	readonly aiGeneratedWorkspaceTrust?: IAiGeneratedWorkspaceTrust;
 
-	readonly defaultChatAgent: IDefaultChatAgent;
+	readonly defaultChatAgent?: IDefaultChatAgent;
+	/**
+	 * CERTIQS: built-in extension ids that stay installed but do not activate.
+	 */
+	readonly disabledExtensions?: readonly string[];
 	readonly chatParticipantRegistry?: string;
 	readonly chatSessionRecommendations?: IChatSessionRecommendation[];
 	readonly emergencyAlertUrl?: string;

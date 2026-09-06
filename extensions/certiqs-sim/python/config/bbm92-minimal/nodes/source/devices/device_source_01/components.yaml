@@ -1,0 +1,33 @@
+components:
+- component_id: pump_laser
+  name: Pump Laser
+  component_type: pulsed_laser
+  parent_module_id: module_source_spdc
+  model_binding_id: models.pulsed_laser.v1
+  parameters:
+    wavelength_nm: 775.0
+    repetition_rate_hz: 100000000
+    pulse_width_ps: 5.0
+- component_id: spdc_crystal
+  name: SPDC Crystal
+  component_type: spdc_entangled_pair_source
+  parent_module_id: module_source_spdc
+  model_binding_id: models.spdc_entangled_pair_source.v1
+  parameters:
+    output_wavelength_nm: 1550.0
+    mean_pairs_per_pulse: 0.01
+    target_bell_state: phi_plus
+    state_fidelity: 0.985
+  ports:
+    out_alice:
+      interface_id: source_out_alice
+      interface_type: optical
+      direction: out
+      signal_type: quantum_optical_stream
+      comment: Alice arm of entangled pair
+    out_bob:
+      interface_id: source_out_bob
+      interface_type: optical
+      direction: out
+      signal_type: quantum_optical_stream
+      comment: Bob arm of entangled pair

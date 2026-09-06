@@ -1,0 +1,50 @@
+@import "tailwindcss";
+@import "@heroui/styles";
+@import "../../../certiqs-theme/webview/theme.css";
+
+@source "./**/*.{ts,tsx}";
+
+.qdb-page {
+	padding: 1rem 1.25rem 2rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.85rem;
+	max-width: 1100px;
+}
+
+.qdb-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+	gap: 0.75rem;
+}
+
+.qdb-row {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem;
+	align-items: center;
+}
+
+.qdb-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 12px;
+}
+
+.qdb-table th,
+.qdb-table td {
+	text-align: left;
+	padding: 0.45rem 0.5rem;
+	border-bottom: 1px solid var(--separator);
+	vertical-align: top;
+}
+
+.qdb-muted {
+	color: var(--muted);
+	font-size: 12px;
+}
+
+.qdb-error {
+	color: var(--danger);
+	font-size: 12px;
+}

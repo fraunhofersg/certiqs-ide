@@ -1,0 +1,4 @@
+schema_version: '3.1'
+taxonomy:
+  description: Trimmed taxonomy stub; extend when adding new component classes.
+  categories: []

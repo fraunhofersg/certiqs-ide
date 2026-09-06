@@ -35,6 +35,8 @@ export interface IUserFriendlyViewsContainerDescriptor {
 	id: string;
 	title: string;
 	icon: string;
+	// CERTIQS: optional tab order for secondary-sidebar / activity-bar containers
+	order?: number;
 }
 
 const viewsContainerSchema: IJSONSchema = {
@@ -52,6 +54,11 @@ const viewsContainerSchema: IJSONSchema = {
 		icon: {
 			description: localize('vscode.extension.contributes.views.containers.icon', "Path to the container icon. Icons are 24x24 centered on a 50x40 block and have a fill color of 'rgb(215, 218, 224)' or '#d7dae0'. It is recommended that icons be in SVG, though any image file type is accepted."),
 			type: 'string'
+		},
+		// CERTIQS: allow contributed containers to sit left of built-in Chat (order 1)
+		order: {
+			description: localize('vscode.extension.contributes.views.containers.order', 'Sort order among other view containers in the same location. Lower values appear first.'),
+			type: 'number'
 		}
 	},
 	required: ['id', 'title', 'icon']
@@ -382,7 +389,8 @@ class ViewsExtensionHandler implements IWorkbenchContribution {
 			const icon = themeIcon || resources.joinPath(extension.extensionLocation, descriptor.icon);
 			const id = `workbench.view.extension.${descriptor.id}`;
 			const title = descriptor.title || id;
-			const viewContainer = this.registerCustomViewContainer(id, title, icon, order++, extension.identifier, location);
+			const containerOrder = typeof descriptor.order === 'number' ? descriptor.order : order++;
+			const viewContainer = this.registerCustomViewContainer(id, title, icon, containerOrder, extension.identifier, location);
 
 			// Move those views that belongs to this container
 			if (existingViewContainers.length) {

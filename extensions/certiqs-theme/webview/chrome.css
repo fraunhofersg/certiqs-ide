@@ -1,0 +1,95 @@
+/*
+ * Shared certiqs chrome. Rectangular 6px controls, 1px borders.
+ * Primary actions follow Certiqs Dark (filled mint), not HeroUI pills.
+ */
+
+.button {
+	border-radius: var(--radius);
+	border: 1px solid var(--border);
+	min-height: 1.75rem;
+	height: auto;
+	padding-block: 0.3125rem;
+	padding-inline: 0.625rem;
+	font-size: 11px;
+	font-weight: 500;
+	line-height: 1.25;
+	white-space: normal;
+	box-shadow: none;
+}
+
+.button--primary {
+	border-color: var(--vscode-button-border, var(--accent));
+	background-color: var(--vscode-button-background, var(--accent));
+	color: var(--vscode-button-foreground, var(--accent-foreground));
+}
+
+.button--primary:hover,
+.button--primary[data-hovered="true"] {
+	background-color: var(--vscode-button-hoverBackground, #1affb0);
+	border-color: var(--vscode-button-hoverBackground, #1affb0);
+	color: var(--vscode-button-foreground, var(--accent-foreground));
+}
+
+.button--outline,
+.button--ghost,
+.button--secondary,
+.button--tertiary {
+	border-color: var(--vscode-button-secondaryBorder, var(--border));
+	background-color: var(--vscode-button-secondaryBackground, var(--default));
+	color: var(--vscode-button-secondaryForeground, var(--foreground));
+}
+
+.button--outline:hover,
+.button--ghost:hover,
+.button--secondary:hover,
+.button--tertiary:hover,
+.button--outline[data-hovered="true"],
+.button--ghost[data-hovered="true"],
+.button--secondary[data-hovered="true"],
+.button--tertiary[data-hovered="true"] {
+	background-color: var(--vscode-button-secondaryHoverBackground, #242424);
+}
+
+.button--danger {
+	border-color: var(--danger);
+	color: var(--danger);
+}
+
+.chip {
+	border-radius: var(--radius);
+	border: 1px solid var(--border);
+}
+
+.card {
+	border-radius: var(--radius);
+	border: 1px solid var(--separator);
+	box-shadow: none;
+}
+
+.input,
+.textarea,
+select {
+	border-radius: var(--field-radius);
+	border-width: var(--field-border-width);
+	border-color: var(--field-border);
+	background: var(--field-background);
+	color: var(--field-foreground);
+}
+
+.toggle-button,
+.toggle-button-group,
+.accordion__trigger {
+	border-radius: var(--radius);
+}
+
+@layer components {
+	.accordion__trigger {
+		font-size: 12px;
+		font-weight: 600;
+	}
+
+	.accordion__body {
+		padding-top: 0.25rem;
+		padding-bottom: 0.75rem;
+	}
+}

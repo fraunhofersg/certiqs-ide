@@ -1,0 +1,156 @@
+{
+	"name": "certiqs-hq",
+	"displayName": "certiqs HQ",
+	"description": "HQ sidebar, Context Lens, and local QKD/security knowledge sessions. Not a Knotic integration and not live model telemetry.",
+	"version": "0.0.1",
+	"publisher": "certiqs",
+	"license": "MIT",
+	"engines": {
+		"vscode": "^1.137.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"capabilities": {
+		"virtualWorkspaces": true,
+		"untrustedWorkspaces": {
+			"supported": "limited",
+			"description": "Browse is allowed. Creating skills or opening MCP config requires a trusted workspace."
+		}
+	},
+	"activationEvents": [
+		"onStartupFinished",
+		"onCommand:certiqs.hq.openContextLens",
+		"onCommand:certiqs.hq.newBrainstorming",
+		"onCommand:certiqs.hq.newArchitect",
+		"onCommand:certiqs.hq.newChatSession"
+	],
+	"main": "./out/extension",
+	"scripts": {
+		"compile": "tsc -p ./ && vite build --config webview/vite.config.ts",
+		"watch": "tsc -watch -p ./",
+		"watch:webview": "vite build --watch --config webview/vite.config.ts"
+	},
+	"contributes": {
+		"commands": [
+			{
+				"command": "certiqs.hq.open",
+				"title": "Open HQ",
+				"category": "certiqs"
+			},
+			{
+				"command": "certiqs.hq.openSettings",
+				"title": "Open certiqs Settings",
+				"category": "certiqs"
+			},
+			{
+				"command": "certiqs.hq.openContextLens",
+				"title": "Open Context Lens",
+				"category": "certiqs"
+			},
+			{
+				"command": "certiqs.hq.newBrainstorming",
+				"title": "New Brainstorming",
+				"category": "certiqs"
+			},
+			{
+				"command": "certiqs.hq.newArchitect",
+				"title": "New Architect",
+				"category": "certiqs"
+			},
+			{
+				"command": "certiqs.hq.newChatSession",
+				"title": "New Chat Session",
+				"category": "certiqs"
+			},
+			{
+				"command": "certiqs.hq.restartExtensionHost",
+				"title": "Restart Extension Host",
+				"category": "certiqs"
+			}
+		],
+		"viewsContainers": {
+			"secondarySidebar": [
+				{
+					"id": "certiqs-settings",
+					"title": "Settings",
+					"icon": "$(settings-gear)",
+					"order": 0
+				},
+				{
+					"id": "certiqs-hq",
+					"title": "HQ",
+					"icon": "$(home)",
+					"order": 2
+				}
+			]
+		},
+		"views": {
+			"certiqs-settings": [
+				{
+					"type": "webview",
+					"id": "certiqs.hq.settings",
+					"name": "Settings",
+					"icon": "$(settings-gear)",
+					"visibility": "visible"
+				}
+			],
+			"certiqs-hq": [
+				{
+					"type": "webview",
+					"id": "certiqs.hq.panel",
+					"name": "HQ",
+					"icon": "$(home)",
+					"visibility": "visible"
+				}
+			]
+		},
+		"configuration": {
+			"title": "certiqs",
+			"properties": {
+				"certiqs.appIcon": {
+					"type": "string",
+					"enum": [
+						"colorOnWhite",
+						"blackOnWhite",
+						"whiteOnBlack"
+					],
+					"enumDescriptions": [
+						"Color logo on a white background",
+						"Black logo on a white background",
+						"White logo on a black background"
+					],
+					"default": "colorOnWhite",
+					"description": "Application icon used for the dock, taskbar, and window."
+				}
+			}
+		},
+		"configurationDefaults": {
+			"workbench.secondarySideBar.defaultVisibility": "visible"
+		}
+	},
+	"devDependencies": {
+		"@tailwindcss/vite": "^4.3.3",
+		"@types/node": "24.x",
+		"@types/react": "^19.2.18",
+		"@types/react-dom": "^19.2.7",
+		"@vitejs/plugin-react": "^4.3.4",
+		"react": "^19.2.8",
+		"react-dom": "^19.2.8",
+		"tailwindcss": "^4.3.3",
+		"typescript": "^5.8.2",
+		"vite": "^6.2.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/fraunhofersg/certiqs-ide.git"
+	},
+	"dependencies": {
+		"@gravity-ui/icons": "^2.22.0",
+		"@heroui-pro/react": "^1.0.0-beta.8",
+		"@heroui/react": "^3.2.4",
+		"@heroui/styles": "^3.2.4",
+		"motion": "^13.2.0",
+		"react-resizable-panels": "^4.12.3"
+	}
+}

@@ -1,0 +1,22 @@
+qkd_system:
+  system_id: bbm92_central_source_system
+  name: BBM92 Central-Source Reference System
+  protocol_family: entanglement_based
+  protocol_id: bbm92_default
+  description: Entangled photon source connected to independent Alice and Bob measurement
+    nodes.
+  node_ids:
+  - node_source
+  - node_alice
+  - node_bob
+  channel_ids:
+  - qch_source_alice
+  - qch_source_bob
+  - cch_alice_bob
+  - sync_source_alice
+  - sync_source_bob
+  topology_constraints:
+    required_node_roles:
+    - entangled_source
+    - measurement_node
+    allow_multi_box_nodes: true

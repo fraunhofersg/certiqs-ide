@@ -1,0 +1,16 @@
+qkd_system:
+  system_id: bbm92_minimal_system
+  name: BBM92 Minimal Central-Source System
+  protocol_family: entanglement_based
+  protocol_id: bbm92_default
+  description: Source distributes pairs; Alice/Bob measure and process keys.
+  node_ids:
+  - node_source
+  - node_alice
+  - node_bob
+  channel_ids:
+  - qch_source_alice
+  - qch_source_bob
+  - cch_alice_bob
+  - sync_source_alice
+  - sync_source_bob

@@ -1,0 +1,36 @@
+schema_version: '3.1'
+metrics:
+  metrics:
+    optical:
+    - generated_pair_rate
+    - single_count_rate_per_detector
+    - coincidence_rate
+    - accidental_rate
+    - visibility
+    protocol:
+    - sifted_key_rate
+    - qber_z
+    - qber_x
+    - double_click_rate
+    security:
+    - finite_key_length
+    - net_secret_key_rate
+    - abort_probability
+    - authentication_consumption
+    engineering:
+    - buffer_occupancy
+    - event_drop_rate
+    - processing_latency_ms
+    assurance:
+    - parameter_uncertainty_contribution
+    - model_measurement_residual
+  outputs:
+    directory: runs/{run_id}
+    formats:
+    - json
+    - csv
+    - parquet
+    include_resolved_manifest: true
+    include_event_trace: false
+qkdn_manager:
+  description: FCAPS / observability scope

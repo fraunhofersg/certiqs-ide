@@ -1,0 +1,128 @@
+schema_version: '3.1'
+software_domain:
+  id: qkd_software_domain
+  name: QKD Classical Processing and Key Distillation Software
+  category: software
+  description: >
+    Software functions that transform raw photon-detection events into
+    synchronized, validated and cryptographically secure key material.
+    The domain covers detection-event preprocessing, timing correlation,
+    QKD protocol execution, key distillation, authenticated classical
+    communication and final-key delivery.
+  terminology:
+    preferred_name: QKD Classical Processing and Key Distillation
+    alternative_names:
+      - QKD Post-Processing
+      - Key Distillation
+      - Classical QKD Processing
+    definitions:
+      raw_detection_events: >
+        Local detector-click records containing timestamps, detector-channel
+        identifiers and acquisition metadata before cross-node correlation.
+      correlated_events: >
+        Alice and Bob detection events identified as candidate outcomes of the
+        same quantum transmission or entangled-photon pair.
+      raw_key: >
+        Protocol-dependent bit sequence obtained from correlated measurement
+        outcomes before or during basis sifting.
+      sifted_key: >
+        Bit sequence retained after basis reconciliation and removal of
+        incompatible measurement-basis events.
+      reconciled_key: >
+        Error-corrected bit sequence that has been verified to be identical
+        at Alice and Bob.
+      final_secret_key: >
+        Privacy-amplified and authenticated key material approved for delivery
+        to a key-management system or cryptographic application.
+  phases:
+    - id: detection_event_preprocessing
+      name: Detection-Event Pre-Processing and Data Alignment
+      phase_order: 1
+      functional_groups:
+        - id: time_tag_ingestion
+          name: Time-Tag Acquisition
+        - id: timing_alignment
+          name: Clock and Epoch Synchronization
+        - id: delay_calibration
+          name: Path and Channel Delay Calibration
+        - id: coincidence_correlation
+          name: Coincidence Correlation Engine
+        - id: detection_event_validation
+          name: Detection Event Validation
+        - id: coincidence_quality_monitoring
+          name: Coincidence Quality Monitoring
+        - id: basis_reconciliation
+          name: Basis Reconciliation and Sifting
+    - id: core_key_distillation
+      name: Core Post-Processing and Key Distillation
+      phase_order: 2
+      functional_groups:
+        - id: parameter_estimation
+          name: Parameter Estimation
+        - id: information_reconciliation
+          name: Information Reconciliation
+        - id: key_verification
+          name: Key Verification
+        - id: privacy_amplification
+          name: Privacy Amplification
+        - id: final_key_management
+          name: Final-Key Management
+  cross_cutting_services:
+    - id: authenticated_classical_communication
+      name: Authenticated Classical Communication
+    - id: acquisition_session_management
+      name: Acquisition and Session Management
+    - id: security_accounting
+      name: Security Accounting
+    - id: monitoring_and_observability
+      name: Monitoring and Observability
+  processing_pipeline:
+    - time_tag_ingestion
+    - timing_alignment
+    - delay_calibration
+    - coincidence_correlation
+    - detection_event_validation
+    - coincidence_quality_monitoring
+    - basis_reconciliation
+    - parameter_estimation
+    - information_reconciliation
+    - key_verification
+    - privacy_amplification
+    - final_key_management
+  deployment:
+    distributed:
+      description: >
+        Alice and Bob declare symmetric software-domain structure; execution_binding
+        marks which node authoritatively runs coincidence correlation.
+      components:
+        alice:
+          hosts:
+            - local_time_tag_ingestion
+            - coincidence_correlation
+            - basis_reconciliation
+            - parameter_estimation
+        bob:
+          hosts:
+            - local_time_tag_ingestion
+            - information_reconciliation
+            - privacy_amplification
+            - final_key_management
+        timing_correlation_service:
+          optional: true
+          hosts:
+            - clock_and_epoch_synchronization
+            - coincidence_correlation
+  subdomain_mapping:
+    time_tag_ingestion: time_tag_ingestion
+    timing_alignment: timing_alignment
+    delay_calibration: delay_calibration
+    coincidence_correlation: coincidence_correlation
+    detection_event_validation: event_validation
+    coincidence_quality_monitoring: coincidence_monitoring
+    basis_reconciliation: basis_reconciliation
+    parameter_estimation: parameter_estimation
+    information_reconciliation: information_reconciliation
+    key_verification: key_verification
+    privacy_amplification: privacy_amplification
+    final_key_management: final_key_management
+    cross_cutting: cross_cutting

@@ -2,6 +2,32 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
+			"label": "certiqs: Run & Debug",
+			"detail": "scripts/run-debug.sh — start watch if needed, then launch certiqs IDE with inspect ports for the Attach configs.",
+			"type": "shell",
+			"command": "./scripts/run-debug.sh",
+			"isBackground": true,
+			"problemMatcher": [],
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated"
+			}
+		},
+		{
+			"label": "certiqs: Refresh Extension Host",
+			"detail": "Compile a certiqs extension if asked, then run Developer: Restart Extension Host in the running window.",
+			"type": "shell",
+			"command": "./scripts/refresh-extensions.sh",
+			"args": [
+				"${input:certiqsRefreshTarget}"
+			],
+			"problemMatcher": [],
+			"presentation": {
+				"reveal": "always",
+				"panel": "shared"
+			}
+		},
+		{
 			"label": "Install & Watch (Client)",
 			"detail": "Install dependencies, compile and watch VS Code core for fixing a bug or implementing a feature.",
 			"dependsOn": [
@@ -674,6 +700,20 @@
 				"Write-Output \"134 passed, 0 failed, 1 skipped, 135 total\"; Start-Sleep -Seconds 2; Write-Output \"[PASS] E2E Tests\"; Write-Output \"Watching for changes...\""
 			],
 			"isBackground": false
+		}
+	],
+	"inputs": [
+		{
+			"id": "certiqsRefreshTarget",
+			"type": "pickString",
+			"description": "Compile before restarting the extension host",
+			"options": [
+				"none",
+				"hq",
+				"sim",
+				"all"
+			],
+			"default": "hq"
 		}
 	]
 }

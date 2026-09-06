@@ -1,0 +1,132 @@
+[
+  {
+    "name": "attacks_direct_text_contains",
+    "domain": "attacks",
+    "tree": {
+      "id": "g1", "kind": "group", "combinator": "AND",
+      "children": [
+        {"id": "c1", "kind": "condition", "field": "vuln_name", "operator": "contains", "value": {"text": "a"}}
+      ]
+    }
+  },
+  {
+    "name": "attacks_csv_module_is_any_of",
+    "domain": "attacks",
+    "tree": {
+      "id": "g1", "kind": "group", "combinator": "AND",
+      "children": [
+        {"id": "c1", "kind": "condition", "field": "attack_module", "operator": "is_any_of", "value": {"values": ["Transmitter"]}}
+      ]
+    }
+  },
+  {
+    "name": "attacks_ea_coverage_exists_family",
+    "domain": "attacks",
+    "tree": {
+      "id": "g1", "kind": "group", "combinator": "AND",
+      "children": [
+        {"id": "c1", "kind": "condition", "field": "ea_code", "operator": "contains", "value": {"text": "EA"}}
+      ]
+    }
+  },
+  {
+    "name": "attacks_countermeasure_coverage_exists_family",
+    "domain": "attacks",
+    "tree": {
+      "id": "g1", "kind": "group", "combinator": "AND",
+      "children": [
+        {"id": "c1", "kind": "condition", "field": "cm_coverage_name", "operator": "contains", "value": {"text": "a"}}
+      ]
+    }
+  },
+  {
+    "name": "attacks_is_empty_scalar",
+    "domain": "attacks",
+    "tree": {
+      "id": "g1", "kind": "group", "combinator": "AND",
+      "children": [
+        {"id": "c1", "kind": "condition", "field": "attack_equipment", "operator": "is_empty", "value": {}}
+      ]
+    }
+  },
+  {
+    "name": "systems_protocol_exists_family",
+    "domain": "systems",
+    "userId": "__parity_harness_nonexistent_user__",
+    "tree": {
+      "id": "g1", "kind": "group", "combinator": "AND",
+      "children": [
+        {"id": "c1", "kind": "condition", "field": "sys_protocol_name", "operator": "contains", "value": {"text": "a"}}
+      ]
+    }
+  },
+  {
+    "name": "systems_visibility_guard_only_public_for_unknown_user",
+    "domain": "systems",
+    "userId": "__parity_harness_nonexistent_user__",
+    "tree": {
+      "id": "g1", "kind": "group", "combinator": "OR",
+      "children": [
+        {"id": "c1", "kind": "condition", "field": "sys_name", "operator": "contains", "value": {"text": ""}},
+        {"id": "c2", "kind": "condition", "field": "sys_is_public", "operator": "is_true", "value": {}}
+      ]
+    }
+  },
+  {
+    "name": "evaluation_activities_parameters_exists_family",
+    "domain": "evaluation_activities",
+    "tree": {
+      "id": "g1", "kind": "group", "combinator": "AND",
+      "children": [
+        {"id": "c1", "kind": "condition", "field": "ea_param_name", "operator": "contains", "value": {"text": "a"}}
+      ]
+    }
+  },
+  {
+    "name": "evaluation_activities_covers_attack_exists_family",
+    "domain": "evaluation_activities",
+    "tree": {
+      "id": "g1", "kind": "group", "combinator": "AND",
+      "children": [
+        {"id": "c1", "kind": "condition", "field": "ea_covers_vuln_name", "operator": "contains", "value": {"text": "a"}}
+      ]
+    }
+  },
+  {
+    "name": "countermeasures_vulnerability_coverage_exists_family",
+    "domain": "countermeasures",
+    "tree": {
+      "id": "g1", "kind": "group", "combinator": "AND",
+      "children": [
+        {"id": "c1", "kind": "condition", "field": "cm_covers_vuln_name", "operator": "contains", "value": {"text": "a"}}
+      ]
+    }
+  },
+  {
+    "name": "countermeasures_array_contains_any",
+    "domain": "countermeasures",
+    "tree": {
+      "id": "g1", "kind": "group", "combinator": "AND",
+      "children": [
+        {"id": "c1", "kind": "condition", "field": "cm_component_types", "operator": "array_contains_any", "value": {"values": ["1"]}}
+      ]
+    }
+  },
+  {
+    "name": "attacks_nested_and_or_composition",
+    "domain": "attacks",
+    "tree": {
+      "id": "g1", "kind": "group", "combinator": "AND",
+      "children": [
+        {
+          "id": "g2", "kind": "group", "combinator": "OR",
+          "children": [
+            {"id": "c1", "kind": "condition", "field": "attack_rating", "operator": "is_any_of", "value": {"values": ["High", "Beyond High"]}},
+            {"id": "c2", "kind": "condition", "field": "vuln_name", "operator": "contains", "value": {"text": "laser"}}
+          ]
+        },
+        {"id": "c3", "kind": "condition", "field": "attack_category", "operator": "is_not_empty", "value": {}}
+      ]
+    }
+  }
+]

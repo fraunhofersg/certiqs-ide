@@ -380,6 +380,11 @@ export class BrowserTitlebarPart extends Part implements ITitlebarPart {
 			this.updateStyles();
 		}
 
+		// CERTIQS: selectable app icon
+		if (event.affectsConfiguration('certiqs.appIcon')) {
+			this.applyCertiqsAppIcon();
+		}
+
 		// Custom menu bar (disabled if auxiliary)
 		if (!this.isAuxiliary && !hasNativeMenu(this.configurationService, this.titleBarStyle) && (!isMacintosh || isWeb)) {
 			if (event.affectsConfiguration(MenuSettings.MenuBarVisibility)) {
@@ -413,6 +418,21 @@ export class BrowserTitlebarPart extends Part implements ITitlebarPart {
 		this.createTitle();
 
 		this._onDidChange.fire(undefined);
+	}
+
+	// CERTIQS: selectable app icon
+	private applyCertiqsAppIcon(): void {
+		if (!this.appIcon) {
+			return;
+		}
+		const value = this.configurationService.getValue<string>('certiqs.appIcon');
+		this.appIcon.classList.remove('certiqs-app-icon-color-on-white', 'certiqs-app-icon-black-on-white', 'certiqs-app-icon-white-on-black');
+		const cls = value === 'blackOnWhite'
+			? 'certiqs-app-icon-black-on-white'
+			: value === 'whiteOnBlack'
+				? 'certiqs-app-icon-white-on-black'
+				: 'certiqs-app-icon-color-on-white';
+		this.appIcon.classList.add(cls);
 	}
 
 	updateOptions(options: { compact: boolean }): void {
@@ -482,6 +502,7 @@ export class BrowserTitlebarPart extends Part implements ITitlebarPart {
 		// App Icon (Windows, Linux)
 		if ((isWindows || isLinux) && !hasNativeTitlebar(this.configurationService, this.titleBarStyle)) {
 			this.appIcon = prepend(this.leftContent, $('a.window-appicon'));
+			this.applyCertiqsAppIcon(); // CERTIQS: selectable app icon
 		}
 
 		// Draggable region that we can manipulate for #52522

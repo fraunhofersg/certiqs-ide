@@ -1,0 +1,7 @@
+-r requirements.txt
+pytest>=8.3
+pytest-asyncio>=0.24
+# Only needed for the NEON_HTTP_FALLBACK dev path (app/db_http.py) on machines
+# whose HTTPS is intercepted by antivirus (e.g. Norton's TLS-scanning root):
+# makes httpx/ssl trust the OS cert store. Auto-activates at interpreter start.
+pip-system-certs>=4.0

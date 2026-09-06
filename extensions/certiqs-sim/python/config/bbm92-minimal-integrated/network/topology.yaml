@@ -1,0 +1,17 @@
+qkd_system:
+  system_id: bbm92_minimal_integrated_system
+  name: BBM92 Minimal Integrated (Source-in-Alice) System
+  protocol_family: entanglement_based
+  protocol_id: bbm92_default
+  description: >-
+    Entangled-photon source is co-located inside Alice's node (separate box);
+    Alice measures locally and Bob receives one arm over fiber.
+  node_ids:
+  - node_alice
+  - node_bob
+  channel_ids:
+  - qch_source_alice
+  - qch_source_bob
+  - cch_alice_bob
+  - sync_source_alice
+  - sync_source_bob

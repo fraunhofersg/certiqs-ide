@@ -1,0 +1,11 @@
+schema_version: '4.0'
+orchestration:
+  services:
+  - service_id: measurement_pipeline
+    runtime: embedded
+    depends_on:
+    - module_bob_timing
+  lifecycle:
+    startup_order:
+    - measurement_pipeline
+    health_checks: []

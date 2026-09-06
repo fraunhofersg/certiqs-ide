@@ -1,0 +1,15 @@
+schema_version: '4.0'
+monitoring:
+  inherits_from: network/management.yaml
+  metrics: []
+  alerts:
+  - alert_id: high_qber
+    metric_key: qber
+    threshold: 0.11
+    lower: 0.0
+    upper: 0.11
+    kind: security
+    standard: "BBM92/BB84 asymptotic collective-attack abort (~11%)"
+    label: "Secure window ≤ 11%"
+    upper_label: "11% abort"
+  telemetry_endpoints: []

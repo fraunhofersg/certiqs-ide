@@ -1,0 +1,11 @@
+schema_version: '4.0'
+orchestration:
+  services:
+  - service_id: pair_generation
+    runtime: embedded
+    depends_on:
+    - module_source_spdc
+  lifecycle:
+    startup_order:
+    - pair_generation
+    health_checks: []

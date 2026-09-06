@@ -19,6 +19,7 @@ import { IProductService } from '../../product/common/productService.js';
 import { IThemeMainService } from '../../theme/electron-main/themeMainService.js';
 import { AgentsWindowOpenSource, IOpenEmptyWindowOptions, IWindowOpenable, IWindowSettings, TitlebarStyle, WindowMinimumSize, hasNativeTitlebar, useNativeFullScreen, useWindowControlsOverlay, zoomLevelToZoomFactor } from '../../window/common/window.js';
 import { ICodeWindow, IWindowState, WindowMode, defaultWindowState } from '../../window/electron-main/window.js';
+import { CERTIQS_APP_ICON_SETTING, resolveCertiqsAppIconPath } from './certiqsAppIcon.js';
 
 export const IWindowsMainService = createDecorator<IWindowsMainService>('windowsMainService');
 
@@ -186,6 +187,12 @@ export function defaultBrowserWindowOptions(accessor: ServicesAccessor, windowSt
 		if (!environmentMainService.isBuilt) {
 			options.icon = join(environmentMainService.appRoot, 'resources/win32/code_150x150.png'); // only when running out of sources on Windows
 		}
+	}
+
+	// CERTIQS: selectable app icon
+	const certiqsIcon = resolveCertiqsAppIconPath(environmentMainService.appRoot, configurationService.getValue(CERTIQS_APP_ICON_SETTING));
+	if (certiqsIcon) {
+		options.icon = certiqsIcon;
 	}
 
 	if (isMacintosh) {

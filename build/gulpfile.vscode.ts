@@ -499,6 +499,9 @@ function packageTask(platform: string, arch: string, sourceFolderName: string, d
 			all = es.merge(all, shortcut, policyDest);
 		}
 
+		// CERTIQS: selectable app icon variants used at runtime
+		all = es.merge(all, gulp.src('resources/certiqs/**', { base: '.' }));
+
 		const electronConfig = {
 			...config,
 			platform,

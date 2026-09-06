@@ -1,0 +1,96 @@
+schema_version: '4.0'
+package_id: pkg_alice
+node_id: node_alice
+node_role: measurement_node
+layout:
+  lane: left
+  order: 1
+  endpoint_side: alice
+provides:
+- alice_timestamps_out
+- kx1_alice_relay
+- source_out_bob
+requires:
+- sync_source_alice
+- protocol:bbm92
+boundary_ports:
+  alice_timestamps_out:
+    owner_id: alice_tdc
+    interface_type: boundary
+    direction: out
+    signal_type: timestamp_event_stream
+    boundary: true
+    comment: To network coincidence processor (Alice authoritative)
+  kx1_alice_relay:
+    owner_id: alice_kma
+    interface_type: boundary
+    direction: inout
+    edge_kind: digital
+    signal_type: kx1_key_relay
+    boundary: true
+    comment: Trusted-node key relay (Alice KMS) to peer node
+    connector:
+      position: right
+      size: small
+      #style: color
+      #color: '#fb7185'
+# Intra-node links: both endpoints live inside this node, so the channel
+# physics and port wiring are authored here (self-contained), not in the
+# network channel file. Endpoints reference device boundary ports by name.
+channels:
+  qch_source_alice:
+    component_class: single_mode_fiber_channel
+    model_binding_id: channels.fiber.dynamic_jones.v2
+    length_km: 0.001
+    attenuation_db_per_km: 0.2
+    wavelength_nm: 1550.0
+    num_connectors: 2
+    connector_loss_db: 0.25
+    num_splices: 0
+    splice_loss_db: 0.05
+    link_budget:
+      design_margin_db: 0.5
+      apply_design_margin: false
+      ageing:
+        enabled: false
+        excess_loss_db: 0.0
+        rate_db_per_year: 0.01
+        service_life_years: 0.0
+      contamination:
+        enabled: false
+        excess_loss_db: 0.0
+        connector_contamination_prob: 0.02
+      bending:
+        enabled: false
+        excess_loss_db: 0.0
+        min_bend_radius_mm: 30.0
+        induced_loss_db_per_turn: 0.1
+        num_tight_bends: 0
+      measurement_uncertainty:
+        attenuation_db_per_km_sigma: 0.01
+        length_km_sigma: 0.001
+        splice_loss_db_sigma: 0.02
+        connector_loss_db_sigma: 0.05
+        loss_budget_confidence: 0.95
+  cch_alice_relay:
+    component_class: classical_network_link
+    edge_kind: digital
+    bidirectional: true
+    bandwidth_mbps: 1000
+    one_way_latency_ms: 0.05
+connections:
+# Co-located entangled source device feeds Alice's measurement device.
+- channel_id: qch_source_alice
+  from_port: source_out_alice
+  to_port: alice_pam_in
+# Alice measurement device hands key material to the node KMS relay port.
+- channel_id: cch_alice_relay
+  from_port: kx1_alice
+  to_port: kx1_alice_relay
+node:
+  node_id: node_alice
+  name: Alice Measurement Node
+  node_role: measurement_node
+  device_ids:
+  - device_source_01
+  - device_alice_01

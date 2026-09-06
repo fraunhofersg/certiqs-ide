@@ -6,6 +6,7 @@ Thumbs.db
 node_modules
 .tmp/
 .build/
+build/
 /extensionsCG/
 .vscode/extensions/**/out/
 extensions/**/dist/
@@ -37,6 +38,7 @@ dist
 .playwright-cli
 .playwright-mcp
 .claude/
+.cursor/
 .agents/agents/*.local.md
 .github/agents/*.local.md
 .agents/agents/*.local.agent.md

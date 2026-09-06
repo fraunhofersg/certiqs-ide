@@ -1,0 +1,7 @@
+node_modules/
+out/
+out-build/
+out-vscode/
+.build/
+extensions/*/node_modules/
+**/*.map

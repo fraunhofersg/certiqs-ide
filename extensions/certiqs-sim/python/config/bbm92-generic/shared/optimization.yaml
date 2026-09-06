@@ -1,0 +1,35 @@
+# Practical link optimization — approach max accepted QBER with security floors.
+# Loaded from active config: shared/optimization.yaml
+schema_version: "1.0"
+
+optimization:
+  metric_key: qber
+  security_metric_key: secret_fraction
+  rate_metric_key: key_rate_per_pulse
+  # Catalog edge from technical_ranges.yaml — abort_threshold (e.g. 0.11 → 11%)
+  qber_target_mode: abort
+  # Fraction of that edge (1.0 = exactly abort_threshold)
+  qber_target_fraction: 1.0
+  # Security floors — refuse further length-up when breached
+  min_secret_fraction: 0.05
+  min_key_rate_per_pulse: 0.0
+  # Wait this many epochs after a length step before deciding again
+  settle_epochs: 15
+  # Coarse / fine fibre length steps (km), applied to each length key
+  step_km: 5.0
+  fine_step_km: 1.0
+  # Within this relative gap of target QBER, use fine_step_km
+  approach_band: 0.20
+  max_length_km: 100.0
+  length_keys:
+    - alice_length
+    - bob_length
+  length_mode: symmetric
+  backoff_on_breach: true
+  max_steps: 40
+  # Rolling window for median / mean / slope (never last-epoch alone)
+  window_epochs: 20
+  aggregator: median
+  min_window_samples: 10
+  # Hold increases when QBER rises faster than this (QBER units / epoch)
+  max_rise_slope: 0.0015

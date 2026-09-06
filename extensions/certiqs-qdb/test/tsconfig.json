@@ -1,0 +1,21 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"target": "ES2022",
+		"lib": ["ES2022"],
+		"strict": true,
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"rootDir": "..",
+		"outDir": "../out-test",
+		"types": ["node"]
+	},
+	"include": [
+		"./**/*.ts",
+		"../src/internalAuth.ts",
+		"../src/rewritePaths.ts",
+		"../src/chipFilters.ts",
+		"../webview/src/lib/search.ts",
+		"../webview/src/lib/qkd/componentTerms.ts"
+	]
+}

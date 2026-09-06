@@ -1,0 +1,44 @@
+schema_version: '4.0'
+package_id: pkg_bob
+node_id: node_bob
+node_role: measurement_node
+layout:
+  lane: right
+  order: 2
+  endpoint_side: bob
+provides:
+- kx1_bob
+- secret_key_out
+requires:
+- qch_source_bob
+- sync_source_bob
+- cch_alice_bob
+- protocol:bbm92
+- alice_timestamps_out
+node:
+  node_id: node_bob
+  name: Bob Measurement Node
+  node_role: measurement_node
+  location:
+    site_id: lab_b
+    zone: optical_bench_bob
+  device_ids:
+  - device_bob_01
+boundary_ports:
+  kx1_bob:
+    owner_id: bob_kma
+    interface_type: boundary
+    direction: in
+    signal_type: kx1_key_relay
+    boundary: true
+    connector:
+      position: bottom
+      size: normal
+      style: color
+      color: '#34d399'
+  secret_key_out:
+    owner_id: bob_key_store
+    interface_type: boundary
+    direction: out
+    signal_type: secret_key
+    boundary: true

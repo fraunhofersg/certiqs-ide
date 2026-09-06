@@ -1,0 +1,33 @@
+schema_version: 4.0.0
+package_id: bbm92_minimal_integrated_packages
+name: BBM92 Minimal Integrated QKD Configuration
+description: BBM92 reference model where the entangled-photon source is co-located
+  inside Alice's node as a separate box (box_source_01), alongside her measurement
+  box.
+entrypoint: network/topology.yaml
+imports:
+- network/topology.yaml
+- network/channels.yaml
+- network/control.yaml
+- shared/protocol.yaml
+- nodes/alice/node.yaml
+- nodes/bob/node.yaml
+validation:
+  note: Flags are documentation; Python validate.py enforces hard rules.
+  require_complete_detector_chains: false
+packages:
+- package_id: pkg_network
+  path: network
+  kind: network
+- package_id: pkg_alice
+  path: nodes/alice
+  kind: node
+- package_id: pkg_bob
+  path: nodes/bob
+  kind: node
+- package_id: pkg_shared
+  path: shared
+  kind: shared
+- package_id: pkg_assets
+  path: assets
+  kind: assets

@@ -1,0 +1,4 @@
+schema_version: '3.1'
+catalog:
+  description: Minimal component identity catalog for bbm92-minimal.
+  logical_components: []

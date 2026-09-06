@@ -1,0 +1,9 @@
+qkd_device:
+  name: Bob Measurement Box
+  parent_node_id: node_bob
+  domain_ids:
+  - domain_bob_quantum_optics
+  - domain_bob_electronics
+  - domain_bob_software
+  device_id: device_bob_01
+  device_type: qkd_measurement_box

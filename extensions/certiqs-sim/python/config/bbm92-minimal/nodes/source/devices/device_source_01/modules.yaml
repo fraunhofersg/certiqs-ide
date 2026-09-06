@@ -1,0 +1,8 @@
+modules:
+- module_id: module_source_spdc
+  name: SPDC Source Module
+  module_type: entangled_pair_source_module
+  parent_subdomain_id: subdomain_source_generation
+  component_ids:
+  - pump_laser
+  - spdc_crystal

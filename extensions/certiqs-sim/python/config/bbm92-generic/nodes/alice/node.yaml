@@ -1,0 +1,43 @@
+schema_version: '4.0'
+package_id: pkg_alice
+node_id: node_alice
+node_role: measurement_node
+layout:
+  lane: left
+  order: 1
+  endpoint_side: alice
+provides:
+- alice_timestamps_out
+- kx1_alice
+requires:
+- qch_source_alice
+- sync_source_alice
+- protocol:bbm92
+node:
+  node_id: node_alice
+  name: Alice Measurement Node
+  node_role: measurement_node
+  location:
+    site_id: lab_a
+    zone: optical_bench_alice
+  device_ids:
+  - device_alice_01
+boundary_ports:
+  alice_timestamps_out:
+    owner_id: alice_acquisition_service
+    interface_type: boundary
+    direction: out
+    signal_type: timestamp_event_stream
+    boundary: true
+  kx1_alice:
+    owner_id: alice_kma
+    interface_type: boundary
+    direction: inout
+    edge_kind: digital
+    signal_type: kx1_key_relay
+    boundary: true
+    connector:
+      position: right
+      size: normal
+      style: color
+      color: '#34d399'

@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "certiqs-sim"
+version = "0.1.0"
+description = "Bundled certiqsSim control plane for certiqs IDE. Simulation only — not a measurement."
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+	"numpy>=1.23",
+	"pyyaml>=6.0",
+	"pydantic>=2.0",
+	"pydantic-settings>=2.0",
+	"structlog>=24.1",
+	"fastapi>=0.110",
+	"uvicorn[standard]>=0.27",
+	"websockets>=12.0",
+	"sse-starlette>=2.0",
+	"prometheus-client>=0.20",
+	"prometheus-fastapi-instrumentator>=7.0",
+	"sqlalchemy>=2.0",
+]
+
+[project.optional-dependencies]
+engine = ["netsquid>=1.1.8"]
+
+[project.scripts]
+certiqs-api = "certiqs_sim.services.api.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

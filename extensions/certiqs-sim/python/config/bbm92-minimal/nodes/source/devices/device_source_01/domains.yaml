@@ -1,0 +1,35 @@
+domains:
+- domain_id: domain_source_quantum_optics
+  name: Quantum Optics
+  domain_type: quantum_optics
+  parent_box_id: box_source_01
+  subdomain_ids:
+  - subdomain_source_generation
+  parent_device_id: device_source_01
+- domain_id: domain_source_electronics
+  name: Electronics
+  domain_type: electronics
+  parent_box_id: box_source_01
+  subdomain_ids:
+  - subdomain_source_pump_drive
+  parent_device_id: device_source_01
+- domain_id: domain_source_software
+  name: Source Control
+  domain_type: software
+  parent_box_id: box_source_01
+  subdomain_ids:
+  - subdomain_source_device_control
+  parent_device_id: device_source_01
+subdomains:
+- subdomain_id: subdomain_source_generation
+  name: SPDC Generation
+  subdomain_type: source_generation
+  parent_domain_id: domain_source_quantum_optics
+- subdomain_id: subdomain_source_pump_drive
+  name: Pump Drive
+  subdomain_type: pump_drive
+  parent_domain_id: domain_source_electronics
+- subdomain_id: subdomain_source_device_control
+  name: Device Control
+  subdomain_type: device_control
+  parent_domain_id: domain_source_software

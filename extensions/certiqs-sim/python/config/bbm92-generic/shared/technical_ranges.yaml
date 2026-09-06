@@ -1,0 +1,22 @@
+# Technical / operational display guidance for twin metrics.
+# Keys must match MetricRegistry catalog keys (runtime/metrics_registry.py).
+# Surfaced on GET /api/v1/metrics/catalog as technical_range.
+schema_version: "4.0"
+technical_ranges:
+  # Practical 10 km fiber BBM92 assessment bands + asymptotic abort (~11%).
+  # Chart bands: green < warning, orange warning→abort, red > abort.
+  # Finite-key / EC inefficiency often warrant aborting before 11% in ops.
+  - metric_key: qber
+    context: "10 km fiber-based BBM92"
+    standard: "BBM92/BB84 asymptotic collective-attack limit ~11%; ops margin below that"
+    label: "QBER assessment (10 km)"
+    nominal: 0.025
+    good_range: [0.01, 0.04]
+    warning_threshold: 0.06
+    abort_threshold: 0.11
+    contributions:
+      source_and_entanglement_visibility: 0.005
+      polarization_or_phase_misalignment: 0.010
+      detector_and_timing_effects: 0.003
+      accidental_coincidences: 0.007
+      total_nominal_qber: 0.025

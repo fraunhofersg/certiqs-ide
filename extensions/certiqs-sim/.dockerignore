@@ -1,0 +1,12 @@
+node_modules
+out
+webview
+media
+python/.venv
+**/.venv
+**/__pycache__
+**/*.pyc
+**/*.egg-info
+.git
+*.md
+package-lock.json

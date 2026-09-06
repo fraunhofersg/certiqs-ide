@@ -1,0 +1,44 @@
+schema_version: '4.0'
+package_id: pkg_source
+node_id: node_source
+node_role: entangled_source
+layout:
+  lane: center
+  order: 0
+  endpoint_side: source
+provides:
+- source_out_alice
+- source_out_bob
+requires:
+- protocol:bbm92
+boundary_ports:
+  source_out_alice:
+    owner_id: spdc_crystal
+    interface_type: optical
+    direction: out
+    signal_type: quantum_optical_stream
+    boundary: true
+    comment: Alice arm of entangled pair
+    connector:
+      position: bottom
+      size: normal
+      style: color
+      color: '#fb7185'
+  source_out_bob:
+    owner_id: spdc_crystal
+    interface_type: optical
+    direction: out
+    signal_type: quantum_optical_stream
+    boundary: true
+    comment: Bob arm of entangled pair
+    connector:
+      position: bottom
+      size: normal
+      style: color
+      color: '#fb7185'
+node:
+  node_id: node_source
+  name: Central Entangled-Photon Source
+  node_role: entangled_source
+  device_ids:
+  - device_source_01
