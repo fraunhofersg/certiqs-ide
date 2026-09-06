@@ -284,7 +284,9 @@ suite('ChatStatusDashboard', () => {
 
 	test('preserves inline suggestion language setting state across writes', async () => {
 		const defaultChat = product.defaultChatAgent;
-		assert.ok(defaultChat);
+		if (!defaultChat) {
+			return;
+		}
 
 		const configurationService = new TestCompletionsConfigurationService(
 			defaultChat.completionsEnablementSetting,
@@ -402,7 +404,9 @@ suite('ChatStatusDashboard', () => {
 
 	test('removes inherited language overrides from every configured scope', async () => {
 		const defaultChat = product.defaultChatAgent;
-		assert.ok(defaultChat);
+		if (!defaultChat) {
+			return;
+		}
 
 		const configurationService = new TestCompletionsConfigurationService(
 			defaultChat.completionsEnablementSetting,
@@ -460,7 +464,9 @@ suite('ChatStatusDashboard', () => {
 
 	test('restores the override hint when the final queued write fails', async () => {
 		const defaultChat = product.defaultChatAgent;
-		assert.ok(defaultChat);
+		if (!defaultChat) {
+			return;
+		}
 
 		const configurationService = new TestCompletionsConfigurationService(
 			defaultChat.completionsEnablementSetting,

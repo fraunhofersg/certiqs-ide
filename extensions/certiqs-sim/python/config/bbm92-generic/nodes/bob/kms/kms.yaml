@@ -1,0 +1,23 @@
+schema_version: '3.1'
+kms:
+  kms_id: bob_kms
+  parent_node_id: node_bob
+  kma_id: bob_kma
+  ksa_id: bob_ksa
+  key_store_id: bob_key_store
+components:
+- component_id: bob_kma
+  parent_kms_id: bob_kms
+  component_type: key_management_agent
+  component_class: key_management_agent
+  description: Bob KMA (Kq-1 receipt, Kx-1 relay, lifecycle)
+- component_id: bob_ksa
+  parent_kms_id: bob_kms
+  component_type: key_supply_agent
+  component_class: key_supply_agent
+  description: Bob KSA (Ak key supply to applications)
+- component_id: bob_key_store
+  parent_kms_id: bob_kms
+  component_type: key_store
+  component_class: key_store_interface
+  export_policy: net_secret_key_only

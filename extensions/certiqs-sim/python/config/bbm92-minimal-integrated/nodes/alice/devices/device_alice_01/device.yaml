@@ -1,0 +1,9 @@
+qkd_device:
+  name: Alice Measurement Box
+  parent_node_id: node_alice
+  domain_ids:
+  - domain_alice_quantum_optics
+  - domain_alice_electronics
+  - domain_alice_software
+  device_id: device_alice_01
+  device_type: qkd_measurement_box

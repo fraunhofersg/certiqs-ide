@@ -1,0 +1,38 @@
+agent_workflow:
+  objective: Refine, implement, validate, and optimize CA-QKD system designs against
+    explicit requirements and evidence.
+  agents:
+  - id: requirements_agent
+    responsibility: Translate design goals into constraints and acceptance criteria.
+  - id: topology_agent
+    responsibility: Compose nodes, boxes, domains, modules, interfaces, and components.
+  - id: physics_agent
+    responsibility: Implement and review quantum-optical and detector models.
+  - id: digital_agent
+    responsibility: Implement timing, TDC, FPGA, and co-simulation adapters.
+  - id: security_agent
+    responsibility: Maintain protocol, finite-key, attack, and countermeasure models.
+  - id: calibration_agent
+    responsibility: Fit model parameters only from approved datasets with provenance.
+  - id: experiment_agent
+    responsibility: Generate reproducible experiment matrices and execute runs.
+  - id: optimization_agent
+    responsibility: Search design space under performance, security, and cost constraints.
+  - id: verification_agent
+    responsibility: Run schema, topology, unit, regression, and evidence checks; has
+      veto authority.
+  - id: documentation_agent
+    responsibility: Update design records, diagrams, model cards, and reports.
+  gates:
+  - requirements_approved
+  - topology_valid
+  - models_unit_tested
+  - security_reviewed
+  - calibration_traceable
+  - experiments_reproducible
+  - validation_passed
+  prohibitions:
+  - silent_parameter_fitting
+  - suppressing_failed_runs
+  - inferring_security_from_key_rate
+  - changing_security_proof_without_review

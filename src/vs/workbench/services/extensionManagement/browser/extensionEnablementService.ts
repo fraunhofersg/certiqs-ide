@@ -64,6 +64,9 @@ export class ExtensionEnablementService extends Disposable implements IWorkbench
 	// Sessions window allow-list (lowercased extension ids)
 	private readonly _sessionsWindowAllowedExtensions: ReadonlySet<string>;
 
+	// CERTIQS: product.json disabledExtensions — installed, never activated
+	private readonly _productDisabledExtensionIds: ReadonlySet<string>;
+
 	private _maliciousExtensionsCache: ReadonlyArray<MaliciousExtensionInfo> | undefined;
 
 	constructor(
@@ -116,6 +119,7 @@ export class ExtensionEnablementService extends Disposable implements IWorkbench
 		this._completionsExtensionId = productService.defaultChatAgent?.extensionId.toLowerCase();
 		this._chatExtensionId = productService.defaultChatAgent?.chatExtensionId.toLowerCase();
 		this._sessionsWindowAllowedExtensions = new Set<string>((productService.sessionsWindowAllowedExtensions ?? []).map(id => id.toLowerCase()));
+		this._productDisabledExtensionIds = new Set<string>((productService.disabledExtensions ?? []).map(id => id.toLowerCase()));
 		const unificationExtensions = [this._completionsExtensionId, this._chatExtensionId].filter(id => !!id);
 
 		// Disabling extension unification should immediately disable the unified extension flow
@@ -519,8 +523,13 @@ export class ExtensionEnablementService extends Disposable implements IWorkbench
 		}
 
 		const disabledExtensions = this.environmentService.disableExtensions;
-		if (Array.isArray(disabledExtensions)) {
-			return disabledExtensions.some(id => areSameExtensions({ id }, extension.identifier));
+		if (Array.isArray(disabledExtensions) && disabledExtensions.some(id => areSameExtensions({ id }, extension.identifier))) {
+			return true;
+		}
+
+		// CERTIQS: keep listed built-ins on disk but do not activate them
+		if (this._productDisabledExtensionIds.has(extension.identifier.id.toLowerCase())) {
+			return true;
 		}
 
 		// Check if this is the better merge extension which was migrated to a built-in extension

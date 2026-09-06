@@ -1,0 +1,12 @@
+modules:
+- module_id: module_source_spdc
+  name: Entangled Pair Generation Module
+  module_type: entangled_pair_source_module
+  parent_subdomain_id: subdomain_source_source_generation
+  component_ids:
+  - pump_laser
+  - spdc_crystal
+  - source_spectral_filter
+  - source_pair_separator
+  - source_pol_controller_alice
+  - source_pol_controller_bob

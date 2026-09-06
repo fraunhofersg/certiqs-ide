@@ -1,0 +1,15 @@
+schema_version: '4.0'
+environment:
+  ambient:
+    temperature_c:
+      nominal: 21.0
+      min: 18.0
+      max: 26.0
+    relative_humidity_pct:
+      nominal: 45
+      min: 30
+      max: 60
+  power:
+    supply: mains_ac
+    ups: false
+    nominal_watts: 450

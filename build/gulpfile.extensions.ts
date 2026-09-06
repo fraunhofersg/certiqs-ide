@@ -51,6 +51,10 @@ function onExtensionCompilationEnd(): void {
 // 	ignore: ['**/out/**', '**/node_modules/**']
 // });
 const compilations = [
+	'extensions/certiqs-assurance/tsconfig.json',
+	'extensions/certiqs-hq/tsconfig.json',
+	'extensions/certiqs-qdb/tsconfig.json',
+	'extensions/certiqs-sim/tsconfig.json',
 	'extensions/configuration-editing/tsconfig.json',
 	'extensions/css-language-features/client/tsconfig.json',
 	'extensions/css-language-features/server/tsconfig.json',

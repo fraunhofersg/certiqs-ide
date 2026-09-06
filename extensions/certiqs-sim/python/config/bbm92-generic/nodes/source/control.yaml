@@ -1,0 +1,10 @@
+schema_version: '3.1'
+control_loops:
+- control_id: polarization_tracking
+  observed_metric: same_basis_qber
+  actuators:
+  - source_pol_controller_alice
+  - source_pol_controller_bob
+  algorithm: gradient_descent
+  update_interval_s: 1
+  loss_of_lock_qber: 0.08

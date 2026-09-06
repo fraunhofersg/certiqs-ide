@@ -1,0 +1,24 @@
+# Timing + coincidence policy. Source does NOT run coincidence/sifting.
+
+schema_version: '3.1'
+timing:
+  time_model:
+    base_unit: ps
+    resolution_ps: 1
+  clock_domains:
+  - clock_domain_id: alice_tdc_clk
+    frequency_hz: 200000000
+  - clock_domain_id: bob_tdc_clk
+    frequency_hz: 200000000
+  synchronization:
+    method: two_way_time_transfer
+    update_period_ms: 10
+    residual_offset_ps_rms: 40
+  coincidence_processor:
+    execution_location: subdomain_alice_coincidence_correlation
+    authoritative_host: alice
+    peer_nodes:
+    - bob
+    window_ps: 500
+    queue_depth: 8192
+    overflow_policy: drop_and_count

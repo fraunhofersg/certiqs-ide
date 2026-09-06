@@ -1,0 +1,21 @@
+schema_version: '4.0'
+trusted_node_security:
+  trust_zone: qkd_trusted_boundary
+  assurance_level: development
+  standards:
+  - ref: ISO/IEC 23837-1:2023
+    scope: security_requirements
+  - ref: ISO/IEC 23837-2:2023
+    scope: security_requirements
+  - ref: ISO/IEC 15408
+    scope: common_criteria
+  - ref: ETSI GS QKD 016
+    scope: detector_manipulation_protection
+  - ref: ITU-T Y.3800
+    scope: qkdn_overview
+  - ref: ITU-T Y.3803
+    scope: qkdn_key_management
+  authentication_requirements:
+    kx1_required: false
+  key_material_handling:
+    storage: kms_local

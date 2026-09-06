@@ -1,0 +1,91 @@
+{
+	"name": "certiqs-assurance",
+	"displayName": "certiqs Assurance",
+	"description": "Synthetic demonstration records with visible evidence category. Not a security or conformity evaluation.",
+	"version": "0.0.1",
+	"publisher": "certiqs",
+	"license": "MIT",
+	"engines": {
+		"vscode": "^1.137.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"capabilities": {
+		"virtualWorkspaces": true,
+		"untrustedWorkspaces": {
+			"supported": "limited",
+			"description": "Read-only browse is allowed. Synthetic run and export require a trusted workspace."
+		}
+	},
+	"activationEvents": [
+		"onStartupFinished"
+	],
+	"main": "./out/extension",
+	"scripts": {
+		"compile": "gulp compile-extension:certiqs-assurance",
+		"watch": "gulp watch-extension:certiqs-assurance"
+	},
+	"contributes": {
+		"commands": [
+			{
+				"command": "certiqs.assurance.openFixture",
+				"title": "Open Fixture",
+				"category": "certiqs"
+			},
+			{
+				"command": "certiqs.assurance.runSynthetic",
+				"title": "Run Synthetic Demonstration",
+				"category": "certiqs"
+			},
+			{
+				"command": "certiqs.assurance.exportResult",
+				"title": "Export Result",
+				"category": "certiqs"
+			}
+		],
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "certiqs-assurance",
+					"title": "certiqs Assurance",
+					"icon": "$(shield)"
+				}
+			]
+		},
+		"views": {
+			"certiqs-assurance": [
+				{
+					"id": "certiqs.assurance.records",
+					"name": "Records"
+				}
+			]
+		},
+		"menus": {
+			"view/title": [
+				{
+					"command": "certiqs.assurance.openFixture",
+					"when": "view == certiqs.assurance.records",
+					"group": "navigation"
+				},
+				{
+					"command": "certiqs.assurance.runSynthetic",
+					"when": "view == certiqs.assurance.records",
+					"group": "navigation"
+				},
+				{
+					"command": "certiqs.assurance.exportResult",
+					"when": "view == certiqs.assurance.records",
+					"group": "navigation"
+				}
+			]
+		}
+	},
+	"devDependencies": {
+		"@types/node": "24.x"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/fraunhofersg/certiqs-ide.git"
+	}
+}

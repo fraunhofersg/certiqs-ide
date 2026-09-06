@@ -1,0 +1,6 @@
+schema_version: '4.0'
+physical_protection:
+  enclosure:
+    asset_binding_optional: true
+    environmental_boundary: controlled_indoor
+    physical_access_control: laboratory

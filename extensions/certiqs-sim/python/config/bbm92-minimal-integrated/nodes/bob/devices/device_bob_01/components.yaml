@@ -1,0 +1,120 @@
+components:
+- component_id: bob_basis_bs
+  name: Bob Basis Beam Splitter
+  component_type: beam_splitter
+  parent_module_id: module_bob_pam
+  model_binding_id: models.beam_splitter.v1
+  parameters:
+    split_ratio: 0.5
+    insertion_loss_db: 0.2
+- component_id: bob_hwp_x
+  name: Bob X-Basis HWP
+  component_type: half_wave_plate
+  parent_module_id: module_bob_pam
+  model_binding_id: models.half_wave_plate.v1
+  parameters:
+    fast_axis_deg: 22.5
+    retardance_rad: 3.1415926536
+- component_id: bob_pbs_z
+  name: Bob Z-Basis PBS
+  component_type: polarizing_beam_splitter
+  parent_module_id: module_bob_pam
+  model_binding_id: models.polarizing_beam_splitter.v1
+  parameters:
+    extinction_ratio_db: 25
+    insertion_loss_db: 0.2
+- component_id: bob_pbs_x
+  name: Bob X-Basis PBS
+  component_type: polarizing_beam_splitter
+  parent_module_id: module_bob_pam
+  model_binding_id: models.polarizing_beam_splitter.v1
+  parameters:
+    extinction_ratio_db: 24
+    insertion_loss_db: 0.2
+- component_id: bob_detector_h
+  name: Bob Detector H
+  component_type: single_photon_detector
+  parent_module_id: module_bob_detection
+  model_binding_id: detectors.spad.free_running.v2
+  parameters:
+    logical_state: H
+    efficiency: 0.8
+    dark_count_hz: 100
+    jitter_ps_rms: 55
+    dead_time_ns: 20
+  ports:
+    out:
+      interface_id: bob_detector_h_h_out
+      interface_type: electrical
+      direction: out
+      signal_type: detector_pulse
+- component_id: bob_detector_v
+  name: Bob Detector V
+  component_type: single_photon_detector
+  parent_module_id: module_bob_detection
+  model_binding_id: detectors.spad.free_running.v2
+  parameters:
+    logical_state: V
+    efficiency: 0.8
+    dark_count_hz: 100
+    jitter_ps_rms: 55
+    dead_time_ns: 20
+  ports:
+    out:
+      interface_id: bob_detector_v_v_out
+      interface_type: electrical
+      direction: out
+      signal_type: detector_pulse
+- component_id: bob_detector_d
+  name: Bob Detector D
+  component_type: single_photon_detector
+  parent_module_id: module_bob_detection
+  model_binding_id: detectors.spad.free_running.v2
+  parameters:
+    logical_state: D
+    efficiency: 0.8
+    dark_count_hz: 100
+    jitter_ps_rms: 55
+    dead_time_ns: 20
+  ports:
+    out:
+      interface_id: bob_detector_d_d_out
+      interface_type: electrical
+      direction: out
+      signal_type: detector_pulse
+- component_id: bob_detector_a
+  name: Bob Detector A
+  component_type: single_photon_detector
+  parent_module_id: module_bob_detection
+  model_binding_id: detectors.spad.free_running.v2
+  parameters:
+    logical_state: A
+    efficiency: 0.8
+    dark_count_hz: 100
+    jitter_ps_rms: 55
+    dead_time_ns: 20
+  ports:
+    out:
+      interface_id: bob_detector_a_a_out
+      interface_type: electrical
+      direction: out
+      signal_type: detector_pulse
+- component_id: bob_tdc
+  name: Bob TDC
+  component_type: time_to_digital_converter
+  parent_module_id: module_bob_timing
+  model_binding_id: models.time_to_digital_converter.v1
+  parameters:
+    resolution_ps: 10
+    channel_count: 4
+    fifo_depth: 4096
+    clock_domain: bob_tdc_clk
+- component_id: bob_coincidence_matcher
+  name: Bob Coincidence Peer Stub
+  component_type: coincidence_matcher
+  component_class: coincidence_matcher
+  parent_subdomain_id: subdomain_bob_coincidence_correlation
+  model_binding_id: digital.coincidence.fpga_reference.v1
+  execution_binding:
+    host_id: bob
+    role: peer_stub

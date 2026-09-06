@@ -1,0 +1,145 @@
+components:
+- component_id: alice_basis_bs
+  name: Alice Basis Beam Splitter
+  component_type: beam_splitter
+  parent_module_id: module_alice_pam
+  model_binding_id: models.beam_splitter.v1
+  parameters:
+    split_ratio: 0.5
+    insertion_loss_db: 0.2
+- component_id: alice_hwp_x
+  name: Alice X-Basis HWP
+  component_type: half_wave_plate
+  parent_module_id: module_alice_pam
+  model_binding_id: models.half_wave_plate.v1
+  parameters:
+    fast_axis_deg: 22.5
+    retardance_rad: 3.1415926536
+- component_id: alice_pbs_z
+  name: Alice Z-Basis PBS
+  component_type: polarizing_beam_splitter
+  parent_module_id: module_alice_pam
+  model_binding_id: models.polarizing_beam_splitter.v1
+  parameters:
+    extinction_ratio_db: 25
+    insertion_loss_db: 0.2
+- component_id: alice_pbs_x
+  name: Alice X-Basis PBS
+  component_type: polarizing_beam_splitter
+  parent_module_id: module_alice_pam
+  model_binding_id: models.polarizing_beam_splitter.v1
+  parameters:
+    extinction_ratio_db: 24
+    insertion_loss_db: 0.2
+- component_id: alice_detector_h
+  name: Alice Detector H
+  component_type: single_photon_detector
+  parent_module_id: module_alice_detection
+  model_binding_id: detectors.spad.free_running.v2
+  parameters:
+    logical_state: H
+    efficiency: 0.8
+    dark_count_hz: 100
+    jitter_ps_rms: 55
+    dead_time_ns: 20
+  ports:
+    out:
+      interface_id: alice_detector_h_h_out
+      interface_type: electrical
+      direction: out
+      signal_type: detector_pulse
+- component_id: alice_detector_v
+  name: Alice Detector V
+  component_type: single_photon_detector
+  parent_module_id: module_alice_detection
+  model_binding_id: detectors.spad.free_running.v2
+  parameters:
+    logical_state: V
+    efficiency: 0.8
+    dark_count_hz: 100
+    jitter_ps_rms: 55
+    dead_time_ns: 20
+  ports:
+    out:
+      interface_id: alice_detector_v_v_out
+      interface_type: electrical
+      direction: out
+      signal_type: detector_pulse
+- component_id: alice_detector_d
+  name: Alice Detector D
+  component_type: single_photon_detector
+  parent_module_id: module_alice_detection
+  model_binding_id: detectors.spad.free_running.v2
+  parameters:
+    logical_state: D
+    efficiency: 0.8
+    dark_count_hz: 100
+    jitter_ps_rms: 55
+    dead_time_ns: 20
+  ports:
+    out:
+      interface_id: alice_detector_d_d_out
+      interface_type: electrical
+      direction: out
+      signal_type: detector_pulse
+- component_id: alice_detector_a
+  name: Alice Detector A
+  component_type: single_photon_detector
+  parent_module_id: module_alice_detection
+  model_binding_id: detectors.spad.free_running.v2
+  parameters:
+    logical_state: A
+    efficiency: 0.8
+    dark_count_hz: 100
+    jitter_ps_rms: 55
+    dead_time_ns: 20
+  ports:
+    out:
+      interface_id: alice_detector_a_a_out
+      interface_type: electrical
+      direction: out
+      signal_type: detector_pulse
+- component_id: alice_tdc
+  name: Alice TDC
+  component_type: time_to_digital_converter
+  parent_module_id: module_alice_timing
+  model_binding_id: models.time_to_digital_converter.v1
+  parameters:
+    resolution_ps: 10
+    channel_count: 4
+    fifo_depth: 4096
+    clock_domain: alice_tdc_clk
+- component_id: alice_clock_synchronizer
+  name: Alice Clock Synchronizer
+  component_type: time_sync_unit
+  component_class: time_sync_unit
+  parent_subdomain_id: subdomain_alice_timing_alignment
+  model_binding_id: timing.two_way_sync.v1
+  execution_binding:
+    host_id: alice
+    role: authoritative_synchronizer
+  parameters:
+    update_period_ms: 10
+    residual_offset_ps_rms: 40
+- component_id: alice_coincidence_matcher
+  name: Alice Coincidence Engine
+  component_type: coincidence_matcher
+  component_class: coincidence_matcher
+  parent_subdomain_id: subdomain_alice_coincidence_correlation
+  model_binding_id: digital.coincidence.fpga_reference.v1
+  execution_binding:
+    host_id: alice
+    role: authoritative_matcher
+  parameters:
+    window_ps: 500
+    queue_depth_events: 8192
+- component_id: alice_sifting_processor
+  name: Alice Sifting
+  component_type: basis_sifting
+  parent_subdomain_id: subdomain_alice_basis_reconciliation
+  model_binding_id: models.basis_sifting.v1
+- component_id: alice_parameter_estimator
+  name: Alice QBER Estimator
+  component_type: qber_estimator
+  parent_subdomain_id: subdomain_alice_parameter_estimation
+  model_binding_id: models.qber_estimator.v1

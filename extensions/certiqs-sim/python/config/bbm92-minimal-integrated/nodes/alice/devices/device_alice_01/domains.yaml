@@ -1,0 +1,105 @@
+domains:
+- domain_id: domain_alice_quantum_optics
+  name: Quantum Optics
+  domain_type: quantum_optics
+  parent_box_id: box_alice_01
+  subdomain_ids:
+  - subdomain_alice_optical_input
+  - subdomain_alice_polarization_analysis
+  - subdomain_alice_detecting_components
+  parent_device_id: device_alice_01
+- domain_id: domain_alice_electronics
+  name: Electronics
+  domain_type: electronics
+  parent_box_id: box_alice_01
+  subdomain_ids:
+  - subdomain_alice_timing_and_time_tagging
+  parent_device_id: device_alice_01
+- domain_id: domain_alice_software
+  name: QKD Classical Processing
+  domain_type: software
+  parent_box_id: box_alice_01
+  subdomain_ids:
+  - subdomain_alice_time_tag_ingestion
+  - subdomain_alice_timing_alignment
+  - subdomain_alice_delay_calibration
+  - subdomain_alice_coincidence_correlation
+  - subdomain_alice_event_validation
+  - subdomain_alice_coincidence_monitoring
+  - subdomain_alice_basis_reconciliation
+  - subdomain_alice_parameter_estimation
+  - subdomain_alice_information_reconciliation
+  - subdomain_alice_key_verification
+  - subdomain_alice_privacy_amplification
+  - subdomain_alice_final_key_management
+  - subdomain_alice_cross_cutting
+  parent_device_id: device_alice_01
+subdomains:
+- subdomain_id: subdomain_alice_optical_input
+  name: Optical Input
+  subdomain_type: optical_input
+  parent_domain_id: domain_alice_quantum_optics
+- subdomain_id: subdomain_alice_polarization_analysis
+  name: Polarization Analysis
+  subdomain_type: polarization_analysis
+  parent_domain_id: domain_alice_quantum_optics
+- subdomain_id: subdomain_alice_detecting_components
+  name: Detecting Components
+  subdomain_type: detecting_components
+  parent_domain_id: domain_alice_quantum_optics
+- subdomain_id: subdomain_alice_timing_and_time_tagging
+  name: Timing and Time Tagging
+  subdomain_type: timing_and_time_tagging
+  parent_domain_id: domain_alice_electronics
+- subdomain_id: subdomain_alice_time_tag_ingestion
+  name: Time-Tag Acquisition
+  subdomain_type: time_tag_ingestion
+  parent_domain_id: domain_alice_software
+- subdomain_id: subdomain_alice_timing_alignment
+  name: Clock and Epoch Synchronization
+  subdomain_type: timing_alignment
+  parent_domain_id: domain_alice_software
+- subdomain_id: subdomain_alice_delay_calibration
+  name: Path and Channel Delay Calibration
+  subdomain_type: delay_calibration
+  parent_domain_id: domain_alice_software
+- subdomain_id: subdomain_alice_coincidence_correlation
+  name: Coincidence Correlation Engine
+  subdomain_type: coincidence_correlation
+  parent_domain_id: domain_alice_software
+- subdomain_id: subdomain_alice_event_validation
+  name: Detection Event Validation
+  subdomain_type: event_validation
+  parent_domain_id: domain_alice_software
+- subdomain_id: subdomain_alice_coincidence_monitoring
+  name: Coincidence Quality Monitoring
+  subdomain_type: coincidence_monitoring
+  parent_domain_id: domain_alice_software
+- subdomain_id: subdomain_alice_basis_reconciliation
+  name: Basis Reconciliation and Sifting
+  subdomain_type: basis_reconciliation
+  parent_domain_id: domain_alice_software
+- subdomain_id: subdomain_alice_parameter_estimation
+  name: Parameter Estimation
+  subdomain_type: parameter_estimation
+  parent_domain_id: domain_alice_software
+- subdomain_id: subdomain_alice_information_reconciliation
+  name: Information Reconciliation
+  subdomain_type: information_reconciliation
+  parent_domain_id: domain_alice_software
+- subdomain_id: subdomain_alice_key_verification
+  name: Key Verification
+  subdomain_type: key_verification
+  parent_domain_id: domain_alice_software
+- subdomain_id: subdomain_alice_privacy_amplification
+  name: Privacy Amplification
+  subdomain_type: privacy_amplification
+  parent_domain_id: domain_alice_software
+- subdomain_id: subdomain_alice_final_key_management
+  name: Final-Key Management
+  subdomain_type: final_key_management
+  parent_domain_id: domain_alice_software
+- subdomain_id: subdomain_alice_cross_cutting
+  name: Cross-Cutting Services
+  subdomain_type: cross_cutting
+  parent_domain_id: domain_alice_software

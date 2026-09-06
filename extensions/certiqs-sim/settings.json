@@ -1,0 +1,136 @@
+{
+	"id": "certiqs-sim",
+	"title": "Simulation",
+	"order": 10,
+	"sections": [
+		{
+			"id": "runtime",
+			"title": "Simulation",
+			"description": "Control plane, NetSquid engine, and Docker runtime. NetSquid wheels need CPython 3.8–3.11 (usually 3.10).",
+			"icon": "gear",
+			"order": 10,
+			"fields": [
+				{ "kind": "status", "id": "engineInstalled" },
+				{ "kind": "status", "id": "engineVersion" },
+				{ "kind": "status", "id": "engineArch" },
+				{ "kind": "status", "id": "pythonMismatch" },
+				{ "kind": "status", "id": "passwordSet" },
+				{ "kind": "status", "id": "dockerAvailable" },
+				{ "kind": "status", "id": "container" },
+				{ "kind": "status", "id": "api" },
+				{
+					"kind": "select",
+					"id": "runtimeMode",
+					"setting": "certiqs.sim.runtimeMode",
+					"label": "Runtime mode",
+					"description": "Local Python uses the selected interpreter. Docker publishes the same HTTP API on 127.0.0.1.",
+					"options": [
+						{ "value": "local", "label": "Local Python" },
+						{ "value": "docker", "label": "Docker container" }
+					]
+				},
+				{
+					"kind": "interpreter",
+					"id": "pythonPath",
+					"setting": "certiqs.sim.pythonPath",
+					"label": "Python interpreter",
+					"description": "Select a discovered interpreter or type a path. Compatible versions are highlighted. Mismatched versions cannot install NetSquid.",
+					"placeholder": "/opt/anaconda3/envs/certiqs-sim/bin/python"
+				},
+				{
+					"kind": "text",
+					"id": "netsquidPypiUser",
+					"setting": "certiqs.sim.netsquidPypiUser",
+					"label": "NetSquid PyPI user",
+					"description": "Forum username. Used only to install the engine from pypi.netsquid.org.",
+					"placeholder": "your-netsquid-user"
+				},
+				{
+					"kind": "secret",
+					"id": "netsquidPypiPassword",
+					"secretKey": "certiqs.sim.netsquidPypiPassword",
+					"label": "NetSquid PyPI password",
+					"description": "Forum password. Stored in OS secret storage, not settings.json.",
+					"placeholder": "Password or token"
+				},
+				{
+					"kind": "text",
+					"id": "netsquidPypiUrl",
+					"setting": "certiqs.sim.netsquidPypiUrl",
+					"label": "Index URL override",
+					"description": "Leave empty. Pip uses https://pypi.netsquid.org as the index.",
+					"placeholder": "https://pypi.netsquid.org"
+				},
+				{
+					"kind": "text",
+					"id": "dockerImage",
+					"setting": "certiqs.sim.dockerImage",
+					"label": "Docker image",
+					"description": "Leave empty to build certiqs-sim:local from the extension Dockerfile.",
+					"placeholder": "certiqs-sim:local"
+				},
+				{
+					"kind": "number",
+					"id": "port",
+					"setting": "certiqs.sim.port",
+					"label": "API port",
+					"description": "Localhost only. Default 8011."
+				},
+				{
+					"kind": "toggle",
+					"id": "autoStartApi",
+					"setting": "certiqs.sim.autoStartApi",
+					"label": "Auto-start API",
+					"description": "Start the control plane when Run Control opens."
+				},
+				{
+					"kind": "action",
+					"id": "save",
+					"label": "Save to user space",
+					"variant": "primary"
+				},
+				{
+					"kind": "action",
+					"id": "installEngine",
+					"label": "Install NetSquid",
+					"variant": "outline"
+				},
+				{
+					"kind": "action",
+					"id": "rebuild",
+					"label": "Rebuild image",
+					"variant": "outline"
+				},
+				{
+					"kind": "action",
+					"id": "clearSecret:netsquidPypiPassword",
+					"label": "Clear password",
+					"variant": "ghost"
+				}
+			]
+		},
+		{
+			"id": "development",
+			"title": "Development",
+			"description": "The default debug compound is certiqs IDE (Hot Reload). It runs scripts/run-debug.sh, then attaches to the certiqs IDE inspect ports.",
+			"icon": "gear",
+			"order": 20,
+			"fields": [
+				{
+					"kind": "action",
+					"id": "runDebug",
+					"label": "certiqs IDE (Hot Reload)",
+					"description": "Default compound. scripts/run-debug.sh starts watch if needed and launches certiqs IDE on 5875/5870/5879/5878.",
+					"variant": "primary"
+				},
+				{
+					"kind": "action",
+					"id": "refreshExtensions",
+					"label": "Refresh extension host",
+					"description": "scripts/refresh-extensions.sh sim — compile certiqs-sim and restart the running certiqs IDE extension host.",
+					"variant": "outline"
+				}
+			]
+		}
+	]
+}

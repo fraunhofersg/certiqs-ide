@@ -1,0 +1,20 @@
+schema_version: '3.1'
+kms:
+  kms_id: alice_kms
+  parent_node_id: node_alice
+  kma_id: alice_kma
+  ksa_id: alice_ksa
+  key_store_id: alice_key_store
+components:
+- component_id: alice_kma
+  parent_kms_id: alice_kms
+  component_type: key_management_agent
+  component_class: key_management_agent
+- component_id: alice_ksa
+  parent_kms_id: alice_kms
+  component_type: key_supply_agent
+  component_class: key_supply_agent
+- component_id: alice_key_store
+  parent_kms_id: alice_kms
+  component_type: key_store
+  component_class: key_store_interface

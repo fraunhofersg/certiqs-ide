@@ -1,0 +1,59 @@
+validation_plan:
+  levels:
+  - level: 1
+    name: component
+    tests:
+    - detector_timing_histogram
+    - detector_efficiency
+    - source_pair_statistics
+    - pam_extinction_ratio
+  - level: 2
+    name: subsystem
+    tests:
+    - pam_to_detector_mapping
+    - detector_to_tdc_chain
+    - synchronization
+  - level: 3
+    name: end_to_end
+    tests:
+    - count_rate
+    - coincidence_histogram
+    - qber
+    - secret_key_rate
+  - level: 4
+    name: perturbation
+    tests:
+    - added_loss
+    - polarization_rotation
+    - timing_delay
+    - brightness_change
+  - level: 5
+    name: security
+    tests:
+    - detector_saturation
+    - blinding_signature
+    - monitor_response
+  acceptance:
+    relative_count_rate_error_max: 0.1
+    absolute_qber_error_max: 0.01
+    timing_peak_error_ps_max: 50
+adapter_regression:
+  description: 'Tolerances when comparing hierarchical schema 3.0 configs against
+    the legacy flat subsystem YAML snapshot via topology_to_flat_documents. Physics
+    metrics must remain within these bounds after in-place migration.
+
+    '
+  legacy_snapshot_dir: legacy/
+  edge_parity:
+    require_station_optical_chain: true
+    require_detector_to_tdc_links: true
+  parameter_parity:
+    model_binding_ids_must_match: true
+    numeric_tolerance:
+      efficiency_abs: 0.001
+      insertion_loss_db_abs: 0.05
+      extinction_ratio_db_abs: 1.0
+  physics_vs_legacy:
+    qber_relative_error_max: 0.15
+    sifted_key_bits_relative_error_max: 0.1
+    coincidence_count_relative_error_max: 0.1

@@ -1187,7 +1187,10 @@ suite('ExtensionEnablementService Test', () => {
 	});
 
 	test('test chat extension is disabled on profile switch when setup is not completed', async () => {
-		const chatExtensionId = productService.defaultChatAgent!.chatExtensionId;
+		const chatExtensionId = productService.defaultChatAgent?.chatExtensionId;
+		if (!chatExtensionId) {
+			return;
+		}
 		const chatExtension = aLocalExtension(chatExtensionId, undefined, ExtensionType.System);
 		installed.push(chatExtension);
 

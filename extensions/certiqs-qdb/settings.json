@@ -1,0 +1,199 @@
+{
+	"id": "certiqs-qdb",
+	"title": "QDB",
+	"order": 20,
+	"sections": [
+		{
+			"id": "runtime",
+			"title": "QDB workbench",
+			"description": "Local FastAPI service, Postgres, and the principal token the host mints for every /internal call. Secrets stay in OS storage, not settings.json.",
+			"icon": "flask",
+			"order": 10,
+			"fields": [
+				{ "kind": "status", "id": "api" },
+				{ "kind": "status", "id": "database" },
+				{ "kind": "status", "id": "secret" },
+				{ "kind": "status", "id": "principal" },
+				{ "kind": "status", "id": "dockerAvailable" },
+				{
+					"kind": "select",
+					"id": "runtimeMode",
+					"setting": "certiqs.qdb.runtimeMode",
+					"label": "Runtime mode",
+					"description": "Local Python uses the selected interpreter. Docker publishes the same HTTP API on 127.0.0.1.",
+					"options": [
+						{ "value": "local", "label": "Local Python" },
+						{ "value": "docker", "label": "Docker container" }
+					]
+				},
+				{
+					"kind": "interpreter",
+					"id": "pythonPath",
+					"setting": "certiqs.qdb.pythonPath",
+					"label": "Python interpreter",
+					"description": "Used to run uvicorn app.main:app from the bundled python/ tree.",
+					"placeholder": "python3"
+				},
+				{
+					"kind": "number",
+					"id": "port",
+					"setting": "certiqs.qdb.port",
+					"label": "API port",
+					"description": "Localhost only. Default 8012 (Sim uses 8011)."
+				},
+				{
+					"kind": "toggle",
+					"id": "autoStartApi",
+					"setting": "certiqs.qdb.autoStartApi",
+					"label": "Auto-start API",
+					"description": "Start FastAPI when Explorer opens."
+				},
+				{
+					"kind": "text",
+					"id": "dockerImage",
+					"setting": "certiqs.qdb.dockerImage",
+					"label": "Docker image",
+					"description": "Leave empty to build certiqs-qdb:local from the extension Dockerfile.",
+					"placeholder": "certiqs-qdb:local"
+				},
+				{
+					"kind": "secret",
+					"id": "databaseUrl",
+					"secretKey": "certiqs.qdb.databaseUrl",
+					"label": "DATABASE_URL",
+					"description": "Postgres connection string (pooler host for Neon). Required to start the API.",
+					"placeholder": "postgresql://user:pass@host/db?sslmode=require"
+				},
+				{
+					"kind": "secret",
+					"id": "internalAuthSecret",
+					"secretKey": "certiqs.qdb.internalAuthSecret",
+					"label": "INTERNAL_AUTH_SECRET",
+					"description": "HS256 secret shared with FastAPI. Empty generates and stores one on first start.",
+					"placeholder": "token_urlsafe(32)"
+				},
+				{
+					"kind": "number",
+					"id": "internalAuthTtlSeconds",
+					"setting": "certiqs.qdb.internalAuthTtlSeconds",
+					"label": "Token TTL (seconds)",
+					"description": "Default 60. Minted per host-proxy call."
+				},
+				{
+					"kind": "toggle",
+					"id": "neonHttpFallback",
+					"setting": "certiqs.qdb.neonHttpFallback",
+					"label": "Neon HTTP fallback",
+					"description": "DEV-ONLY. Reads work; create/resync need a real Postgres connection."
+				},
+				{
+					"kind": "text",
+					"id": "userId",
+					"setting": "certiqs.qdb.userId",
+					"label": "Principal user id",
+					"description": "Asserted as JWT sub. Empty uses a workspace-stable id.",
+					"placeholder": "workspace-local"
+				},
+				{
+					"kind": "toggle",
+					"id": "isAdmin",
+					"setting": "certiqs.qdb.isAdmin",
+					"label": "Admin principal",
+					"description": "Allows catalogue writes and all-system visibility. The API still 403s non-admin tokens."
+				},
+				{
+					"kind": "text",
+					"id": "neo4jUri",
+					"setting": "certiqs.qdb.neo4jUri",
+					"label": "Neo4j URI",
+					"description": "Optional. Not consumed by the FastAPI engines.",
+					"placeholder": "neo4j+s://…"
+				},
+				{
+					"kind": "text",
+					"id": "neo4jUsername",
+					"setting": "certiqs.qdb.neo4jUsername",
+					"label": "Neo4j username"
+				},
+				{
+					"kind": "secret",
+					"id": "neo4jPassword",
+					"secretKey": "certiqs.qdb.neo4jPassword",
+					"label": "Neo4j password"
+				},
+				{
+					"kind": "secret",
+					"id": "anthropicApiKey",
+					"secretKey": "certiqs.qdb.anthropicApiKey",
+					"label": "Anthropic API key",
+					"description": "Optional. Not consumed by the FastAPI engines."
+				},
+				{
+					"kind": "secret",
+					"id": "voyageApiKey",
+					"secretKey": "certiqs.qdb.voyageApiKey",
+					"label": "Voyage API key"
+				},
+				{
+					"kind": "secret",
+					"id": "aiGatewayApiKey",
+					"secretKey": "certiqs.qdb.aiGatewayApiKey",
+					"label": "AI gateway API key"
+				},
+				{
+					"kind": "text",
+					"id": "aiGatewayBaseUrl",
+					"setting": "certiqs.qdb.aiGatewayBaseUrl",
+					"label": "AI gateway base URL"
+				},
+				{
+					"kind": "action",
+					"id": "save",
+					"label": "Save to user space",
+					"variant": "primary"
+				},
+				{
+					"kind": "action",
+					"id": "rebuild",
+					"label": "Rebuild image",
+					"variant": "outline"
+				},
+				{
+					"kind": "action",
+					"id": "clearSecret:databaseUrl",
+					"label": "Clear DATABASE_URL",
+					"variant": "ghost"
+				},
+				{
+					"kind": "action",
+					"id": "clearSecret:internalAuthSecret",
+					"label": "Clear auth secret",
+					"variant": "ghost"
+				}
+			]
+		},
+		{
+			"id": "development",
+			"title": "Development",
+			"description": "Compile this extension and restart the running certiqs IDE extension host.",
+			"icon": "gear",
+			"order": 20,
+			"fields": [
+				{
+					"kind": "action",
+					"id": "runDebug",
+					"label": "certiqs IDE (Hot Reload)",
+					"description": "Default compound. scripts/run-debug.sh starts watch if needed.",
+					"variant": "primary"
+				},
+				{
+					"kind": "action",
+					"id": "refreshExtensions",
+					"label": "Refresh extension host",
+					"description": "scripts/refresh-extensions.sh qdb — compile certiqs-qdb and restart the running certiqs IDE extension host.",
+					"variant": "outline"
+				}
+			]
+		}
+	]
+}

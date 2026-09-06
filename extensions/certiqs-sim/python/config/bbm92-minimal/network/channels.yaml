@@ -1,0 +1,113 @@
+# Cross-node links: quantum fibers, classical Kx1, and time-sync.
+# Edit channel physics under `channels`; edit port wiring under `bindings`.
+# `link_budget` reserves ageing / contamination / bending / measurement
+# uncertainty for later life and Monte Carlo modelling (disabled by default).
+
+schema_version: '3.1'
+channels:
+  qch_source_alice:
+    component_class: single_mode_fiber_channel
+    model_binding_id: channels.fiber.dynamic_jones.v2
+    length_km: 0.001
+    attenuation_db_per_km: 0.2
+    wavelength_nm: 1550.0
+    num_connectors: 2
+    connector_loss_db: 0.25
+    num_splices: 0
+    splice_loss_db: 0.05
+    link_budget:
+      design_margin_db: 0.5
+      apply_design_margin: false
+      ageing:
+        enabled: false
+        excess_loss_db: 0.0
+        rate_db_per_year: 0.01
+        service_life_years: 0.0
+      contamination:
+        enabled: false
+        excess_loss_db: 0.0
+        connector_contamination_prob: 0.02
+      bending:
+        enabled: false
+        excess_loss_db: 0.0
+        min_bend_radius_mm: 30.0
+        induced_loss_db_per_turn: 0.1
+        num_tight_bends: 0
+      measurement_uncertainty:
+        attenuation_db_per_km_sigma: 0.01
+        length_km_sigma: 0.001
+        splice_loss_db_sigma: 0.02
+        connector_loss_db_sigma: 0.05
+        loss_budget_confidence: 0.95
+  qch_source_bob:
+    component_class: single_mode_fiber_channel
+    model_binding_id: channels.fiber.dynamic_jones.v2
+    length_km: 12.0
+    attenuation_db_per_km: 0.2
+    wavelength_nm: 1550.0
+    num_connectors: 2
+    connector_loss_db: 0.25
+    num_splices: 4
+    splice_loss_db: 0.05
+    link_budget:
+      design_margin_db: 1.0
+      apply_design_margin: false
+      ageing:
+        enabled: false
+        excess_loss_db: 0.0
+        rate_db_per_year: 0.02
+        service_life_years: 0.0
+      contamination:
+        enabled: false
+        excess_loss_db: 0.0
+        connector_contamination_prob: 0.05
+      bending:
+        enabled: false
+        excess_loss_db: 0.0
+        min_bend_radius_mm: 30.0
+        induced_loss_db_per_turn: 0.1
+        num_tight_bends: 0
+      measurement_uncertainty:
+        attenuation_db_per_km_sigma: 0.01
+        length_km_sigma: 0.05
+        splice_loss_db_sigma: 0.02
+        connector_loss_db_sigma: 0.05
+        loss_budget_confidence: 0.95
+  cch_alice_bob:
+    component_class: classical_network_link
+    edge_kind: digital
+    bidirectional: true
+    bandwidth_mbps: 1000
+    one_way_latency_ms: 0.8
+  sync_source_alice:
+    component_class: time_sync_channel
+    one_way_latency_ns: 60000
+  sync_source_bob:
+    component_class: time_sync_channel
+    one_way_latency_ns: 60000
+bindings:
+- channel_id: qch_source_alice
+  from_port: source_out_alice
+  to_port: alice_pam_in
+  from_package: pkg_source
+  to_package: pkg_alice
+- channel_id: qch_source_bob
+  from_port: source_out_bob
+  to_port: bob_pam_in
+  from_package: pkg_source
+  to_package: pkg_bob
+- channel_id: cch_alice_bob
+  from_port: kx1_alice
+  to_port: kx1_bob
+  from_package: pkg_alice
+  to_package: pkg_bob
+- channel_id: sync_source_alice
+  from_port: sync_out
+  to_port: sync_in
+  from_package: network
+  to_package: pkg_alice
+- channel_id: sync_source_bob
+  from_port: sync_out
+  to_port: sync_in
+  from_package: network
+  to_package: pkg_bob

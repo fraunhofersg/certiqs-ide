@@ -296,6 +296,19 @@
 	background-size: 16px;
 }
 
+/* CERTIQS: selectable app icon */
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-left > .window-appicon.certiqs-app-icon-color-on-white:not(.codicon) {
+	background-image: url('../../../media/certiqs-app-icon-color-on-white.svg');
+}
+
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-left > .window-appicon.certiqs-app-icon-black-on-white:not(.codicon) {
+	background-image: url('../../../media/certiqs-app-icon-black-on-white.svg');
+}
+
+.monaco-workbench .part.titlebar > .titlebar-container > .titlebar-left > .window-appicon.certiqs-app-icon-white-on-black:not(.codicon) {
+	background-image: url('../../../media/certiqs-app-icon-white-on-black.svg');
+}
+
 .monaco-workbench .part.titlebar > .titlebar-container > .titlebar-left > .window-appicon.codicon {
 	line-height: 30px;
 }

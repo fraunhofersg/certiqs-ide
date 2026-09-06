@@ -1,0 +1,15 @@
+schema_version: '3.1'
+post_processing:
+  reconciliation:
+    component_class: ldpc_reconciliation
+    model_binding_id: postprocessing.ldpc.rate_adaptive.v2
+  privacy_amplification:
+    component_class: two_universal_hashing
+    model_binding_id: postprocessing.two_universal_hashing.v1
+  finite_key_engine:
+    component_class: finite_key_engine
+    model_binding_id: security.finite_key_bbm92.v1
+  key_manager:
+    component_class: key_store_interface
+    component_id: bob_key_store
+    export_policy: net_secret_key_only

@@ -1,0 +1,42 @@
+schema_version: '4.0'
+package_id: pkg_alice
+node_id: node_alice
+node_role: measurement_node
+layout:
+  lane: left
+  order: 1
+  endpoint_side: alice
+provides:
+- alice_timestamps_out
+- kx1_alice
+requires:
+- qch_source_alice
+- sync_source_alice
+- protocol:bbm92
+boundary_ports:
+  kx1_alice:
+    owner_id: alice_kma
+    interface_type: boundary
+    direction: inout
+    edge_kind: digital
+    signal_type: kx1_key_relay
+    boundary: true
+    comment: Authenticated bidirectional digital link to peer node
+    connector:
+      position: right
+      size: normal
+      style: color
+      color: '#fb7185'
+  alice_timestamps_out:
+    owner_id: alice_tdc
+    interface_type: boundary
+    direction: out
+    signal_type: timestamp_event_stream
+    boundary: true
+    comment: To network coincidence processor (Alice authoritative)
+node:
+  node_id: node_alice
+  name: Alice Measurement Node
+  node_role: measurement_node
+  device_ids:
+  - device_alice_01

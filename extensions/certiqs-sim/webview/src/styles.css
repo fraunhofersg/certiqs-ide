@@ -1,0 +1,106 @@
+@import "tailwindcss";
+@import "@heroui/styles";
+@import "../../../certiqs-theme/webview/theme.css";
+
+@source "./**/*.{ts,tsx}";
+
+@layer components {
+	.welcome .accordion__trigger {
+		font-size: 13px;
+		font-weight: 600;
+	}
+
+	.welcome .accordion__body {
+		padding-top: 0.25rem;
+		padding-bottom: 0.85rem;
+	}
+}
+
+.metric-range-chart .recharts-cartesian-axis-tick-value,
+.metric-range-chart .recharts-label {
+	font-size: 11px !important;
+	fill: var(--muted);
+}
+
+.twin-topology-canvas {
+	--color-accent: var(--accent);
+	--color-separator: var(--separator);
+	--color-muted: var(--muted);
+	--color-surface-secondary: var(--surface);
+}
+
+.twin-topology-canvas .react-flow__node {
+	background: transparent;
+}
+
+.twin-group-frame {
+	background: transparent;
+}
+
+.twin-group-frame--device {
+	border: 2px solid color-mix(in srgb, var(--accent) 55%, var(--separator));
+}
+
+.twin-group-frame--node {
+	border: 2px dashed color-mix(in srgb, #a855f7 60%, var(--separator));
+}
+
+.twin-group-frame--coord {
+	border: 2px dotted color-mix(in srgb, #eab308 55%, var(--separator));
+}
+
+.twin-group-frame--kms {
+	border: 2px solid color-mix(in srgb, #10b981 55%, var(--separator));
+}
+
+.twin-group-frame--post {
+	border: 2px solid color-mix(in srgb, #f43f5e 45%, var(--separator));
+}
+
+.twin-group-frame--domain {
+	border: 1px dashed color-mix(in srgb, #64748b 40%, var(--separator));
+}
+
+.twin-group-frame[data-minimal="true"] {
+	border: 1px dashed color-mix(in srgb, var(--muted) 45%, var(--separator)) !important;
+	border-radius: 4px;
+	background: transparent !important;
+}
+
+.twin-group-frame--module {
+	border: 2px solid color-mix(in srgb, #f59e0b 45%, var(--separator));
+}
+
+.twin-group-frame--system {
+	border: 2px solid color-mix(in srgb, #6366f1 55%, var(--separator));
+}
+
+.twin-group-frame--default {
+	border: 2px dashed var(--separator);
+}
+
+.twin-group-frame--active {
+	border-color: var(--accent);
+	background: color-mix(in srgb, var(--accent) 8%, transparent);
+	box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent);
+}
+
+.twin-group-frame[data-nested="true"] {
+	border-style: dashed !important;
+	border-width: 1.5px !important;
+	background: color-mix(in srgb, var(--surface) 20%, transparent);
+}
+
+.twin-group-frame[data-nested="true"].twin-group-frame--active {
+	border-style: solid !important;
+	border-width: 2px !important;
+	background: color-mix(in srgb, var(--accent) 9%, transparent);
+}
+
+.twin-topology-canvas .react-flow__edge.twin-edge--internal {
+	opacity: 0.45;
+}
+
+.twin-topology-canvas .react-flow__edge.twin-edge--selected .react-flow__edge-path {
+	stroke-width: 3;
+}

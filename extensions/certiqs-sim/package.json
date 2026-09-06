@@ -1,0 +1,252 @@
+{
+	"name": "certiqs-sim",
+	"displayName": "certiqs Sim",
+	"description": "Bundled certiqsSim control plane and run control. Simulation only — not a measurement or conformity statement.",
+	"version": "0.0.1",
+	"publisher": "certiqs",
+	"license": "MIT",
+	"engines": {
+		"vscode": "^1.137.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"capabilities": {
+		"virtualWorkspaces": false,
+		"untrustedWorkspaces": {
+			"supported": false,
+			"description": "Starting the simulation control plane requires a trusted workspace."
+		}
+	},
+	"activationEvents": [
+		"onView:certiqs.sim.panel",
+		"onCommand:certiqs.sim.open",
+		"onCommand:certiqs.sim.startApi",
+		"onCommand:certiqs.sim.stopApi",
+		"onCommand:certiqs.sim.showLog",
+		"onCommand:certiqs.sim.openWelcome",
+		"onCommand:certiqs.sim.openDashboard",
+		"onCommand:certiqs.sim.openSystem",
+		"onCommand:certiqs.sim.showPrompt",
+		"onCommand:certiqs.sim.settings",
+		"onCommand:certiqs.sim.runtime",
+		"onCommand:certiqs.sim.installEngine"
+	],
+	"main": "./out/extension",
+	"scripts": {
+		"compile": "tsc -p ./ && vite build --config webview/vite.config.ts",
+		"watch": "tsc -watch -p ./",
+		"watch:webview": "vite build --watch --config webview/vite.config.ts"
+	},
+	"contributes": {
+		"certiqsSettings": {
+			"id": "certiqs-sim",
+			"command": "certiqs.sim.settings"
+		},
+		"certiqsRuntime": {
+			"id": "certiqs-sim",
+			"command": "certiqs.sim.runtime"
+		},
+		"commands": [
+			{
+				"command": "certiqs.sim.open",
+				"title": "Open Sim",
+				"category": "certiqs"
+			},
+			{
+				"command": "certiqs.sim.openWelcome",
+				"title": "Open Sim Overview",
+				"category": "certiqs",
+				"icon": "$(book)"
+			},
+			{
+				"command": "certiqs.sim.openDashboard",
+				"title": "Open Sim Dashboard",
+				"category": "certiqs",
+				"icon": "$(graph)"
+			},
+			{
+				"command": "certiqs.sim.openSystem",
+				"title": "Open Sim System",
+				"category": "certiqs",
+				"icon": "$(type-hierarchy)"
+			},
+			{
+				"command": "certiqs.sim.showPrompt",
+				"title": "Open Sim Prompt Terminal",
+				"category": "certiqs",
+				"icon": "$(terminal)"
+			},
+			{
+				"command": "certiqs.sim.startApi",
+				"title": "Start Sim API",
+				"category": "certiqs",
+				"icon": "$(play)"
+			},
+			{
+				"command": "certiqs.sim.stopApi",
+				"title": "Stop Sim API",
+				"category": "certiqs",
+				"icon": "$(debug-stop)"
+			},
+			{
+				"command": "certiqs.sim.showLog",
+				"title": "Show Sim Log",
+				"category": "certiqs",
+				"icon": "$(output)"
+			},
+			{
+				"command": "certiqs.sim.settings",
+				"title": "Sim Settings",
+				"category": "certiqs"
+			},
+			{
+				"command": "certiqs.sim.installEngine",
+				"title": "Install NetSquid Engine",
+				"category": "certiqs"
+			},
+			{
+				"command": "certiqs.sim.runtime",
+				"title": "Sim Runtime",
+				"category": "certiqs"
+			}
+		],
+		"configuration": {
+			"title": "certiqs Sim",
+			"properties": {
+				"certiqs.sim.pythonPath": {
+					"type": "string",
+					"default": "python3",
+					"description": "Interpreter for the control plane and NetSquid. Must be Python 3.8–3.11. The bundled python/.venv is 3.13 and has no NetSquid wheels."
+				},
+				"certiqs.sim.port": {
+					"type": "number",
+					"default": 8011,
+					"description": "Local port for the certiqsSim HTTP API (127.0.0.1 only)."
+				},
+				"certiqs.sim.autoStartApi": {
+					"type": "boolean",
+					"default": true,
+					"description": "Start the control plane when the Sim view opens."
+				},
+				"certiqs.sim.runtimeMode": {
+					"type": "string",
+					"enum": [
+						"local",
+						"docker"
+					],
+					"default": "local",
+					"description": "How the bundled control plane runs: local interpreter or a dedicated Docker container."
+				},
+				"certiqs.sim.dockerImage": {
+					"type": "string",
+					"default": "",
+					"description": "Optional image tag. Empty builds and runs certiqs-sim:local from the extension Dockerfile."
+				},
+				"certiqs.sim.netsquidPypiUser": {
+					"type": "string",
+					"default": "",
+					"description": "Username for the NetSquid private PyPI (pypi.netsquid.org). Stored in user settings. The password is stored in secret storage, not here."
+				},
+				"certiqs.sim.netsquidPypiUrl": {
+					"type": "string",
+					"default": "",
+					"description": "Optional full extra-index URL. When set, it overrides username/password for install."
+				}
+			}
+		},
+		"viewsContainers": {
+			"activitybar": [
+				{
+					"id": "certiqs-sim",
+					"title": "certiqs Sim",
+					"icon": "$(beaker)"
+				}
+			]
+		},
+		"views": {
+			"certiqs-sim": [
+				{
+					"type": "webview",
+					"id": "certiqs.sim.panel",
+					"name": "Run Control",
+					"icon": "$(beaker)",
+					"visibility": "visible"
+				}
+			]
+		},
+		"menus": {
+			"commandPalette": [
+				{
+					"command": "certiqs.sim.settings",
+					"when": "false"
+				},
+				{
+					"command": "certiqs.sim.runtime",
+					"when": "false"
+				}
+			],
+			"view/title": [
+				{
+					"command": "certiqs.sim.openWelcome",
+					"when": "view == certiqs.sim.panel",
+					"group": "navigation@1"
+				},
+				{
+					"command": "certiqs.sim.openDashboard",
+					"when": "view == certiqs.sim.panel",
+					"group": "navigation@2"
+				},
+				{
+					"command": "certiqs.sim.openSystem",
+					"when": "view == certiqs.sim.panel",
+					"group": "navigation@3"
+				},
+				{
+					"command": "certiqs.sim.startApi",
+					"when": "view == certiqs.sim.panel",
+					"group": "navigation@4"
+				},
+				{
+					"command": "certiqs.sim.stopApi",
+					"when": "view == certiqs.sim.panel",
+					"group": "navigation@5"
+				},
+				{
+					"command": "certiqs.sim.showLog",
+					"when": "view == certiqs.sim.panel",
+					"group": "navigation@6"
+				},
+				{
+					"command": "certiqs.sim.showPrompt",
+					"when": "view == certiqs.sim.panel",
+					"group": "navigation@7"
+				}
+			]
+		}
+	},
+	"devDependencies": {
+		"@tailwindcss/vite": "^4.3.3",
+		"@types/node": "24.x",
+		"@types/react": "^19.2.18",
+		"@types/react-dom": "^19.2.7",
+		"@vitejs/plugin-react": "^4.3.4",
+		"react": "^19.2.8",
+		"react-dom": "^19.2.8",
+		"tailwindcss": "^4.3.3",
+		"typescript": "^5.8.2",
+		"vite": "^6.2.0"
+	},
+	"dependencies": {
+		"@gravity-ui/icons": "^2.22.0",
+		"@heroui/react": "^3.2.4",
+		"@heroui/styles": "^3.2.4",
+		"@xyflow/react": "^12.11.6",
+		"motion": "^13.2.0",
+		"recharts": "^2.15.4"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/fraunhofersg/certiqs-ide.git"
+	}
+}

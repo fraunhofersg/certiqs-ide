@@ -154,7 +154,26 @@ export class DefaultAccountService extends Disposable implements IDefaultAccount
 		@IProductService productService: IProductService,
 	) {
 		super();
-		this.defaultAccountConfig = toDefaultAccountConfig(productService.defaultChatAgent);
+		if (productService.defaultChatAgent) {
+			this.defaultAccountConfig = toDefaultAccountConfig(productService.defaultChatAgent);
+		} else {
+			// CERTIQS: no default chat agent — do not wire GitHub Copilot account
+			this.defaultAccountConfig = {
+				preferredExtensions: [],
+				authenticationProvider: {
+					default: { id: '', name: '' },
+					enterprise: { id: '', name: '' },
+					enterpriseProviderConfig: '',
+					enterpriseProviderUriSetting: '',
+					scopes: [],
+				},
+				tokenEntitlementUrl: '',
+				entitlementUrl: '',
+				mcpRegistryDataUrl: '',
+				managedSettingsUrl: '',
+			};
+			this.initBarrier.open();
+		}
 	}
 
 	async getDefaultAccount(): Promise<IDefaultAccount | null> {
@@ -1641,6 +1660,10 @@ class DefaultAccountProviderContribution extends Disposable implements IWorkbenc
 		@IDefaultAccountService defaultAccountService: IDefaultAccountService,
 	) {
 		super();
+		// CERTIQS: skip Copilot default-account provider when unwired
+		if (!productService.defaultChatAgent) {
+			return;
+		}
 		const defaultAccountProvider = this._register(instantiationService.createInstance(DefaultAccountProvider, toDefaultAccountConfig(productService.defaultChatAgent)));
 		defaultAccountService.setDefaultAccountProvider(defaultAccountProvider);
 	}

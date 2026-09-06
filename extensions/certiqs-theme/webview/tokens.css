@@ -1,0 +1,122 @@
+/*
+ * Certiqs webview design tokens.
+ * Fallback hex values must match extensions/certiqs-theme/themes/certiqs-dark.json.
+ * Inside a VS Code webview, --vscode-* is injected from the active color theme.
+ */
+
+:root,
+.dark,
+[data-theme="dark"] {
+	color-scheme: dark;
+
+	--background: var(--vscode-sideBar-background, #0b0b0b);
+	--foreground: var(--vscode-foreground, #e8e8e8);
+	--surface: var(--vscode-editorWidget-background, #141414);
+	--surface-foreground: var(--foreground);
+	--overlay: var(--vscode-editorWidget-background, #141414);
+	--overlay-foreground: var(--foreground);
+	--muted: var(--vscode-descriptionForeground, #8a8a8a);
+	--accent: var(--vscode-textLink-foreground, #00e599);
+	--accent-foreground: var(--vscode-button-foreground, #0b0b0b);
+	--default: var(--vscode-button-secondaryBackground, #1a1a1a);
+	--default-foreground: var(--vscode-button-secondaryForeground, #e8e8e8);
+	--field-background: var(--vscode-input-background, #141414);
+	--field-foreground: var(--vscode-input-foreground, #e8e8e8);
+	--field-placeholder: var(--vscode-input-placeholderForeground, #5c5c5c);
+	--field-border: var(--vscode-input-border, #2a2a2a);
+	--border: var(--vscode-widget-border, #2a2a2a);
+	--separator: var(--vscode-sideBar-border, #1f1f1f);
+	--focus: var(--vscode-focusBorder, #00e59999);
+	--link: var(--vscode-textLink-foreground, #00e599);
+	--success: var(--vscode-textLink-foreground, #00e599);
+	--success-foreground: var(--vscode-button-foreground, #0b0b0b);
+	--danger: var(--vscode-errorForeground, #ff6b6b);
+	--danger-foreground: var(--vscode-button-foreground, #0b0b0b);
+
+	--radius: 0.375rem;
+	--field-radius: 0.375rem;
+	--border-width: 1px;
+	--field-border-width: 1px;
+	--border-width-field: 1px;
+	--surface-shadow: 0 0 0 0 transparent;
+	--overlay-shadow: 0 0 0 0 transparent;
+	--field-shadow: 0 0 0 0 transparent;
+
+	--color-muted: var(--muted);
+	--color-separator: var(--separator);
+	--color-accent: var(--accent);
+}
+
+body[data-surface="lens"],
+body[data-surface="chat"],
+body[data-surface="brainstorm"],
+body[data-surface="architect"],
+body[data-surface="overview"],
+body[data-surface="welcome"],
+body[data-surface="dashboard"],
+body[data-surface="system"],
+body[data-surface="hub"],
+body[data-surface="systems"],
+body[data-surface="wizard"],
+body[data-surface="applicability"],
+body[data-surface="search"],
+body[data-surface="vulnerabilities"],
+body[data-surface="eas"],
+body[data-surface="countermeasures"],
+body[data-surface="documents"] {
+	--background: var(--vscode-editor-background, #111111);
+}
+
+html,
+body,
+#root {
+	margin: 0;
+	min-height: 100%;
+	background: var(--background);
+	color: var(--foreground);
+	font-family: var(--vscode-font-family, ui-sans-serif, system-ui, sans-serif);
+	font-size: 12px;
+}
+
+html,
+body {
+	height: 100%;
+}
+
+body[data-surface="lens"],
+body[data-surface="chat"],
+body[data-surface="brainstorm"],
+body[data-surface="architect"],
+body[data-surface="overview"],
+body[data-surface="welcome"],
+body[data-surface="dashboard"],
+body[data-surface="system"],
+body[data-surface="hub"],
+body[data-surface="systems"],
+body[data-surface="wizard"],
+body[data-surface="applicability"],
+body[data-surface="search"],
+body[data-surface="vulnerabilities"],
+body[data-surface="eas"],
+body[data-surface="countermeasures"],
+body[data-surface="documents"],
+body[data-surface="lens"] #root,
+body[data-surface="chat"] #root,
+body[data-surface="brainstorm"] #root,
+body[data-surface="architect"] #root,
+body[data-surface="overview"] #root,
+body[data-surface="welcome"] #root,
+body[data-surface="dashboard"] #root,
+body[data-surface="system"] #root,
+body[data-surface="hub"] #root,
+body[data-surface="systems"] #root,
+body[data-surface="wizard"] #root,
+body[data-surface="applicability"] #root,
+body[data-surface="search"] #root,
+body[data-surface="vulnerabilities"] #root,
+body[data-surface="eas"] #root,
+body[data-surface="countermeasures"] #root,
+body[data-surface="documents"] #root {
+	height: 100%;
+	font-size: 13px;
+}

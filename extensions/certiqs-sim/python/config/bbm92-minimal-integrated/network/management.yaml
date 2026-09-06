@@ -1,0 +1,9 @@
+schema_version: '3.1'
+metrics:
+  protocol:
+  - sifted_key_rate
+  - qber_z
+  - qber_x
+  optical:
+  - coincidence_rate
+  - visibility

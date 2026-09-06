@@ -1,0 +1,33 @@
+# QBER anomaly detection + forensics (see repo forensics.txt concept).
+# Loaded from active config: shared/forensics.yaml
+schema_version: "1.0"
+
+forensics:
+  metric_key: qber
+  # Expected QBER when not overridden by technical_ranges.nominal
+  expected_qber: 0.025
+  # Minimum sifted bits for full confidence (lower bits → dampened alarms)
+  min_confident_bits: 500
+  # Rolling windows in epochs (simulation time steps)
+  windows:
+    short: 10
+    medium: 60
+    long: 180
+  # Composite anomaly score weights (should roughly sum to ~1)
+  weights:
+    range: 0.30
+    deviation: 0.20
+    trend: 0.20
+    persistence: 0.20
+    basis: 0.10
+  # Score thresholds → state
+  states:
+    observation: 0.25
+    warning: 0.50
+    alarm: 0.75
+  # Persistence / spike helpers
+  max_streak_for_observation: 2
+  trend_alarm_slope: 0.008
+  # Optional basis-specific metric keys (null if not emitted)
+  basis_metric_x: null
+  basis_metric_z: null

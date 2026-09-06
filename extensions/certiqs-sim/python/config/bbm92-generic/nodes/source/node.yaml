@@ -1,0 +1,33 @@
+schema_version: '4.0'
+package_id: pkg_source
+node_id: node_source
+node_role: entangled_source
+layout:
+  lane: center
+  order: 0
+  endpoint_side: source
+provides:
+- source_out_alice
+- source_out_bob
+requires:
+- protocol:bbm92
+node:
+  node_id: node_source
+  name: Central Entangled-Photon Source Node
+  node_role: entangled_source
+  location:
+    site_id: lab_a
+    zone: optical_bench_source
+  device_ids:
+  - device_source_01
+boundary_ports:
+  source_out_alice:
+    owner_id: source_pair_separator
+    interface_type: optical
+    direction: out
+    signal_type: quantum_optical_stream
+  source_out_bob:
+    owner_id: source_pair_separator
+    interface_type: optical
+    direction: out
+    signal_type: quantum_optical_stream

@@ -1,0 +1,529 @@
+taxonomy_id: caqkd_hierarchical_taxonomy
+version: 2.0.0
+structural_levels:
+- qkd_system
+- qkd_node
+- qkd_box
+- domain
+- subdomain
+- module
+- component
+functional_domains:
+  quantum_optics:
+  - source_generation
+  - transmitting_components
+  - state_preparation
+  - polarization_analysis
+  - detecting_components
+  - optical_monitoring
+  - optical_protection
+  electronics:
+  - detector_bias_and_gating
+  - detector_front_end
+  - click_registration
+  - timing_and_time_tagging
+  - synchronization
+  - digital_signal_processing
+  - control_electronics
+  - communication_interfaces
+  - power_management
+  - environmental_monitoring
+  software:
+  - time_tag_ingestion
+  - timing_alignment
+  - delay_calibration
+  - coincidence_correlation
+  - event_validation
+  - coincidence_monitoring
+  - basis_reconciliation
+  - parameter_estimation
+  - information_reconciliation
+  - key_verification
+  - privacy_amplification
+  - final_key_management
+  - cross_cutting
+  - embedded_firmware
+  - hardware_drivers
+  - device_control
+  - calibration_and_alignment
+  - acquisition
+  - time_tag_processing
+  - protocol_processing
+  - key_post_processing
+  - monitoring_and_logging
+  - security_management
+  - external_api
+  - orchestration
+legacy_taxonomy:
+  schema_version: '1.0'
+  component_taxonomy:
+    taxonomy_id: caqkd_component_taxonomy
+    name: Computer-Aided QKD Component Category Reference
+    description: Reference classification for logical simulation models, candidate
+      products, physical devices, test instruments, and digital-twin assets used by
+      the CA-QKD environment.
+    usage:
+      category_reference_field: classification.category_id
+      subcategory_reference_field: classification.subcategory_id
+      component_class_reference_field: component_class
+      allow_multiple_classifications: false
+      unknown_value_policy: use category_id other and document extension request
+      icon_path_base: assets/icons/component_categories/
+    reference_semantics:
+      description: Human-readable scope and inclusion guidance.
+      references: Standards, recommendations, papers, or controlled internal references
+        relevant to the category.
+      icon: UI-safe image metadata. The file path is relative to the configuration
+        package root after resolving ../ from config/.
+      applicable_component_classes: Known model-registry component classes that normally
+        map to the subcategory.
+    categories:
+    - category_id: quantum_sources
+      name: Quantum Sources
+      description: Devices and assemblies that generate optical pump pulses, single
+        photons, entangled photon pairs, or other quantum optical states used by the
+        QKD protocol.
+      icon:
+        icon_id: quantum_source
+        file: ../assets/icons/component_categories/quantum_sources.svg
+        media_type: image/svg+xml
+        alt_text: Stylized entangled photon-pair source icon
+      references:
+      - type: standard
+        title: 'ISO/IEC 23837-1:2023 — Security requirements, test and evaluation
+          methods for QKD — Part 1: Requirements'
+        uri: https://www.iso.org/standard/77097.html
+      - type: technical
+        title: 'BBM92 protocol: Quantum cryptography based on Bell’s theorem'
+        citation: C. H. Bennett, G. Brassard, and N. D. Mermin, Physical Review Letters
+          68, 557–559 (1992).
+        uri: https://doi.org/10.1103/PhysRevLett.68.557
+      subcategories:
+      - subcategory_id: pump_lasers
+        name: Pump Lasers
+        description: Pulsed or continuous-wave laser sources used to drive nonlinear
+          photon-pair generation.
+        applicable_component_classes:
+        - pulsed_laser
+        - cw_laser
+        icon:
+          icon_id: pump_laser
+          file: ../assets/icons/component_categories/pump_lasers.svg
+          media_type: image/svg+xml
+          alt_text: Pulsed laser icon
+        references: []
+      - subcategory_id: entangled_pair_sources
+        name: Entangled Photon-Pair Sources
+        description: SPDC, SFWM, quantum-dot, or related sources engineered to produce
+          correlated or entangled photon pairs.
+        applicable_component_classes:
+        - entangled_pair_source_spdc
+        - entangled_pair_source_sfwm
+        icon:
+          icon_id: entangled_pairs
+          file: ../assets/icons/component_categories/entangled_pair_sources.svg
+          media_type: image/svg+xml
+          alt_text: Entangled photon-pair icon
+        references: []
+    - category_id: optical_components
+      name: Optical Components
+      description: Passive and active optical elements that route, filter, encode,
+        analyse, compensate, or monitor quantum and classical optical signals.
+      icon:
+        icon_id: optical_component
+        file: ../assets/icons/component_categories/optical_components.svg
+        media_type: image/svg+xml
+        alt_text: Optical path and component icon
+      references:
+      - type: standard
+        title: IEC 61300 series — Fibre optic interconnecting devices and passive
+          components — Basic test and measurement procedures
+        uri: https://www.iec.ch
+      subcategories:
+      - subcategory_id: polarization_control
+        name: Polarization Control and Compensation
+        description: Controllers, wave plates, compensators, and feedback-actuated
+          elements used to prepare or stabilize polarization states.
+        applicable_component_classes:
+        - polarization_controller
+        - half_wave_plate
+        - quarter_wave_plate
+        - compensation_crystal
+        icon:
+          icon_id: polarization
+          file: ../assets/icons/component_categories/polarization_control.svg
+          media_type: image/svg+xml
+          alt_text: Polarization control icon
+        references: []
+      - subcategory_id: beam_splitters
+        name: Beam Splitters and Couplers
+        description: Polarizing or non-polarizing splitters and fibre couplers used
+          for basis selection, routing, and state analysis.
+        applicable_component_classes:
+        - nonpolarizing_beamsplitter
+        - polarizing_beamsplitter
+        - fiber_coupler
+        icon:
+          icon_id: beam_splitter
+          file: ../assets/icons/component_categories/beam_splitters.svg
+          media_type: image/svg+xml
+          alt_text: Beam splitter icon
+        references: []
+      - subcategory_id: filters_and_isolators
+        name: Filters, Isolators, and Attenuators
+        description: Components used for spectral selection, optical isolation, power
+          control, and suppression of out-of-band or back-propagating light.
+        applicable_component_classes:
+        - optical_filter
+        - optical_isolator
+        - variable_optical_attenuator
+        icon:
+          icon_id: filter
+          file: ../assets/icons/component_categories/filters_and_isolators.svg
+          media_type: image/svg+xml
+          alt_text: Optical filter icon
+        references: []
+    - category_id: quantum_channels
+      name: Quantum and Optical Channels
+      description: Physical transmission paths and channel models carrying quantum
+        optical states between QKD subsystems.
+      icon:
+        icon_id: quantum_channel
+        file: ../assets/icons/component_categories/quantum_channels.svg
+        media_type: image/svg+xml
+        alt_text: Quantum channel icon
+      references:
+      - type: recommendation
+        title: ITU-T Y.3800 — Overview on networks supporting quantum key distribution
+        uri: https://www.itu.int/rec/T-REC-Y.3800
+      subcategories:
+      - subcategory_id: fiber_channels
+        name: Fibre-Optic Channels
+        description: Single-mode, multimode, multicore, or specialty fibre links including
+          connectors, splices, loss, dispersion, PMD, and drift.
+        applicable_component_classes:
+        - single_mode_fiber_channel
+        - fiber_channel
+        icon:
+          icon_id: fiber
+          file: ../assets/icons/component_categories/fiber_channels.svg
+          media_type: image/svg+xml
+          alt_text: Fibre-optic channel icon
+        references: []
+      - subcategory_id: free_space_channels
+        name: Free-Space Optical Channels
+        description: Atmospheric, terrestrial, airborne, and space optical links with
+          geometric loss, turbulence, pointing, and background-light effects.
+        applicable_component_classes:
+        - free_space_quantum_channel
+        icon:
+          icon_id: free_space
+          file: ../assets/icons/component_categories/free_space_channels.svg
+          media_type: image/svg+xml
+          alt_text: Free-space optical channel icon
+        references: []
+    - category_id: photon_detection
+      name: Photon Detection
+      description: Single-photon and optical-power detection components, associated
+        front-end electronics, and calibrated detector response models.
+      icon:
+        icon_id: photon_detector
+        file: ../assets/icons/component_categories/photon_detection.svg
+        media_type: image/svg+xml
+        alt_text: Single-photon detector icon
+      references:
+      - type: standard
+        title: 'ISO/IEC 23837-2:2023 — Security requirements, test and evaluation
+          methods for QKD — Part 2: Evaluation and testing methods'
+        uri: https://www.iso.org/standard/77098.html
+      subcategories:
+      - subcategory_id: single_photon_detectors
+        name: Single-Photon Detectors
+        description: SPAD, SNSPD, photomultiplier, and related detector technologies
+          operated at or near the single-photon level.
+        applicable_component_classes:
+        - single_photon_detector
+        - spad_detector
+        - snspd_detector
+        icon:
+          icon_id: single_photon_detector
+          file: ../assets/icons/component_categories/single_photon_detectors.svg
+          media_type: image/svg+xml
+          alt_text: Single-photon detector icon
+        references: []
+      - subcategory_id: monitoring_detectors
+        name: Monitoring and Watchdog Detectors
+        description: Photodiodes and monitors used for power supervision, backflash
+          monitoring, attack detection, and receiver protection.
+        applicable_component_classes:
+        - optical_power_monitor
+        - watchdog_detector
+        icon:
+          icon_id: watchdog
+          file: ../assets/icons/component_categories/monitoring_detectors.svg
+          media_type: image/svg+xml
+          alt_text: Optical monitoring detector icon
+        references: []
+    - category_id: timing_and_synchronization
+      name: Timing and Synchronization
+      description: Instrumentation and logic for timestamping, clock distribution,
+        time transfer, delay calibration, and coincidence alignment.
+      icon:
+        icon_id: timing
+        file: ../assets/icons/component_categories/timing_and_synchronization.svg
+        media_type: image/svg+xml
+        alt_text: Clock and timing icon
+      references:
+      - type: standard
+        title: IEEE 1588-2019 — Precision Clock Synchronization Protocol for Networked
+          Measurement and Control Systems
+        uri: https://standards.ieee.org/standard/1588-2019.html
+      subcategories:
+      - subcategory_id: time_tagging
+        name: Time Tagging and TDCs
+        description: Time-to-digital converters and timestamping instruments used
+          to digitize detector events with calibrated resolution and nonlinearity.
+        applicable_component_classes:
+        - time_to_digital_converter
+        - time_tagger
+        icon:
+          icon_id: tdc
+          file: ../assets/icons/component_categories/time_tagging.svg
+          media_type: image/svg+xml
+          alt_text: Time-to-digital converter icon
+        references: []
+      - subcategory_id: clock_sync
+        name: Clock and Time Synchronization
+        description: Clock sources, synchronization channels, delay generators, and
+          servo loops that establish a common timebase.
+        applicable_component_classes:
+        - clock_source
+        - time_sync_unit
+        - delay_generator
+        icon:
+          icon_id: clock_sync
+          file: ../assets/icons/component_categories/clock_sync.svg
+          media_type: image/svg+xml
+          alt_text: Synchronized clocks icon
+        references: []
+    - category_id: digital_processing
+      name: Digital Processing and Control
+      description: FPGA, processor, embedded-control, event-processing, and hardware-acceleration
+        components used in the QKD signal and protocol pipeline.
+      icon:
+        icon_id: digital_processing
+        file: ../assets/icons/component_categories/digital_processing.svg
+        media_type: image/svg+xml
+        alt_text: FPGA and digital logic icon
+      references:
+      - type: standard
+        title: ISO/IEC 15408 — Information security, cybersecurity and privacy protection
+          — Evaluation criteria for IT security
+        uri: https://www.iso.org/standard/72891.html
+      subcategories:
+      - subcategory_id: coincidence_processing
+        name: Coincidence and Event Processing
+        description: Real-time matching, filtering, buffering, event classification,
+          and statistics logic for detector timestamps.
+        applicable_component_classes:
+        - fpga_coincidence_matcher
+        - event_processor
+        icon:
+          icon_id: coincidence
+          file: ../assets/icons/component_categories/coincidence_processing.svg
+          media_type: image/svg+xml
+          alt_text: Coincidence event matching icon
+        references: []
+      - subcategory_id: embedded_control
+        name: Embedded Control Platforms
+        description: FPGAs, microcontrollers, SoCs, and industrial controllers hosting
+          QKD control and acquisition functions.
+        applicable_component_classes:
+        - fpga_platform
+        - microcontroller
+        - embedded_soc
+        icon:
+          icon_id: embedded
+          file: ../assets/icons/component_categories/embedded_control.svg
+          media_type: image/svg+xml
+          alt_text: Embedded controller icon
+        references: []
+    - category_id: classical_communications
+      name: Classical Communications
+      description: Authenticated classical channels, network interfaces, transport
+        protocols, and communication equipment used for sifting, reconciliation, management,
+        and key delivery.
+      icon:
+        icon_id: classical_network
+        file: ../assets/icons/component_categories/classical_communications.svg
+        media_type: image/svg+xml
+        alt_text: Classical network link icon
+      references:
+      - type: recommendation
+        title: ITU-T Y.3803 — Quantum key distribution networks — Key management
+        uri: https://www.itu.int/rec/T-REC-Y.3803
+      subcategories:
+      - subcategory_id: network_interfaces
+        name: Network Interfaces and Links
+        description: Ethernet, optical, serial, radio, and virtual network interfaces
+          carrying QKD control and post-processing traffic.
+        applicable_component_classes:
+        - ethernet_interface
+        - classical_link
+        icon:
+          icon_id: network_interface
+          file: ../assets/icons/component_categories/network_interfaces.svg
+          media_type: image/svg+xml
+          alt_text: Network interface icon
+        references: []
+      - subcategory_id: authentication_modules
+        name: Authentication Components
+        description: Software or hardware modules that authenticate the classical
+          transcript and account for authentication-key consumption.
+        applicable_component_classes:
+        - authentication_module
+        - message_authentication_unit
+        icon:
+          icon_id: authentication
+          file: ../assets/icons/component_categories/authentication_modules.svg
+          media_type: image/svg+xml
+          alt_text: Authenticated message icon
+        references: []
+    - category_id: post_processing
+      name: QKD Post-Processing
+      description: Software and hardware functions for sifting, parameter estimation,
+        reconciliation, verification, privacy amplification, finite-key analysis,
+        and key management.
+      icon:
+        icon_id: post_processing
+        file: ../assets/icons/component_categories/post_processing.svg
+        media_type: image/svg+xml
+        alt_text: QKD post-processing pipeline icon
+      references:
+      - type: technical
+        title: Composable security of finite-key QKD
+        citation: M. Tomamichel et al., Nature Communications 3, 634 (2012).
+        uri: https://doi.org/10.1038/ncomms1631
+      subcategories:
+      - subcategory_id: reconciliation
+        name: Information Reconciliation
+        description: Error-correction encoders, decoders, rate adaptation, leakage
+          accounting, and verification.
+        applicable_component_classes:
+        - ldpc_reconciliation_engine
+        - error_correction_engine
+        icon:
+          icon_id: reconciliation
+          file: ../assets/icons/component_categories/reconciliation.svg
+          media_type: image/svg+xml
+          alt_text: Error correction icon
+        references: []
+      - subcategory_id: privacy_amplification
+        name: Privacy Amplification and Finite-Key Analysis
+        description: Hashing, phase-error bounding, composable security accounting,
+          and final secret-key length calculation.
+        applicable_component_classes:
+        - privacy_amplification_engine
+        - finite_key_engine
+        icon:
+          icon_id: privacy
+          file: ../assets/icons/component_categories/privacy_amplification.svg
+          media_type: image/svg+xml
+          alt_text: Privacy amplification icon
+        references: []
+    - category_id: metrology_and_test
+      name: Metrology, Test, and Calibration
+      description: Measurement instruments, calibration artefacts, reference standards,
+        and test tools used to characterize components and validate model parameters.
+      icon:
+        icon_id: metrology
+        file: ../assets/icons/component_categories/metrology_and_test.svg
+        media_type: image/svg+xml
+        alt_text: Measurement and calibration icon
+      references:
+      - type: guide
+        title: JCGM 100:2008 — Evaluation of measurement data — Guide to the expression
+          of uncertainty in measurement
+        uri: https://www.bipm.org/en/committees/jc/jcgm/publications
+      subcategories:
+      - subcategory_id: optical_metrology
+        name: Optical Metrology
+        description: Power meters, spectrometers, polarimeters, attenuators, OTDRs,
+          and calibrated optical references.
+        applicable_component_classes:
+        - optical_power_meter
+        - spectrometer
+        - polarimeter
+        - otdr
+        icon:
+          icon_id: optical_metrology
+          file: ../assets/icons/component_categories/optical_metrology.svg
+          media_type: image/svg+xml
+          alt_text: Optical measurement instrument icon
+        references: []
+      - subcategory_id: electronic_test
+        name: Electronic and Timing Test
+        description: Oscilloscopes, VNAs, pulse generators, time interval analysers,
+          and electronic calibration equipment.
+        applicable_component_classes:
+        - oscilloscope
+        - vector_network_analyzer
+        - pulse_generator
+        icon:
+          icon_id: electronic_test
+          file: ../assets/icons/component_categories/electronic_test.svg
+          media_type: image/svg+xml
+          alt_text: Electronic test instrument icon
+        references: []
+    - category_id: environment_and_reliability
+      name: Environment and Reliability
+      description: Sensors, chambers, stress profiles, reliability models, and lifecycle
+        data used to represent operating conditions, drift, ageing, and degradation.
+      icon:
+        icon_id: environment
+        file: ../assets/icons/component_categories/environment_and_reliability.svg
+        media_type: image/svg+xml
+        alt_text: Environmental conditions and reliability icon
+      references:
+      - type: standard
+        title: IEC 60068 series — Environmental testing
+        uri: https://www.iec.ch
+      subcategories:
+      - subcategory_id: environmental_sensing
+        name: Environmental Sensing
+        description: Temperature, humidity, vibration, pressure, and optical-background
+          sensors used to contextualize QKD operation.
+        applicable_component_classes:
+        - temperature_sensor
+        - humidity_sensor
+        - vibration_sensor
+        icon:
+          icon_id: sensor
+          file: ../assets/icons/component_categories/environmental_sensing.svg
+          media_type: image/svg+xml
+          alt_text: Environmental sensor icon
+        references: []
+      - subcategory_id: reliability_models
+        name: Reliability and Degradation Models
+        description: Empirical or physics-informed models for ageing, drift, maintenance,
+          recalibration, and component failure.
+        applicable_component_classes:
+        - reliability_model
+        - degradation_model
+        icon:
+          icon_id: reliability
+          file: ../assets/icons/component_categories/reliability_models.svg
+          media_type: image/svg+xml
+          alt_text: Reliability trend icon
+        references: []
+    extension_template:
+      category_id: lower_snake_case_identifier
+      name: Display name
+      description: Scope and inclusion guidance
+      icon:
+        icon_id: stable_icon_id
+        file: ../assets/icons/component_categories/example.svg
+        media_type: image/svg+xml
+        alt_text: Accessible icon description
+      references: []
+      subcategories: []

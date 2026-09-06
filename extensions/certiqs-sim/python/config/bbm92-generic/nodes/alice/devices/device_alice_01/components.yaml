@@ -1,0 +1,980 @@
+components:
+- component_id: alice_basis_bs
+  name: Alice Basis Bs
+  component_type: beam_splitter
+  parent_module_id: module_alice_pam
+  model_binding_id: models.beam_splitter.v1
+  parameters:
+    split_ratio: 0.5
+    insertion_loss_db: 0.2
+  identity_ref: catalog:alice_basis_bs
+- component_id: alice_hwp_x
+  name: Alice Hwp X
+  component_type: half_wave_plate
+  parent_module_id: module_alice_pam
+  model_binding_id: models.half_wave_plate.v1
+  parameters:
+    fast_axis_deg: 22.5
+    retardance_rad: 3.1415926536
+    insertion_loss_db: 0.05
+  identity_ref: catalog:alice_hwp_x
+- component_id: alice_pbs_z
+  name: Alice Pbs Z
+  component_type: polarizing_beam_splitter
+  parent_module_id: module_alice_pam
+  model_binding_id: models.polarizing_beam_splitter.v1
+  parameters:
+    extinction_ratio_db: 25
+    insertion_loss_db: 0.2
+  identity_ref: catalog:alice_pbs_z
+- component_id: alice_pbs_x
+  name: Alice Pbs X
+  component_type: polarizing_beam_splitter
+  parent_module_id: module_alice_pam
+  model_binding_id: models.polarizing_beam_splitter.v1
+  parameters:
+    extinction_ratio_db: 24
+    insertion_loss_db: 0.2
+  identity_ref: catalog:alice_pbs_x
+- component_id: alice_detector_h
+  name: Alice Detector H
+  component_type: single_photon_detector
+  parent_module_id: module_alice_detection
+  model_binding_id: detectors.spad.free_running.v2
+  parameters:
+    logical_state: H
+    efficiency: 0.8
+    dark_count_hz: 100
+    jitter_ps_rms: 55
+    dead_time_ns: 20
+    afterpulse_probability: 0.01
+    dead_time_model: non_paralyzable
+  identity_ref: catalog:alice_detector_h
+  ports:
+    in:
+      interface_id: alice_det_h_opt_in
+      interface_type: optical
+      direction: in
+      signal_type: polarization_H
+    h_out:
+      interface_id: alice_detector_h_h_out
+      interface_type: electrical
+      direction: out
+      signal_type: detector_pulse
+- component_id: alice_detector_v
+  name: Alice Detector V
+  component_type: single_photon_detector
+  parent_module_id: module_alice_detection
+  model_binding_id: detectors.spad.free_running.v2
+  parameters:
+    logical_state: V
+    efficiency: 0.8
+    dark_count_hz: 100
+    jitter_ps_rms: 55
+    dead_time_ns: 20
+    afterpulse_probability: 0.01
+    dead_time_model: non_paralyzable
+  identity_ref: catalog:alice_detector_v
+  ports:
+    in:
+      interface_id: alice_det_v_opt_in
+      interface_type: optical
+      direction: in
+      signal_type: polarization_V
+    v_out:
+      interface_id: alice_detector_v_v_out
+      interface_type: electrical
+      direction: out
+      signal_type: detector_pulse
+- component_id: alice_detector_d
+  name: Alice Detector D
+  component_type: single_photon_detector
+  parent_module_id: module_alice_detection
+  model_binding_id: detectors.spad.free_running.v2
+  parameters:
+    logical_state: D
+    efficiency: 0.8
+    dark_count_hz: 100
+    jitter_ps_rms: 55
+    dead_time_ns: 20
+    afterpulse_probability: 0.01
+    dead_time_model: non_paralyzable
+  identity_ref: catalog:alice_detector_d
+  ports:
+    in:
+      interface_id: alice_det_d_opt_in
+      interface_type: optical
+      direction: in
+      signal_type: polarization_D
+    d_out:
+      interface_id: alice_detector_d_d_out
+      interface_type: electrical
+      direction: out
+      signal_type: detector_pulse
+- component_id: alice_detector_a
+  name: Alice Detector A
+  component_type: single_photon_detector
+  parent_module_id: module_alice_detection
+  model_binding_id: detectors.spad.free_running.v2
+  parameters:
+    logical_state: A
+    efficiency: 0.8
+    dark_count_hz: 100
+    jitter_ps_rms: 55
+    dead_time_ns: 20
+    afterpulse_probability: 0.01
+    dead_time_model: non_paralyzable
+  identity_ref: catalog:alice_detector_a
+  ports:
+    in:
+      interface_id: alice_det_a_opt_in
+      interface_type: optical
+      direction: in
+      signal_type: polarization_A
+    a_out:
+      interface_id: alice_detector_a_a_out
+      interface_type: electrical
+      direction: out
+      signal_type: detector_pulse
+- component_id: alice_tdc
+  name: Alice Tdc
+  component_type: time_to_digital_converter
+  parent_module_id: module_alice_timing
+  model_binding_id: models.time_to_digital_converter.v1
+  parameters:
+    resolution_ps: 10
+    channel_count: 4
+    input_dead_time_ns: 2
+    fifo_depth: 4096
+    clock_domain: alice_tdc_clk
+  identity_ref: catalog:alice_tdc
+  ports:
+    h_in:
+      interface_id: alice_tdc_h_in
+      interface_type: electrical
+      direction: in
+      signal_type: click_event
+    h_out:
+      interface_id: alice_tdc_h_out
+      interface_type: electrical
+      direction: out
+      signal_type: timestamp_event
+    v_in:
+      interface_id: alice_tdc_v_in
+      interface_type: electrical
+      direction: in
+      signal_type: click_event
+    v_out:
+      interface_id: alice_tdc_v_out
+      interface_type: electrical
+      direction: out
+      signal_type: timestamp_event
+    d_in:
+      interface_id: alice_tdc_d_in
+      interface_type: electrical
+      direction: in
+      signal_type: click_event
+    d_out:
+      interface_id: alice_tdc_d_out
+      interface_type: electrical
+      direction: out
+      signal_type: timestamp_event
+    a_in:
+      interface_id: alice_tdc_a_in
+      interface_type: electrical
+      direction: in
+      signal_type: click_event
+    a_out:
+      interface_id: alice_tdc_a_out
+      interface_type: electrical
+      direction: out
+      signal_type: timestamp_event
+  connections:
+  - connection_id: alice_h_chain_7
+    connection_type: internal_signal
+    to: alice_fpga
+    from_port: h_out
+    to_port: h_in
+  - connection_id: alice_v_chain_7
+    connection_type: internal_signal
+    to: alice_fpga
+    from_port: v_out
+    to_port: v_in
+  - connection_id: alice_d_chain_7
+    connection_type: internal_signal
+    to: alice_fpga
+    from_port: d_out
+    to_port: d_in
+  - connection_id: alice_a_chain_7
+    connection_type: internal_signal
+    to: alice_fpga
+    from_port: a_out
+    to_port: a_in
+- component_id: alice_fpga
+  name: Alice Fpga
+  component_type: fpga_event_processor
+  parent_module_id: module_alice_timing
+  model_binding_id: models.fpga_event_processor.v1
+  parameters:
+    clock_hz: 200000000
+    event_buffer_depth: 8192
+    firmware_build: example-0.1.0
+  identity_ref: catalog:alice_fpga
+  ports:
+    h_in:
+      interface_id: alice_fpga_h_in
+      interface_type: software
+      direction: in
+      signal_type: timestamp_event
+    h_out:
+      interface_id: alice_fpga_h_out
+      interface_type: software
+      direction: out
+      signal_type: buffered_event
+    v_in:
+      interface_id: alice_fpga_v_in
+      interface_type: software
+      direction: in
+      signal_type: timestamp_event
+    v_out:
+      interface_id: alice_fpga_v_out
+      interface_type: software
+      direction: out
+      signal_type: buffered_event
+    d_in:
+      interface_id: alice_fpga_d_in
+      interface_type: software
+      direction: in
+      signal_type: timestamp_event
+    d_out:
+      interface_id: alice_fpga_d_out
+      interface_type: software
+      direction: out
+      signal_type: buffered_event
+    a_in:
+      interface_id: alice_fpga_a_in
+      interface_type: software
+      direction: in
+      signal_type: timestamp_event
+    a_out:
+      interface_id: alice_fpga_a_out
+      interface_type: software
+      direction: out
+      signal_type: buffered_event
+  connections:
+  - connection_id: alice_h_chain_8
+    connection_type: internal_signal
+    to: alice_acquisition_service
+    from_port: h_out
+    to_port: h_in
+  - connection_id: alice_v_chain_8
+    connection_type: internal_signal
+    to: alice_acquisition_service
+    from_port: v_out
+    to_port: v_in
+  - connection_id: alice_d_chain_8
+    connection_type: internal_signal
+    to: alice_acquisition_service
+    from_port: d_out
+    to_port: d_in
+  - connection_id: alice_a_chain_8
+    connection_type: internal_signal
+    to: alice_acquisition_service
+    from_port: a_out
+    to_port: a_in
+- component_id: alice_device_driver
+  name: Alice Device Driver
+  component_type: hardware_driver
+  parent_subdomain_id: subdomain_alice_time_tag_ingestion
+  model_binding_id: models.hardware_driver.v1
+  parameters:
+    version: 0.1.0
+    execution_host: alice_embedded_controller
+  identity_ref: catalog:alice_device_driver
+- component_id: alice_acquisition_service
+  name: Alice Acquisition Service
+  component_type: acquisition_software
+  parent_subdomain_id: subdomain_alice_time_tag_ingestion
+  model_binding_id: models.acquisition_software.v1
+  parameters:
+    version: 0.1.0
+    execution_host: alice_embedded_controller
+  identity_ref: catalog:alice_acquisition_service
+  ports:
+    h_in:
+      interface_id: alice_acquisition_service_h_in
+      interface_type: software
+      direction: in
+      signal_type: buffered_event
+    h_out:
+      interface_id: alice_acquisition_service_h_out
+      interface_type: software
+      direction: out
+      signal_type: software_event_stream
+    v_in:
+      interface_id: alice_acquisition_service_v_in
+      interface_type: software
+      direction: in
+      signal_type: buffered_event
+    v_out:
+      interface_id: alice_acquisition_service_v_out
+      interface_type: software
+      direction: out
+      signal_type: software_event_stream
+    d_in:
+      interface_id: alice_acquisition_service_d_in
+      interface_type: software
+      direction: in
+      signal_type: buffered_event
+    d_out:
+      interface_id: alice_acquisition_service_d_out
+      interface_type: software
+      direction: out
+      signal_type: software_event_stream
+    a_in:
+      interface_id: alice_acquisition_service_a_in
+      interface_type: software
+      direction: in
+      signal_type: buffered_event
+    a_out:
+      interface_id: alice_acquisition_service_a_out
+      interface_type: software
+      direction: out
+      signal_type: software_event_stream
+- component_id: alice_protocol_engine
+  name: Alice Protocol Engine
+  component_type: qkd_protocol_engine
+  parent_subdomain_id: subdomain_alice_cross_cutting
+  model_binding_id: models.qkd_protocol_engine.v1
+  parameters:
+    version: 0.1.0
+    execution_host: alice_embedded_controller
+  identity_ref: catalog:alice_protocol_engine
+- component_id: alice_clock_synchronizer
+  name: Alice Clock Synchronizer
+  component_type: time_sync_unit
+  component_class: time_sync_unit
+  parent_subdomain_id: subdomain_alice_timing_alignment
+  model_binding_id: timing.two_way_sync.v1
+  execution_binding:
+    host_id: alice
+    role: authoritative_synchronizer
+  parameters:
+    update_period_ms: 10
+    residual_offset_ps_rms: 40
+    holdover_timeout_s: 5
+  identity_ref: catalog:clock_synchronizer
+- component_id: alice_coincidence_matcher
+  name: Alice Coincidence Correlation Engine
+  component_type: coincidence_matcher
+  component_class: coincidence_matcher
+  parent_subdomain_id: subdomain_alice_coincidence_correlation
+  model_binding_id: digital.coincidence.fpga_reference.v1
+  execution_binding:
+    host_id: alice
+    role: authoritative_matcher
+  parameters:
+    clock_domain: alice_tdc_clk
+    window_ps: 500
+    matching_policy: nearest_unique
+    queue_depth_events: 8192
+    overflow_policy: drop_and_count
+  identity_ref: catalog:coincidence_matcher
+- component_id: alice_delay_calibrator
+  name: Alice Delay Calibration Service
+  component_type: delay_calibration_service
+  parent_subdomain_id: subdomain_alice_delay_calibration
+  model_binding_id: models.delay_calibration_service.v1
+  parameters:
+    version: 0.1.0
+    execution_host: alice_embedded_controller
+    calibration_interval_s: 60
+    max_correction_ps: 2000
+  identity_ref: catalog:alice_delay_calibrator
+- component_id: alice_event_validator
+  name: Alice Detection Event Validator
+  component_type: detection_event_validator
+  parent_subdomain_id: subdomain_alice_event_validation
+  model_binding_id: models.detection_event_validator.v1
+  parameters:
+    version: 0.1.0
+    execution_host: alice_embedded_controller
+    multi_hit_policy: discard
+    guard_window_ps: 250
+  identity_ref: catalog:alice_event_validator
+- component_id: alice_coincidence_monitor
+  name: Alice Coincidence Quality Monitor
+  component_type: coincidence_quality_monitor
+  parent_subdomain_id: subdomain_alice_coincidence_monitoring
+  model_binding_id: models.coincidence_quality_monitor.v1
+  parameters:
+    version: 0.1.0
+    execution_host: alice_embedded_controller
+    car_alarm_threshold: 5.0
+    reporting_period_ms: 200
+  identity_ref: catalog:alice_coincidence_monitor
+- component_id: alice_sifting_processor
+  name: Alice Basis Reconciliation and Sifting Processor
+  component_type: basis_sifting
+  parent_subdomain_id: subdomain_alice_basis_reconciliation
+  model_binding_id: models.basis_sifting.v1
+  parameters:
+    version: 0.1.0
+    execution_host: alice_embedded_controller
+    basis_reconciliation_policy: matched_basis_only
+  identity_ref: catalog:alice_sifting_processor
+- component_id: alice_parameter_estimator
+  name: Alice Parameter Estimation Service
+  component_type: qber_estimator
+  parent_subdomain_id: subdomain_alice_parameter_estimation
+  model_binding_id: models.qber_estimator.v1
+  parameters:
+    version: 0.1.0
+    execution_host: alice_embedded_controller
+    sampling_fraction: 0.1
+    confidence_level: 0.99
+  identity_ref: catalog:alice_parameter_estimator
+- component_id: alice_reconciliation_engine
+  name: Alice Information Reconciliation Engine
+  component_type: error_reconciliation_service
+  parent_subdomain_id: subdomain_alice_information_reconciliation
+  model_binding_id: models.error_reconciliation_service.v1
+  parameters:
+    version: 0.1.0
+    execution_host: alice_embedded_controller
+    code_family: ldpc
+    efficiency_factor: 1.1
+  identity_ref: catalog:alice_reconciliation_engine
+- component_id: alice_key_verifier
+  name: Alice Key Verification Service
+  component_type: key_confirmation_service
+  parent_subdomain_id: subdomain_alice_key_verification
+  model_binding_id: models.key_confirmation_service.v1
+  parameters:
+    version: 0.1.0
+    execution_host: alice_embedded_controller
+    hash_family: polynomial_universal
+    failure_probability: 1.0e-12
+  identity_ref: catalog:alice_key_verifier
+- component_id: alice_privacy_amplifier
+  name: Alice Privacy Amplification Service
+  component_type: privacy_amplification_service
+  parent_subdomain_id: subdomain_alice_privacy_amplification
+  model_binding_id: models.privacy_amplification_service.v1
+  parameters:
+    version: 0.1.0
+    execution_host: alice_embedded_controller
+    hash_family: toeplitz
+    block_size_bits: 1000000
+  identity_ref: catalog:alice_privacy_amplifier
+- component_id: alice_final_key_manager
+  name: Alice Final-Key Manager
+  component_type: final_key_manager
+  parent_subdomain_id: subdomain_alice_final_key_management
+  model_binding_id: models.final_key_manager.v1
+  parameters:
+    version: 0.1.0
+    execution_host: alice_embedded_controller
+    export_policy: net_secret_key_only
+    key_block_bits: 256
+  identity_ref: catalog:alice_final_key_manager
+- component_id: alice_h_bias
+  name: Alice H Bias
+  component_type: detector_bias_controller
+  parent_module_id: module_alice_timing
+  model_binding_id: models.detector_bias_controller.v1
+  parameters:
+    channel: H
+  identity_ref: catalog:alice_h_bias
+  ports:
+    h_in:
+      interface_id: alice_h_bias_h_in
+      interface_type: electrical
+      direction: in
+      signal_type: detector_pulse
+    h_out:
+      interface_id: alice_h_bias_h_out
+      interface_type: electrical
+      direction: out
+      signal_type: bias_control
+  connections:
+  - connection_id: alice_h_chain_2
+    connection_type: internal_signal
+    to: alice_h_frontend
+    from_port: h_out
+    to_port: h_in
+- component_id: alice_h_frontend
+  name: Alice H Frontend
+  component_type: detector_front_end
+  parent_module_id: module_alice_timing
+  model_binding_id: models.detector_front_end.v1
+  parameters:
+    channel: H
+  identity_ref: catalog:alice_h_frontend
+  ports:
+    h_in:
+      interface_id: alice_h_frontend_h_in
+      interface_type: electrical
+      direction: in
+      signal_type: bias_control
+    h_out:
+      interface_id: alice_h_frontend_h_out
+      interface_type: electrical
+      direction: out
+      signal_type: analog_pulse
+  connections:
+  - connection_id: alice_h_chain_3
+    connection_type: internal_signal
+    to: alice_h_discriminator
+    from_port: h_out
+    to_port: h_in
+- component_id: alice_h_discriminator
+  name: Alice H Discriminator
+  component_type: discriminator
+  parent_module_id: module_alice_timing
+  model_binding_id: models.discriminator.v1
+  parameters:
+    channel: H
+  identity_ref: catalog:alice_h_discriminator
+  ports:
+    h_in:
+      interface_id: alice_h_discriminator_h_in
+      interface_type: electrical
+      direction: in
+      signal_type: analog_pulse
+    h_out:
+      interface_id: alice_h_discriminator_h_out
+      interface_type: electrical
+      direction: out
+      signal_type: logic_pulse
+  connections:
+  - connection_id: alice_h_chain_4
+    connection_type: internal_signal
+    to: alice_h_pulse_shaper
+    from_port: h_out
+    to_port: h_in
+- component_id: alice_h_pulse_shaper
+  name: Alice H Pulse Shaper
+  component_type: pulse_shaper
+  parent_module_id: module_alice_timing
+  model_binding_id: models.pulse_shaper.v1
+  parameters:
+    channel: H
+  identity_ref: catalog:alice_h_pulse_shaper
+  ports:
+    h_in:
+      interface_id: alice_h_pulse_shaper_h_in
+      interface_type: electrical
+      direction: in
+      signal_type: logic_pulse
+    h_out:
+      interface_id: alice_h_pulse_shaper_h_out
+      interface_type: electrical
+      direction: out
+      signal_type: shaped_pulse
+  connections:
+  - connection_id: alice_h_chain_5
+    connection_type: internal_signal
+    to: alice_h_click_registrar
+    from_port: h_out
+    to_port: h_in
+- component_id: alice_h_click_registrar
+  name: Alice H Click Registrar
+  component_type: click_registration_logic
+  parent_module_id: module_alice_timing
+  model_binding_id: models.click_registration_logic.v1
+  parameters:
+    channel: H
+  identity_ref: catalog:alice_h_click_registrar
+  ports:
+    h_in:
+      interface_id: alice_h_click_registrar_h_in
+      interface_type: electrical
+      direction: in
+      signal_type: shaped_pulse
+    h_out:
+      interface_id: alice_h_click_registrar_h_out
+      interface_type: electrical
+      direction: out
+      signal_type: click_event
+  connections:
+  - connection_id: alice_h_chain_6
+    connection_type: internal_signal
+    to: alice_tdc
+    from_port: h_out
+    to_port: h_in
+- component_id: alice_v_bias
+  name: Alice V Bias
+  component_type: detector_bias_controller
+  parent_module_id: module_alice_timing
+  model_binding_id: models.detector_bias_controller.v1
+  parameters:
+    channel: V
+  identity_ref: catalog:alice_v_bias
+  ports:
+    v_in:
+      interface_id: alice_v_bias_v_in
+      interface_type: electrical
+      direction: in
+      signal_type: detector_pulse
+    v_out:
+      interface_id: alice_v_bias_v_out
+      interface_type: electrical
+      direction: out
+      signal_type: bias_control
+  connections:
+  - connection_id: alice_v_chain_2
+    connection_type: internal_signal
+    to: alice_v_frontend
+    from_port: v_out
+    to_port: v_in
+- component_id: alice_v_frontend
+  name: Alice V Frontend
+  component_type: detector_front_end
+  parent_module_id: module_alice_timing
+  model_binding_id: models.detector_front_end.v1
+  parameters:
+    channel: V
+  identity_ref: catalog:alice_v_frontend
+  ports:
+    v_in:
+      interface_id: alice_v_frontend_v_in
+      interface_type: electrical
+      direction: in
+      signal_type: bias_control
+    v_out:
+      interface_id: alice_v_frontend_v_out
+      interface_type: electrical
+      direction: out
+      signal_type: analog_pulse
+  connections:
+  - connection_id: alice_v_chain_3
+    connection_type: internal_signal
+    to: alice_v_discriminator
+    from_port: v_out
+    to_port: v_in
+- component_id: alice_v_discriminator
+  name: Alice V Discriminator
+  component_type: discriminator
+  parent_module_id: module_alice_timing
+  model_binding_id: models.discriminator.v1
+  parameters:
+    channel: V
+  identity_ref: catalog:alice_v_discriminator
+  ports:
+    v_in:
+      interface_id: alice_v_discriminator_v_in
+      interface_type: electrical
+      direction: in
+      signal_type: analog_pulse
+    v_out:
+      interface_id: alice_v_discriminator_v_out
+      interface_type: electrical
+      direction: out
+      signal_type: logic_pulse
+  connections:
+  - connection_id: alice_v_chain_4
+    connection_type: internal_signal
+    to: alice_v_pulse_shaper
+    from_port: v_out
+    to_port: v_in
+- component_id: alice_v_pulse_shaper
+  name: Alice V Pulse Shaper
+  component_type: pulse_shaper
+  parent_module_id: module_alice_timing
+  model_binding_id: models.pulse_shaper.v1
+  parameters:
+    channel: V
+  identity_ref: catalog:alice_v_pulse_shaper
+  ports:
+    v_in:
+      interface_id: alice_v_pulse_shaper_v_in
+      interface_type: electrical
+      direction: in
+      signal_type: logic_pulse
+    v_out:
+      interface_id: alice_v_pulse_shaper_v_out
+      interface_type: electrical
+      direction: out
+      signal_type: shaped_pulse
+  connections:
+  - connection_id: alice_v_chain_5
+    connection_type: internal_signal
+    to: alice_v_click_registrar
+    from_port: v_out
+    to_port: v_in
+- component_id: alice_v_click_registrar
+  name: Alice V Click Registrar
+  component_type: click_registration_logic
+  parent_module_id: module_alice_timing
+  model_binding_id: models.click_registration_logic.v1
+  parameters:
+    channel: V
+  identity_ref: catalog:alice_v_click_registrar
+  ports:
+    v_in:
+      interface_id: alice_v_click_registrar_v_in
+      interface_type: electrical
+      direction: in
+      signal_type: shaped_pulse
+    v_out:
+      interface_id: alice_v_click_registrar_v_out
+      interface_type: electrical
+      direction: out
+      signal_type: click_event
+  connections:
+  - connection_id: alice_v_chain_6
+    connection_type: internal_signal
+    to: alice_tdc
+    from_port: v_out
+    to_port: v_in
+- component_id: alice_d_bias
+  name: Alice D Bias
+  component_type: detector_bias_controller
+  parent_module_id: module_alice_timing
+  model_binding_id: models.detector_bias_controller.v1
+  parameters:
+    channel: D
+  identity_ref: catalog:alice_d_bias
+  ports:
+    d_in:
+      interface_id: alice_d_bias_d_in
+      interface_type: electrical
+      direction: in
+      signal_type: detector_pulse
+    d_out:
+      interface_id: alice_d_bias_d_out
+      interface_type: electrical
+      direction: out
+      signal_type: bias_control
+  connections:
+  - connection_id: alice_d_chain_2
+    connection_type: internal_signal
+    to: alice_d_frontend
+    from_port: d_out
+    to_port: d_in
+- component_id: alice_d_frontend
+  name: Alice D Frontend
+  component_type: detector_front_end
+  parent_module_id: module_alice_timing
+  model_binding_id: models.detector_front_end.v1
+  parameters:
+    channel: D
+  identity_ref: catalog:alice_d_frontend
+  ports:
+    d_in:
+      interface_id: alice_d_frontend_d_in
+      interface_type: electrical
+      direction: in
+      signal_type: bias_control
+    d_out:
+      interface_id: alice_d_frontend_d_out
+      interface_type: electrical
+      direction: out
+      signal_type: analog_pulse
+  connections:
+  - connection_id: alice_d_chain_3
+    connection_type: internal_signal
+    to: alice_d_discriminator
+    from_port: d_out
+    to_port: d_in
+- component_id: alice_d_discriminator
+  name: Alice D Discriminator
+  component_type: discriminator
+  parent_module_id: module_alice_timing
+  model_binding_id: models.discriminator.v1
+  parameters:
+    channel: D
+  identity_ref: catalog:alice_d_discriminator
+  ports:
+    d_in:
+      interface_id: alice_d_discriminator_d_in
+      interface_type: electrical
+      direction: in
+      signal_type: analog_pulse
+    d_out:
+      interface_id: alice_d_discriminator_d_out
+      interface_type: electrical
+      direction: out
+      signal_type: logic_pulse
+  connections:
+  - connection_id: alice_d_chain_4
+    connection_type: internal_signal
+    to: alice_d_pulse_shaper
+    from_port: d_out
+    to_port: d_in
+- component_id: alice_d_pulse_shaper
+  name: Alice D Pulse Shaper
+  component_type: pulse_shaper
+  parent_module_id: module_alice_timing
+  model_binding_id: models.pulse_shaper.v1
+  parameters:
+    channel: D
+  identity_ref: catalog:alice_d_pulse_shaper
+  ports:
+    d_in:
+      interface_id: alice_d_pulse_shaper_d_in
+      interface_type: electrical
+      direction: in
+      signal_type: logic_pulse
+    d_out:
+      interface_id: alice_d_pulse_shaper_d_out
+      interface_type: electrical
+      direction: out
+      signal_type: shaped_pulse
+  connections:
+  - connection_id: alice_d_chain_5
+    connection_type: internal_signal
+    to: alice_d_click_registrar
+    from_port: d_out
+    to_port: d_in
+- component_id: alice_d_click_registrar
+  name: Alice D Click Registrar
+  component_type: click_registration_logic
+  parent_module_id: module_alice_timing
+  model_binding_id: models.click_registration_logic.v1
+  parameters:
+    channel: D
+  identity_ref: catalog:alice_d_click_registrar
+  ports:
+    d_in:
+      interface_id: alice_d_click_registrar_d_in
+      interface_type: electrical
+      direction: in
+      signal_type: shaped_pulse
+    d_out:
+      interface_id: alice_d_click_registrar_d_out
+      interface_type: electrical
+      direction: out
+      signal_type: click_event
+  connections:
+  - connection_id: alice_d_chain_6
+    connection_type: internal_signal
+    to: alice_tdc
+    from_port: d_out
+    to_port: d_in
+- component_id: alice_a_bias
+  name: Alice A Bias
+  component_type: detector_bias_controller
+  parent_module_id: module_alice_timing
+  model_binding_id: models.detector_bias_controller.v1
+  parameters:
+    channel: A
+  identity_ref: catalog:alice_a_bias
+  ports:
+    a_in:
+      interface_id: alice_a_bias_a_in
+      interface_type: electrical
+      direction: in
+      signal_type: detector_pulse
+    a_out:
+      interface_id: alice_a_bias_a_out
+      interface_type: electrical
+      direction: out
+      signal_type: bias_control
+  connections:
+  - connection_id: alice_a_chain_2
+    connection_type: internal_signal
+    to: alice_a_frontend
+    from_port: a_out
+    to_port: a_in
+- component_id: alice_a_frontend
+  name: Alice A Frontend
+  component_type: detector_front_end
+  parent_module_id: module_alice_timing
+  model_binding_id: models.detector_front_end.v1
+  parameters:
+    channel: A
+  identity_ref: catalog:alice_a_frontend
+  ports:
+    a_in:
+      interface_id: alice_a_frontend_a_in
+      interface_type: electrical
+      direction: in
+      signal_type: bias_control
+    a_out:
+      interface_id: alice_a_frontend_a_out
+      interface_type: electrical
+      direction: out
+      signal_type: analog_pulse
+  connections:
+  - connection_id: alice_a_chain_3
+    connection_type: internal_signal
+    to: alice_a_discriminator
+    from_port: a_out
+    to_port: a_in
+- component_id: alice_a_discriminator
+  name: Alice A Discriminator
+  component_type: discriminator
+  parent_module_id: module_alice_timing
+  model_binding_id: models.discriminator.v1
+  parameters:
+    channel: A
+  identity_ref: catalog:alice_a_discriminator
+  ports:
+    a_in:
+      interface_id: alice_a_discriminator_a_in
+      interface_type: electrical
+      direction: in
+      signal_type: analog_pulse
+    a_out:
+      interface_id: alice_a_discriminator_a_out
+      interface_type: electrical
+      direction: out
+      signal_type: logic_pulse
+  connections:
+  - connection_id: alice_a_chain_4
+    connection_type: internal_signal
+    to: alice_a_pulse_shaper
+    from_port: a_out
+    to_port: a_in
+- component_id: alice_a_pulse_shaper
+  name: Alice A Pulse Shaper
+  component_type: pulse_shaper
+  parent_module_id: module_alice_timing
+  model_binding_id: models.pulse_shaper.v1
+  parameters:
+    channel: A
+  identity_ref: catalog:alice_a_pulse_shaper
+  ports:
+    a_in:
+      interface_id: alice_a_pulse_shaper_a_in
+      interface_type: electrical
+      direction: in
+      signal_type: logic_pulse
+    a_out:
+      interface_id: alice_a_pulse_shaper_a_out
+      interface_type: electrical
+      direction: out
+      signal_type: shaped_pulse
+  connections:
+  - connection_id: alice_a_chain_5
+    connection_type: internal_signal
+    to: alice_a_click_registrar
+    from_port: a_out
+    to_port: a_in
+- component_id: alice_a_click_registrar
+  name: Alice A Click Registrar
+  component_type: click_registration_logic
+  parent_module_id: module_alice_timing
+  model_binding_id: models.click_registration_logic.v1
+  parameters:
+    channel: A
+  identity_ref: catalog:alice_a_click_registrar
+  ports:
+    a_in:
+      interface_id: alice_a_click_registrar_a_in
+      interface_type: electrical
+      direction: in
+      signal_type: shaped_pulse
+    a_out:
+      interface_id: alice_a_click_registrar_a_out
+      interface_type: electrical
+      direction: out
+      signal_type: click_event
+  connections:
+  - connection_id: alice_a_chain_6
+    connection_type: internal_signal
+    to: alice_tdc
+    from_port: a_out
+    to_port: a_in

@@ -1,0 +1,188 @@
+modules:
+- module_id: module_bob_pam
+  name: Bob Polarization Analyzer
+  module_type: polarization_analyzer_module
+  parent_subdomain_id: subdomain_bob_polarization_analysis
+  architecture: passive_basis_selection
+  supported_bases:
+  - Z
+  - X
+  states_by_basis:
+    Z:
+    - H
+    - V
+    X:
+    - D
+    - A
+  component_ids:
+  - bob_basis_bs
+  - bob_hwp_x
+  - bob_pbs_z
+  - bob_pbs_x
+  ports:
+    quantum_in:
+      interface_id: bob_pam_in
+      interface_type: optical
+      direction: in
+      signal_type: quantum_optical_stream
+      boundary: true
+      comment: Quantum channel from central source
+      connector:
+        position: left
+        size: normal
+    h_out:
+      interface_id: bob_pam_h_out
+      interface_type: optical
+      direction: out
+      signal_type: polarization_H
+    v_out:
+      interface_id: bob_pam_v_out
+      interface_type: optical
+      direction: out
+      signal_type: polarization_V
+    d_out:
+      interface_id: bob_pam_d_out
+      interface_type: optical
+      direction: out
+      signal_type: polarization_D
+    a_out:
+      interface_id: bob_pam_a_out
+      interface_type: optical
+      direction: out
+      signal_type: polarization_A
+  external_connections:
+  - connection_id: bob_pam_to_det_h
+    to_module: module_bob_detection
+    from_port: h_out
+    to_port: det_h_in
+    connection_type: internal_optical
+  - connection_id: bob_pam_to_det_v
+    to_module: module_bob_detection
+    from_port: v_out
+    to_port: det_v_in
+    connection_type: internal_optical
+  - connection_id: bob_pam_to_det_d
+    to_module: module_bob_detection
+    from_port: d_out
+    to_port: det_d_in
+    connection_type: internal_optical
+  - connection_id: bob_pam_to_det_a
+    to_module: module_bob_detection
+    from_port: a_out
+    to_port: det_a_in
+    connection_type: internal_optical
+- module_id: module_bob_detection
+  name: Bob SPAD Array
+  module_type: detection_module
+  parent_subdomain_id: subdomain_bob_detecting_components
+  component_ids:
+  - bob_detector_h
+  - bob_detector_v
+  - bob_detector_d
+  - bob_detector_a
+  ports:
+    det_h_in:
+      interface_id: bob_det_h_opt_in
+      interface_type: optical
+      direction: in
+      signal_type: polarization_H
+    det_v_in:
+      interface_id: bob_det_v_opt_in
+      interface_type: optical
+      direction: in
+      signal_type: polarization_V
+    det_d_in:
+      interface_id: bob_det_d_opt_in
+      interface_type: optical
+      direction: in
+      signal_type: polarization_D
+    det_a_in:
+      interface_id: bob_det_a_opt_in
+      interface_type: optical
+      direction: in
+      signal_type: polarization_A
+    det_h_pulse:
+      interface_id: bob_detector_h_h_out
+      interface_type: electrical
+      direction: out
+      signal_type: detector_pulse
+    det_v_pulse:
+      interface_id: bob_detector_v_v_out
+      interface_type: electrical
+      direction: out
+      signal_type: detector_pulse
+    det_d_pulse:
+      interface_id: bob_detector_d_d_out
+      interface_type: electrical
+      direction: out
+      signal_type: detector_pulse
+    det_a_pulse:
+      interface_id: bob_detector_a_a_out
+      interface_type: electrical
+      direction: out
+      signal_type: detector_pulse
+  external_connections:
+  - connection_id: bob_det_to_tdc_h
+    to_module: module_bob_timing
+    from_port: det_h_pulse
+    to_port: h_in
+    connection_type: internal_signal
+    comment: Direct SPAD→TDC (detector chain collapsed)
+  - connection_id: bob_det_to_tdc_v
+    to_module: module_bob_timing
+    from_port: det_v_pulse
+    to_port: v_in
+    connection_type: internal_signal
+    comment: Direct SPAD→TDC (detector chain collapsed)
+  - connection_id: bob_det_to_tdc_d
+    to_module: module_bob_timing
+    from_port: det_d_pulse
+    to_port: d_in
+    connection_type: internal_signal
+    comment: Direct SPAD→TDC (detector chain collapsed)
+  - connection_id: bob_det_to_tdc_a
+    to_module: module_bob_timing
+    from_port: det_a_pulse
+    to_port: a_in
+    connection_type: internal_signal
+    comment: Direct SPAD→TDC (detector chain collapsed)
+- module_id: module_bob_timing
+  name: Bob Time Tagging
+  module_type: time_tagging_module
+  parent_subdomain_id: subdomain_bob_timing_and_time_tagging
+  component_ids:
+  - bob_tdc
+  ports:
+    kx1:
+      interface_id: kx1_bob
+      interface_type: boundary
+      direction: inout
+      edge_kind: digital
+      signal_type: kx1_key_relay
+      boundary: true
+      comment: Authenticated bidirectional digital link to Alice's measurement box
+      connector:
+        position: left
+        size: normal
+        style: color
+        color: '#fb7185'
+    h_in:
+      interface_id: bob_tdc_h_in
+      interface_type: electrical
+      direction: in
+      signal_type: detector_pulse
+    v_in:
+      interface_id: bob_tdc_v_in
+      interface_type: electrical
+      direction: in
+      signal_type: detector_pulse
+    d_in:
+      interface_id: bob_tdc_d_in
+      interface_type: electrical
+      direction: in
+      signal_type: detector_pulse
+    a_in:
+      interface_id: bob_tdc_a_in
+      interface_type: electrical
+      direction: in
+      signal_type: detector_pulse

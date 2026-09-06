@@ -45,10 +45,18 @@ import { IContextViewService } from '../../../../../platform/contextview/browser
 import { isNewUser } from './chatStatus.js';
 import { IChatStatusItemService, ChatStatusEntry } from './chatStatusItemService.js';
 import { GitHubPaths, IDefaultAccountService } from '../../../../../platform/defaultAccount/common/defaultAccount.js';
+import { IDefaultChatAgent } from '../../../../../base/common/product.js';
 import product from '../../../../../platform/product/common/product.js';
 import { isCompletionsEnabled } from '../../../../../editor/common/services/completionsEnablement.js';
 
-const defaultChat = product.defaultChatAgent;
+// CERTIQS: Copilot status settings are inert when no default chat agent is wired
+const defaultChat = (product.defaultChatAgent ?? {
+	completionsEnablementSetting: '',
+	nextEditSuggestionsSetting: '',
+	provider: { default: { id: '', name: '' } },
+	termsStatementUrl: '',
+	privacyStatementUrl: '',
+}) as IDefaultChatAgent;
 const completionsConfigurationTargets = [
 	ConfigurationTarget.WORKSPACE_FOLDER,
 	ConfigurationTarget.WORKSPACE,

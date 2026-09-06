@@ -1,0 +1,9 @@
+qkd_device:
+  name: Entangled Photon Source
+  parent_node_id: node_source
+  domain_ids:
+  - domain_source_quantum_optics
+  - domain_source_electronics
+  - domain_source_software
+  device_id: device_source_01
+  device_type: entangled_photon_source_box

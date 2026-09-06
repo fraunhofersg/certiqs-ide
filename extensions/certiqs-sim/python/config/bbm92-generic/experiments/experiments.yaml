@@ -1,0 +1,29 @@
+experiments:
+- experiment_id: baseline_nominal
+  fidelity_level: 2
+  duration:
+    mode: pulses
+    count: 100000000
+  random_seed: 12345
+  repetitions: 20
+- experiment_id: brightness_sweep
+  base: baseline_nominal
+  sweep:
+    parameter: spdc_crystal.parameters.mean_pairs_per_pulse
+    values:
+    - 0.001
+    - 0.003
+    - 0.01
+    - 0.03
+    - 0.1
+- experiment_id: loss_sweep
+  base: baseline_nominal
+  sweep:
+    parameter: qch_source_bob.length_km
+    values:
+    - 0
+    - 5
+    - 10
+    - 20
+    - 30
+    - 40

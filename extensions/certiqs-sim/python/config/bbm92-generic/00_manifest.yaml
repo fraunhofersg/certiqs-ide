@@ -1,0 +1,71 @@
+schema_version: 4.0.0
+package_id: bbm92_generic_packages
+name: BBM92 Generic QKDN Node Packages
+description: Self-contained per-node packages (source, Alice, Bob) with boundary contracts
+  aligned to ITU-T Y.3800/Y.3803 QKDN layering. Design guides under guide/ are background
+  reference only; runtime loads exclusively from this directory.
+entrypoint: network/topology.yaml
+compatibility:
+  legacy_configuration: legacy
+  existing_python_simulator: topology_adapter
+imports:
+- network/topology.yaml
+- network/channels.yaml
+- network/control.yaml
+- network/management.yaml
+- nodes/source/node.yaml
+- nodes/alice/node.yaml
+- nodes/bob/node.yaml
+- shared/protocol.yaml
+- shared/taxonomy.yaml
+- shared/catalog.yaml
+- shared/qkd_software_domain.yaml
+- experiments/experiments.yaml
+- experiments/attacks.yaml
+- experiments/validation.yaml
+- experiments/agent_workflow.yaml
+schemas:
+  topology: ../../schemas/caqkd/system_topology.schema.json
+  component_identity: ../../schemas/caqkd/component_identity.schema.json
+validation:
+  strict_references: true
+  require_three_core_domains_per_box: true
+  require_complete_detector_chains: true
+  require_pam_output_mapping: true
+  require_unique_physical_device_uuid: false
+  fail_on_unresolved_mapping: true
+reproducibility:
+  configuration_hash: generated_at_runtime
+  record_git_commit: true
+  record_random_seed: true
+  record_model_versions: true
+manifest:
+  name: bbm92_reference_design
+  description: 'Configuration-driven reference model for an entanglement-based BBM92
+    QKD system. Hierarchical topology with adapter bridge to the existing physics
+    engine.
+
+    '
+  fidelity_level: 2
+packages:
+- package_id: pkg_network
+  path: network
+  kind: network
+- package_id: pkg_source
+  path: nodes/source
+  kind: node
+- package_id: pkg_alice
+  path: nodes/alice
+  kind: node
+- package_id: pkg_bob
+  path: nodes/bob
+  kind: node
+- package_id: pkg_shared
+  path: shared
+  kind: shared
+- package_id: pkg_assets
+  path: assets
+  kind: assets
+- package_id: pkg_experiments
+  path: experiments
+  kind: experiments

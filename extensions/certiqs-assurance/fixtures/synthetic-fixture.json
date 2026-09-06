@@ -1,0 +1,40 @@
+{
+	"schema_version": "certiqs-synthetic-fixture/0.1",
+	"fixture_id": "DEMO-FIXTURE-001",
+	"origin": "synthetic",
+	"notice": "Authored demonstration data; no evaluation has run; no security or certification conclusion.",
+	"target": {
+		"id": "DEMO-TARGET-001",
+		"name": "Fictional QKD assurance workspace"
+	},
+	"procedure": {
+		"id": "DEMO-PROC-001",
+		"version": "0.1",
+		"purpose": "Exercise assumption-to-evidence navigation only"
+	},
+	"assumptions": [
+		{
+			"id": "DEMO-ASM-001",
+			"statement": "Relevant physical assumptions would require domain review",
+			"status": "unresolved"
+		}
+	],
+	"display_observations": [
+		{
+			"id": "DEMO-OBS-001",
+			"label": "Demonstration completeness",
+			"value": "Authored placeholder",
+			"scientific_interpretation": null
+		}
+	],
+	"evidence_availability": {
+		"fixture": "available",
+		"calibration": "unavailable; not applicable to software fixture validation"
+	},
+	"run": null,
+	"review": {
+		"status": "draft",
+		"reviewer": null,
+		"approval": null
+	}
+}

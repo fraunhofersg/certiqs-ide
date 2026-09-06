@@ -1,0 +1,567 @@
+schema_version: '2.0'
+component_catalog:
+  description: 'Optional mapping from logical simulation components to commercial
+    product models, laboratory assets, or uniquely identifiable hardware devices.
+    All example vendor, model, serial, calibration, and asset values below are illustrative
+    placeholders. Replace them with verified inventory records before laboratory use.
+
+    '
+  identity_policy:
+    mapping_optional: true
+    allow_generic_model_only: true
+    allow_physical_instance_binding: true
+    allow_multiple_candidate_models: true
+    require_verified_identity_for_hardware_in_loop: true
+    require_calibration_reference_for_measurement_models: true
+    reject_duplicate_device_uuid: true
+    sensitive_fields:
+    - serial_number
+    - asset_tag
+    - network_address
+    - physical_location
+  field_semantics:
+    logical_component_id: Stable identifier used by the simulation configuration.
+    model_binding_id: Identifier of a generic physical or software model in the model
+      registry.
+    product_identity: Optional manufacturer and commercial product-model information.
+    device_identity: Optional unique identity of one physical hardware instance.
+    software_identity: Optional firmware, driver, FPGA image, or software package
+      identity.
+    metrology_identity: Calibration, measurement, and uncertainty evidence for this
+      instance.
+    lifecycle_identity: Ownership, location, service status, and maintenance information.
+    digital_twin_identity: Link between the physical asset and its calibrated simulation
+      model.
+  components:
+  - logical_component_id: pump_laser
+    component_class: pulsed_laser
+    role: SPDC pump source
+    model_binding_id: optics.pulsed_laser.v1
+    mapping_mode: candidate_product
+    product_identity:
+      manufacturer:
+        name: Example Photonics Vendor
+        vendor_id: VENDOR-EXAMPLE-001
+        website: null
+      product_line: Pulsed Pump Laser
+      model: PL-775-100M
+      manufacturer_part_number: PL775-100M-STD
+      order_code: null
+      datasheet_revision: example-r1
+      product_uri: null
+    device_identity: null
+    software_identity:
+      firmware_version: example-1.0.0
+      driver_package: null
+    metrology_identity:
+      calibration_required: true
+      calibration_record_id: null
+      calibration_due_date: null
+      characterization_dataset_id: DATASET-PUMP-001
+    digital_twin_identity:
+      twin_id: TWIN-PUMP-001
+      parameter_set_id: PARAM-PUMP-NOMINAL-001
+      binding_status: example_unverified
+  - logical_component_id: spdc_entangled_pair_source
+    component_class: entangled_pair_source_spdc
+    role: Central BBM92 entangled photon-pair source
+    model_binding_id: quantum.spdc_entangled_source.v2
+    mapping_mode: custom_assembly
+    product_identity:
+      manufacturer:
+        name: Laboratory-built assembly
+        vendor_id: INTERNAL-LAB
+        website: null
+      product_line: Central Entangled Source
+      model: BBM92-SPDC-REF-A
+      manufacturer_part_number: null
+      order_code: null
+      datasheet_revision: assembly-record-example-r1
+      product_uri: null
+    device_identity:
+      device_uuid: 00000000-0000-4000-8000-000000000201
+      serial_number: EXAMPLE-SPDC-001
+      asset_tag: EXAMPLE-QKD-SRC-001
+      hardware_revision: A
+      manufacturing_date: null
+    software_identity: null
+    metrology_identity:
+      calibration_required: true
+      calibration_record_id: EXAMPLE-CAL-SPDC-001
+      calibration_due_date: '2027-01-31'
+      characterization_dataset_id: DATASET-SPDC-TOMO-001
+    lifecycle_identity:
+      owner_organization: Example laboratory
+      physical_location: Example optics laboratory
+      operational_status: development
+      last_service_date: null
+    digital_twin_identity:
+      twin_id: TWIN-SPDC-001
+      parameter_set_id: PARAM-SPDC-CAL-001
+      binding_status: example_unverified
+  - logical_component_id: alice_polarization_controller
+    component_class: polarization_controller
+    role: Alice-arm polarization compensation
+    model_binding_id: optics.polarization_controller.v1
+    mapping_mode: candidate_product
+    product_identity:
+      manufacturer:
+        name: Example Optics Vendor
+        vendor_id: VENDOR-EXAMPLE-002
+        website: null
+      product_line: Motorized Polarization Controller
+      model: MPC-3A
+      manufacturer_part_number: MPC-3A-1550
+      order_code: null
+      datasheet_revision: example-r2
+      product_uri: null
+    device_identity: null
+    software_identity:
+      firmware_version: null
+      driver_package: example-mpc-driver@1.2.0
+    metrology_identity:
+      calibration_required: true
+      calibration_record_id: null
+      calibration_due_date: null
+      characterization_dataset_id: null
+    digital_twin_identity:
+      twin_id: TWIN-ALICE-PC-001
+      parameter_set_id: PARAM-PC-NOMINAL-001
+      binding_status: candidate
+  - logical_component_id: bob_polarization_controller
+    component_class: polarization_controller
+    role: Bob-arm polarization compensation
+    model_binding_id: optics.polarization_controller.v1
+    mapping_mode: candidate_product
+    product_identity:
+      manufacturer:
+        name: Example Optics Vendor
+        vendor_id: VENDOR-EXAMPLE-002
+        website: null
+      product_line: Motorized Polarization Controller
+      model: MPC-3A
+      manufacturer_part_number: MPC-3A-1550
+      order_code: null
+      datasheet_revision: example-r2
+      product_uri: null
+    device_identity: null
+    software_identity:
+      firmware_version: null
+      driver_package: example-mpc-driver@1.2.0
+    metrology_identity:
+      calibration_required: true
+      calibration_record_id: null
+      calibration_due_date: null
+      characterization_dataset_id: null
+    digital_twin_identity:
+      twin_id: TWIN-BOB-PC-001
+      parameter_set_id: PARAM-PC-NOMINAL-001
+      binding_status: candidate
+  - logical_component_id: alice_basis_beamsplitter
+    component_class: nonpolarizing_beamsplitter
+    role: Passive basis choice at Alice
+    model_binding_id: optics.npbs.v1
+    mapping_mode: generic_model
+    product_identity:
+      manufacturer:
+        name: null
+        vendor_id: null
+        website: null
+      product_line: null
+      model: null
+      manufacturer_part_number: null
+      order_code: null
+      datasheet_revision: null
+      product_uri: null
+    device_identity: null
+    metrology_identity:
+      calibration_required: true
+      calibration_record_id: null
+      calibration_due_date: null
+      characterization_dataset_id: DATASET-ALICE-NPBS-001
+    digital_twin_identity:
+      twin_id: TWIN-ALICE-NPBS-001
+      parameter_set_id: PARAM-NPBS-50-50-001
+      binding_status: generic
+  - logical_component_id: bob_basis_beamsplitter
+    component_class: nonpolarizing_beamsplitter
+    role: Passive basis choice at Bob
+    model_binding_id: optics.npbs.v1
+    mapping_mode: generic_model
+    product_identity:
+      manufacturer:
+        name: null
+        vendor_id: null
+        website: null
+      product_line: null
+      model: null
+      manufacturer_part_number: null
+      order_code: null
+      datasheet_revision: null
+      product_uri: null
+    device_identity: null
+    metrology_identity:
+      calibration_required: true
+      calibration_record_id: null
+      calibration_due_date: null
+      characterization_dataset_id: DATASET-BOB-NPBS-001
+    digital_twin_identity:
+      twin_id: TWIN-BOB-NPBS-001
+      parameter_set_id: PARAM-NPBS-50-50-001
+      binding_status: generic
+  - logical_component_id: alice_detector_h
+    component_class: single_photon_detector
+    role: Alice H-basis detector
+    model_binding_id: detectors.spad.free_running.v2
+    mapping_mode: physical_instance
+    product_identity:
+      manufacturer:
+        name: Example Detector Vendor
+        vendor_id: VENDOR-EXAMPLE-003
+        website: null
+      product_line: InGaAs Single-Photon Detector
+      model: SPD-1550-FR
+      manufacturer_part_number: SPD1550-FR-80
+      order_code: null
+      datasheet_revision: example-r3
+      product_uri: null
+    device_identity:
+      device_uuid: 00000000-0000-4000-8000-000000000301
+      serial_number: EXAMPLE-SPD-AH-001
+      asset_tag: EXAMPLE-QKD-DET-AH
+      hardware_revision: B
+      manufacturing_date: null
+    software_identity:
+      firmware_version: example-2.1.0
+      driver_package: example-spd-driver@2.0.0
+    metrology_identity:
+      calibration_required: true
+      calibration_record_id: EXAMPLE-CAL-SPD-AH-001
+      calibration_due_date: '2027-02-28'
+      characterization_dataset_id: DATASET-SPD-AH-001
+    lifecycle_identity:
+      owner_organization: Example laboratory
+      physical_location: Alice receiver rack
+      operational_status: development
+      last_service_date: null
+    digital_twin_identity:
+      twin_id: TWIN-SPD-AH-001
+      parameter_set_id: PARAM-SPD-AH-CAL-001
+      binding_status: example_unverified
+  - logical_component_id: alice_detector_v
+    component_class: single_photon_detector
+    role: Alice V-basis detector
+    model_binding_id: detectors.spad.free_running.v2
+    mapping_mode: physical_instance
+    product_identity:
+      manufacturer:
+        name: Example Detector Vendor
+        vendor_id: VENDOR-EXAMPLE-003
+        website: null
+      product_line: InGaAs Single-Photon Detector
+      model: SPD-1550-FR
+      manufacturer_part_number: SPD1550-FR-80
+      order_code: null
+      datasheet_revision: example-r3
+      product_uri: null
+    device_identity:
+      device_uuid: 00000000-0000-4000-8000-000000000302
+      serial_number: EXAMPLE-SPD-AV-001
+      asset_tag: EXAMPLE-QKD-DET-AV
+      hardware_revision: B
+      manufacturing_date: null
+    software_identity:
+      firmware_version: example-2.1.0
+      driver_package: example-spd-driver@2.0.0
+    metrology_identity:
+      calibration_required: true
+      calibration_record_id: EXAMPLE-CAL-SPD-AV-001
+      calibration_due_date: '2027-02-28'
+      characterization_dataset_id: DATASET-SPD-AV-001
+    digital_twin_identity:
+      twin_id: TWIN-SPD-AV-001
+      parameter_set_id: PARAM-SPD-AV-CAL-001
+      binding_status: example_unverified
+  - logical_component_id: alice_detector_d
+    component_class: single_photon_detector
+    role: Alice D-basis detector
+    model_binding_id: detectors.spad.free_running.v2
+    mapping_mode: candidate_product
+    product_identity:
+      manufacturer:
+        name: Example Detector Vendor
+        vendor_id: VENDOR-EXAMPLE-003
+        website: null
+      product_line: InGaAs Single-Photon Detector
+      model: SPD-1550-FR
+      manufacturer_part_number: SPD1550-FR-80
+      order_code: null
+      datasheet_revision: example-r3
+      product_uri: null
+    device_identity: null
+    metrology_identity:
+      calibration_required: true
+      calibration_record_id: null
+      calibration_due_date: null
+      characterization_dataset_id: null
+    digital_twin_identity:
+      twin_id: TWIN-SPD-AD-001
+      parameter_set_id: PARAM-SPD-NOMINAL-001
+      binding_status: candidate
+  - logical_component_id: alice_detector_a
+    component_class: single_photon_detector
+    role: Alice A-basis detector
+    model_binding_id: detectors.spad.free_running.v2
+    mapping_mode: candidate_product
+    product_identity:
+      manufacturer:
+        name: Example Detector Vendor
+        vendor_id: VENDOR-EXAMPLE-003
+        website: null
+      product_line: InGaAs Single-Photon Detector
+      model: SPD-1550-FR
+      manufacturer_part_number: SPD1550-FR-80
+      order_code: null
+      datasheet_revision: example-r3
+      product_uri: null
+    device_identity: null
+    metrology_identity:
+      calibration_required: true
+      calibration_record_id: null
+      calibration_due_date: null
+      characterization_dataset_id: null
+    digital_twin_identity:
+      twin_id: TWIN-SPD-AA-001
+      parameter_set_id: PARAM-SPD-NOMINAL-001
+      binding_status: candidate
+  - logical_component_id: bob_detector_h
+    component_class: single_photon_detector
+    role: Bob H-basis detector
+    model_binding_id: detectors.spad.free_running.v2
+    mapping_mode: candidate_product
+    product_identity:
+      manufacturer:
+        name: Example Detector Vendor
+        vendor_id: VENDOR-EXAMPLE-003
+        website: null
+      product_line: InGaAs Single-Photon Detector
+      model: SPD-1550-FR
+      manufacturer_part_number: SPD1550-FR-80
+      order_code: null
+      datasheet_revision: example-r3
+      product_uri: null
+    device_identity: null
+    metrology_identity:
+      calibration_required: true
+      calibration_record_id: null
+      calibration_due_date: null
+      characterization_dataset_id: null
+    digital_twin_identity:
+      twin_id: TWIN-SPD-BH-001
+      parameter_set_id: PARAM-SPD-NOMINAL-001
+      binding_status: candidate
+  - logical_component_id: bob_detector_v
+    component_class: single_photon_detector
+    role: Bob V-basis detector
+    model_binding_id: detectors.spad.free_running.v2
+    mapping_mode: candidate_product
+    product_identity:
+      manufacturer:
+        name: Example Detector Vendor
+        vendor_id: VENDOR-EXAMPLE-003
+        website: null
+      product_line: InGaAs Single-Photon Detector
+      model: SPD-1550-FR
+      manufacturer_part_number: SPD1550-FR-80
+      order_code: null
+      datasheet_revision: example-r3
+      product_uri: null
+    device_identity: null
+    metrology_identity:
+      calibration_required: true
+      calibration_record_id: null
+      calibration_due_date: null
+      characterization_dataset_id: null
+    digital_twin_identity:
+      twin_id: TWIN-SPD-BV-001
+      parameter_set_id: PARAM-SPD-NOMINAL-001
+      binding_status: candidate
+  - logical_component_id: bob_detector_d
+    component_class: single_photon_detector
+    role: Bob D-basis detector
+    model_binding_id: detectors.spad.free_running.v2
+    mapping_mode: candidate_product
+    product_identity:
+      manufacturer:
+        name: Example Detector Vendor
+        vendor_id: VENDOR-EXAMPLE-003
+        website: null
+      product_line: InGaAs Single-Photon Detector
+      model: SPD-1550-FR
+      manufacturer_part_number: SPD1550-FR-80
+      order_code: null
+      datasheet_revision: example-r3
+      product_uri: null
+    device_identity: null
+    metrology_identity:
+      calibration_required: true
+      calibration_record_id: null
+      calibration_due_date: null
+      characterization_dataset_id: null
+    digital_twin_identity:
+      twin_id: TWIN-SPD-BD-001
+      parameter_set_id: PARAM-SPD-NOMINAL-001
+      binding_status: candidate
+  - logical_component_id: bob_detector_a
+    component_class: single_photon_detector
+    role: Bob A-basis detector
+    model_binding_id: detectors.spad.free_running.v2
+    mapping_mode: candidate_product
+    product_identity:
+      manufacturer:
+        name: Example Detector Vendor
+        vendor_id: VENDOR-EXAMPLE-003
+        website: null
+      product_line: InGaAs Single-Photon Detector
+      model: SPD-1550-FR
+      manufacturer_part_number: SPD1550-FR-80
+      order_code: null
+      datasheet_revision: example-r3
+      product_uri: null
+    device_identity: null
+    metrology_identity:
+      calibration_required: true
+      calibration_record_id: null
+      calibration_due_date: null
+      characterization_dataset_id: null
+    digital_twin_identity:
+      twin_id: TWIN-SPD-BA-001
+      parameter_set_id: PARAM-SPD-NOMINAL-001
+      binding_status: candidate
+  - logical_component_id: alice_tdc
+    component_class: time_to_digital_converter
+    role: Alice detector time tagging
+    model_binding_id: digital.tdc.multichannel.v2
+    mapping_mode: physical_instance
+    product_identity:
+      manufacturer:
+        name: Example Timing Vendor
+        vendor_id: VENDOR-EXAMPLE-004
+        website: null
+      product_line: Multichannel Time Tagger
+      model: TT-8-10PS
+      manufacturer_part_number: TT8-10PS
+      order_code: null
+      datasheet_revision: example-r1
+      product_uri: null
+    device_identity:
+      device_uuid: 00000000-0000-4000-8000-000000000401
+      serial_number: EXAMPLE-TDC-A-001
+      asset_tag: EXAMPLE-QKD-TDC-A
+      hardware_revision: C
+      manufacturing_date: null
+    software_identity:
+      firmware_version: example-3.0.2
+      fpga_image_hash: example-sha256-not-a-real-image
+      driver_package: example-timetagger-sdk@3.4.0
+    metrology_identity:
+      calibration_required: true
+      calibration_record_id: EXAMPLE-CAL-TDC-A-001
+      calibration_due_date: '2027-03-31'
+      characterization_dataset_id: DATASET-TDC-A-001
+    digital_twin_identity:
+      twin_id: TWIN-TDC-A-001
+      parameter_set_id: PARAM-TDC-A-CAL-001
+      binding_status: example_unverified
+  - logical_component_id: bob_tdc
+    component_class: time_to_digital_converter
+    role: Bob detector time tagging
+    model_binding_id: digital.tdc.multichannel.v2
+    mapping_mode: candidate_product
+    product_identity:
+      manufacturer:
+        name: Example Timing Vendor
+        vendor_id: VENDOR-EXAMPLE-004
+        website: null
+      product_line: Multichannel Time Tagger
+      model: TT-8-10PS
+      manufacturer_part_number: TT8-10PS
+      order_code: null
+      datasheet_revision: example-r1
+      product_uri: null
+    device_identity: null
+    software_identity:
+      firmware_version: null
+      driver_package: example-timetagger-sdk@3.4.0
+    metrology_identity:
+      calibration_required: true
+      calibration_record_id: null
+      calibration_due_date: null
+      characterization_dataset_id: null
+    digital_twin_identity:
+      twin_id: TWIN-TDC-B-001
+      parameter_set_id: PARAM-TDC-NOMINAL-001
+      binding_status: candidate
+  - logical_component_id: clock_synchronizer
+    component_class: time_sync_unit
+    role: Clock and epoch synchronization
+    model_binding_id: timing.two_way_sync.v1
+    mapping_mode: software_hardware_build
+  - logical_component_id: coincidence_matcher
+    component_class: fpga_coincidence_matcher
+    role: Digital coincidence processing
+    model_binding_id: digital.coincidence_matcher.rtl.v1
+    mapping_mode: software_hardware_build
+    product_identity:
+      manufacturer:
+        name: Example FPGA Vendor
+        vendor_id: VENDOR-EXAMPLE-005
+        website: null
+      product_line: FPGA Development Board
+      model: FPGA-DEV-REF
+      manufacturer_part_number: FPGA-DEV-REF-01
+      order_code: null
+      datasheet_revision: example-r1
+      product_uri: null
+    device_identity:
+      device_uuid: 00000000-0000-4000-8000-000000000501
+      serial_number: EXAMPLE-FPGA-001
+      asset_tag: EXAMPLE-QKD-FPGA-001
+      hardware_revision: '1.0'
+      manufacturing_date: null
+    software_identity:
+      rtl_repository: local-or-private-repository-placeholder
+      rtl_commit: example-commit-id
+      fpga_image_hash: example-sha256-not-a-real-image
+      build_toolchain: example-toolchain-2026.1
+    metrology_identity:
+      calibration_required: false
+      calibration_record_id: null
+      calibration_due_date: null
+      characterization_dataset_id: DATASET-COINCIDENCE-REGRESSION-001
+    digital_twin_identity:
+      twin_id: TWIN-COINCIDENCE-001
+      parameter_set_id: PARAM-COINCIDENCE-RTL-001
+      binding_status: example_unverified
+  mapping_rules:
+    precedence:
+    - experiment_override
+    - physical_instance
+    - candidate_product
+    - generic_model
+    compatibility_checks:
+    - component_class
+    - operating_wavelength
+    - interface_type
+    - channel_count
+    - timing_resolution
+    - environmental_operating_range
+    resolution_output_fields:
+    - logical_component_id
+    - model_binding_id
+    - selected_product_model
+    - selected_device_uuid
+    - selected_parameter_set_id
+    - calibration_record_id
+    - software_or_firmware_identity
+    - identity_verification_status

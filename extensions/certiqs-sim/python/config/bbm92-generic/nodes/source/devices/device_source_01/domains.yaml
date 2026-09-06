@@ -1,0 +1,80 @@
+domains:
+- domain_id: domain_source_quantum_optics
+  name: Quantum Optics Domain
+  domain_type: quantum_optics
+  parent_box_id: box_source_01
+  subdomain_ids:
+  - subdomain_source_source_generation
+  - subdomain_source_state_preparation
+  - subdomain_source_optical_distribution
+  - subdomain_source_optical_monitoring
+  parent_device_id: device_source_01
+- domain_id: domain_source_electronics
+  name: Electronics Domain
+  domain_type: electronics
+  parent_box_id: box_source_01
+  subdomain_ids:
+  - subdomain_source_pump_drive
+  - subdomain_source_temperature_control
+  - subdomain_source_timing_and_trigger
+  - subdomain_source_monitoring_electronics
+  parent_device_id: device_source_01
+- domain_id: domain_source_software
+  name: Source Device Control Software
+  domain_type: software
+  parent_box_id: box_source_01
+  subdomain_ids:
+  - subdomain_source_device_control
+  - subdomain_source_stabilization
+  - subdomain_source_calibration
+  - subdomain_source_monitoring_and_logging
+  parent_device_id: device_source_01
+subdomains:
+- subdomain_id: subdomain_source_source_generation
+  name: Source Generation
+  subdomain_type: source_generation
+  parent_domain_id: domain_source_quantum_optics
+- subdomain_id: subdomain_source_state_preparation
+  name: State Preparation
+  subdomain_type: state_preparation
+  parent_domain_id: domain_source_quantum_optics
+- subdomain_id: subdomain_source_optical_distribution
+  name: Optical Distribution
+  subdomain_type: optical_distribution
+  parent_domain_id: domain_source_quantum_optics
+- subdomain_id: subdomain_source_optical_monitoring
+  name: Optical Monitoring
+  subdomain_type: optical_monitoring
+  parent_domain_id: domain_source_quantum_optics
+- subdomain_id: subdomain_source_pump_drive
+  name: Pump Drive
+  subdomain_type: pump_drive
+  parent_domain_id: domain_source_electronics
+- subdomain_id: subdomain_source_temperature_control
+  name: Temperature Control
+  subdomain_type: temperature_control
+  parent_domain_id: domain_source_electronics
+- subdomain_id: subdomain_source_timing_and_trigger
+  name: Timing And Trigger
+  subdomain_type: timing_and_trigger
+  parent_domain_id: domain_source_electronics
+- subdomain_id: subdomain_source_monitoring_electronics
+  name: Monitoring Electronics
+  subdomain_type: monitoring_electronics
+  parent_domain_id: domain_source_electronics
+- subdomain_id: subdomain_source_device_control
+  name: Device Control
+  subdomain_type: device_control
+  parent_domain_id: domain_source_software
+- subdomain_id: subdomain_source_stabilization
+  name: Stabilization
+  subdomain_type: stabilization
+  parent_domain_id: domain_source_software
+- subdomain_id: subdomain_source_calibration
+  name: Calibration
+  subdomain_type: calibration
+  parent_domain_id: domain_source_software
+- subdomain_id: subdomain_source_monitoring_and_logging
+  name: Monitoring And Logging
+  subdomain_type: monitoring_and_logging
+  parent_domain_id: domain_source_software

@@ -1,0 +1,165 @@
+modules:
+- module_id: module_bob_pam
+  name: Bob Polarization Analyzer Module
+  module_type: polarization_analyzer_module
+  parent_subdomain_id: subdomain_bob_polarization_analysis
+  architecture: passive_basis_selection
+  supported_bases:
+  - Z
+  - X
+  states_by_basis:
+    Z:
+    - H
+    - V
+    X:
+    - D
+    - A
+  component_ids:
+  - bob_basis_bs
+  - bob_hwp_x
+  - bob_pbs_z
+  - bob_pbs_x
+  performance:
+    insertion_loss_db: 1.2
+    extinction_ratio_db:
+      Z: 25
+      X: 24
+    basis_probability:
+      Z: 0.5
+      X: 0.5
+    channel_imbalance_db:
+      H: 0.0
+      V: 0.1
+      D: 0.2
+      A: 0.15
+  ports:
+    in:
+      interface_id: bob_pam_in
+      interface_type: optical
+      direction: in
+      signal_type: quantum_optical_stream
+    h_out:
+      interface_id: bob_pam_h_out
+      interface_type: optical
+      direction: out
+      signal_type: polarization_H
+    v_out:
+      interface_id: bob_pam_v_out
+      interface_type: optical
+      direction: out
+      signal_type: polarization_V
+    d_out:
+      interface_id: bob_pam_d_out
+      interface_type: optical
+      direction: out
+      signal_type: polarization_D
+    a_out:
+      interface_id: bob_pam_a_out
+      interface_type: optical
+      direction: out
+      signal_type: polarization_A
+  external_connections:
+  - connection_id: bob_pam_to_det_h
+    connection_type: internal_optical
+    to_module: module_bob_detection
+    from_port: h_out
+    to_port: in
+  - connection_id: bob_pam_to_det_v
+    connection_type: internal_optical
+    to_module: module_bob_detection
+    from_port: v_out
+    to_port: in
+  - connection_id: bob_pam_to_det_d
+    connection_type: internal_optical
+    to_module: module_bob_detection
+    from_port: d_out
+    to_port: in
+  - connection_id: bob_pam_to_det_a
+    connection_type: internal_optical
+    to_module: module_bob_detection
+    from_port: a_out
+    to_port: in
+- module_id: module_bob_detection
+  name: Bob Four-Channel Detection Module
+  module_type: detection_module
+  parent_subdomain_id: subdomain_bob_detecting_components
+  component_ids:
+  - bob_detector_h
+  - bob_detector_v
+  - bob_detector_d
+  - bob_detector_a
+  ports:
+    in:
+      interface_id: bob_det_h_opt_in
+      interface_type: optical
+      direction: in
+      signal_type: polarization_H
+    h_out:
+      interface_id: bob_detector_h_h_out
+      interface_type: electrical
+      direction: out
+      signal_type: detector_pulse
+    v_out:
+      interface_id: bob_detector_v_v_out
+      interface_type: electrical
+      direction: out
+      signal_type: detector_pulse
+    d_out:
+      interface_id: bob_detector_d_d_out
+      interface_type: electrical
+      direction: out
+      signal_type: detector_pulse
+    a_out:
+      interface_id: bob_detector_a_a_out
+      interface_type: electrical
+      direction: out
+      signal_type: detector_pulse
+  external_connections:
+  - connection_id: bob_h_chain_1
+    connection_type: internal_signal
+    to_module: module_bob_timing
+    from_port: h_out
+    to_port: h_in
+  - connection_id: bob_v_chain_1
+    connection_type: internal_signal
+    to_module: module_bob_timing
+    from_port: v_out
+    to_port: v_in
+  - connection_id: bob_d_chain_1
+    connection_type: internal_signal
+    to_module: module_bob_timing
+    from_port: d_out
+    to_port: d_in
+  - connection_id: bob_a_chain_1
+    connection_type: internal_signal
+    to_module: module_bob_timing
+    from_port: a_out
+    to_port: a_in
+- module_id: module_bob_timing
+  name: Bob Time Tagging Module
+  module_type: time_tagging_module
+  parent_subdomain_id: subdomain_bob_timing_and_time_tagging
+  component_ids:
+  - bob_tdc
+  - bob_fpga
+  ports:
+    h_in:
+      interface_id: bob_h_bias_h_in
+      interface_type: electrical
+      direction: in
+      signal_type: detector_pulse
+    v_in:
+      interface_id: bob_v_bias_v_in
+      interface_type: electrical
+      direction: in
+      signal_type: detector_pulse
+    d_in:
+      interface_id: bob_d_bias_d_in
+      interface_type: electrical
+      direction: in
+      signal_type: detector_pulse
+    a_in:
+      interface_id: bob_a_bias_a_in
+      interface_type: electrical
+      direction: in
+      signal_type: detector_pulse

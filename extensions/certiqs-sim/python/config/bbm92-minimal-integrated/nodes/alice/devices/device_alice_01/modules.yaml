@@ -1,0 +1,184 @@
+modules:
+- module_id: module_alice_pam
+  name: Alice Polarization Analyzer
+  module_type: polarization_analyzer_module
+  parent_subdomain_id: subdomain_alice_polarization_analysis
+  architecture: passive_basis_selection
+  supported_bases:
+  - Z
+  - X
+  states_by_basis:
+    Z:
+    - H
+    - V
+    X:
+    - D
+    - A
+  component_ids:
+  - alice_basis_bs
+  - alice_hwp_x
+  - alice_pbs_z
+  - alice_pbs_x
+  ports:
+    quantum_in:
+      interface_id: alice_pam_in
+      interface_type: optical
+      direction: in
+      signal_type: quantum_optical_stream
+      boundary: true
+      comment: Quantum channel from central source
+      connector:
+        position: top
+        size: normal
+    h_out:
+      interface_id: alice_pam_h_out
+      interface_type: optical
+      direction: out
+      signal_type: polarization_H
+    v_out:
+      interface_id: alice_pam_v_out
+      interface_type: optical
+      direction: out
+      signal_type: polarization_V
+    d_out:
+      interface_id: alice_pam_d_out
+      interface_type: optical
+      direction: out
+      signal_type: polarization_D
+    a_out:
+      interface_id: alice_pam_a_out
+      interface_type: optical
+      direction: out
+      signal_type: polarization_A
+  external_connections:
+  - connection_id: alice_pam_to_det_h
+    to_module: module_alice_detection
+    from_port: h_out
+    to_port: det_h_in
+    connection_type: internal_optical
+  - connection_id: alice_pam_to_det_v
+    to_module: module_alice_detection
+    from_port: v_out
+    to_port: det_v_in
+    connection_type: internal_optical
+  - connection_id: alice_pam_to_det_d
+    to_module: module_alice_detection
+    from_port: d_out
+    to_port: det_d_in
+    connection_type: internal_optical
+  - connection_id: alice_pam_to_det_a
+    to_module: module_alice_detection
+    from_port: a_out
+    to_port: det_a_in
+    connection_type: internal_optical
+- module_id: module_alice_detection
+  name: Alice SPAD Array
+  module_type: detection_module
+  parent_subdomain_id: subdomain_alice_detecting_components
+  component_ids:
+  - alice_detector_h
+  - alice_detector_v
+  - alice_detector_d
+  - alice_detector_a
+  ports:
+    det_h_in:
+      interface_id: alice_det_h_opt_in
+      interface_type: optical
+      direction: in
+      signal_type: polarization_H
+    det_v_in:
+      interface_id: alice_det_v_opt_in
+      interface_type: optical
+      direction: in
+      signal_type: polarization_V
+    det_d_in:
+      interface_id: alice_det_d_opt_in
+      interface_type: optical
+      direction: in
+      signal_type: polarization_D
+    det_a_in:
+      interface_id: alice_det_a_opt_in
+      interface_type: optical
+      direction: in
+      signal_type: polarization_A
+    det_h_pulse:
+      interface_id: alice_detector_h_h_out
+      interface_type: electrical
+      direction: out
+      signal_type: detector_pulse
+    det_v_pulse:
+      interface_id: alice_detector_v_v_out
+      interface_type: electrical
+      direction: out
+      signal_type: detector_pulse
+    det_d_pulse:
+      interface_id: alice_detector_d_d_out
+      interface_type: electrical
+      direction: out
+      signal_type: detector_pulse
+    det_a_pulse:
+      interface_id: alice_detector_a_a_out
+      interface_type: electrical
+      direction: out
+      signal_type: detector_pulse
+  external_connections:
+  - connection_id: alice_det_to_tdc_h
+    to_module: module_alice_timing
+    from_port: det_h_pulse
+    to_port: h_in
+    connection_type: internal_signal
+    comment: Direct SPAD→TDC (detector chain collapsed)
+  - connection_id: alice_det_to_tdc_v
+    to_module: module_alice_timing
+    from_port: det_v_pulse
+    to_port: v_in
+    connection_type: internal_signal
+    comment: Direct SPAD→TDC (detector chain collapsed)
+  - connection_id: alice_det_to_tdc_d
+    to_module: module_alice_timing
+    from_port: det_d_pulse
+    to_port: d_in
+    connection_type: internal_signal
+    comment: Direct SPAD→TDC (detector chain collapsed)
+  - connection_id: alice_det_to_tdc_a
+    to_module: module_alice_timing
+    from_port: det_a_pulse
+    to_port: a_in
+    connection_type: internal_signal
+    comment: Direct SPAD→TDC (detector chain collapsed)
+- module_id: module_alice_timing
+  name: Alice Time Tagging
+  module_type: time_tagging_module
+  parent_subdomain_id: subdomain_alice_timing_and_time_tagging
+  component_ids:
+  - alice_tdc
+  ports:
+    kx1:
+      interface_id: kx1_alice
+      interface_type: boundary
+      direction: inout
+      edge_kind: digital
+      signal_type: kx1_key_relay
+      boundary: true
+      comment: Authenticated bidirectional digital link to Alice Node External Connection (MDF Room)
+      
+    h_in:
+      interface_id: alice_tdc_h_in
+      interface_type: electrical
+      direction: in
+      signal_type: detector_pulse
+    v_in:
+      interface_id: alice_tdc_v_in
+      interface_type: electrical
+      direction: in
+      signal_type: detector_pulse
+    d_in:
+      interface_id: alice_tdc_d_in
+      interface_type: electrical
+      direction: in
+      signal_type: detector_pulse
+    a_in:
+      interface_id: alice_tdc_a_in
+      interface_type: electrical
+      direction: in
+      signal_type: detector_pulse
